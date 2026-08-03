@@ -1,0 +1,53 @@
+{
+  "version": "6.0.0-alpha.1",
+  "phase": "A",
+  "modules": [
+    {
+      "id": "core",
+      "title": "Grammar & Vocabulary",
+      "path": "/aptis/core/",
+      "status": "available",
+      "bank": {
+        "grammar": 1000,
+        "vocabulary": 1000
+      }
+    },
+    {
+      "id": "reading",
+      "title": "Reading",
+      "path": "/aptis/reading/",
+      "status": "available",
+      "bank": {
+        "items": 696,
+        "tests": 24
+      }
+    },
+    {
+      "id": "listening",
+      "title": "Listening",
+      "path": "/aptis/listening/",
+      "status": "planned",
+      "phase": "B"
+    },
+    {
+      "id": "speaking",
+      "title": "Speaking",
+      "path": "/aptis/speaking/",
+      "status": "planned",
+      "phase": "C"
+    },
+    {
+      "id": "writing",
+      "title": "Writing",
+      "path": "/aptis/writing/",
+      "status": "planned",
+      "phase": "D"
+    }
+  ],
+  "shared": {
+    "question_ids": true,
+    "local_history_compatible": true,
+    "json_export": true,
+    "google_drive": "planned-phase-e"
+  }
+}
