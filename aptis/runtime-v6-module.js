@@ -6,6 +6,16 @@
     document.body.innerHTML = `<p style="padding:30px">${message}</p>`;
   };
 
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Không tải được ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+
   const waitForBank = () => new Promise((resolve, reject) => {
     let checks = 0;
     const timer = setInterval(() => {
@@ -21,6 +31,9 @@
   });
 
   (async () => {
+    await loadScript(`${ROOT}shared/attempt-store-v6.js?v=1`);
+    await loadScript(`${ROOT}shared/history-bridge-v6.js?v=1`);
+
     const response = await fetch(`${ROOT}app.js?v=12`, { cache: "no-store" });
     if (!response.ok) throw new Error(`app.js: HTTP ${response.status}`);
 
