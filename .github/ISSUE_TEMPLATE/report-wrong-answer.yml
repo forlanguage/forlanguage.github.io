@@ -1,9 +1,6 @@
 name: Report đáp án sai
 description: Báo đáp án, giải thích hoặc nội dung câu hỏi có thể chưa chính xác
 title: "[Wrong answer] "
-labels:
-  - bug
-  - answer-review
 body:
   - type: markdown
     attributes:
