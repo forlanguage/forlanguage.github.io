@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153e75">
+  <meta name="description" content="Aptis Listening module scaffold for Google Sheet question bank and audio tasks.">
+  <title>Aptis Listening · ForLanguage</title>
+  <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=1">
+  <link rel="stylesheet" href="/aptis/listening/listening-v6.css?v=1">
+</head>
+<body>
+  <header class="aptis-nav">
+    <a class="aptis-brand" href="/aptis/">
+      <span class="aptis-brand-mark">L</span>
+      <span><strong>Aptis Listening</strong><small>Phase B · Data model ready</small></span>
+    </a>
+    <nav class="aptis-nav-links">
+      <a href="/aptis/history/">Lịch sử</a>
+      <a href="/aptis/core/">Core</a>
+      <a href="/aptis/reading/">Reading</a>
+      <a class="primary-link" href="/aptis/">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="listening-page">
+    <section class="listening-hero">
+      <div>
+        <p class="eyebrow">APTIS v6 · LISTENING</p>
+        <h1>Listening bank đang được chuẩn hóa theo Google Sheet.</h1>
+        <p>Module đã có schema cho test, task, audio và item. Dữ liệu chỉ được publish sau khi kiểm tra link audio, số lượt nghe, đáp án và transcript.</p>
+      </div>
+      <aside id="listeningStatus" class="status-panel">Đang tải manifest…</aside>
+    </section>
+
+    <section class="listening-grid">
+      <article>
+        <span>PART 1</span>
+        <h2>Information recognition</h2>
+        <p>Nghe thông tin ngắn và chọn chi tiết chính xác.</p>
+      </article>
+      <article>
+        <span>PART 2</span>
+        <h2>Information matching</h2>
+        <p>Ghép người nói hoặc đoạn nghe với thông tin phù hợp.</p>
+      </article>
+      <article>
+        <span>PART 3</span>
+        <h2>Inference from discussion</h2>
+        <p>Nhận diện thái độ, quan điểm và suy luận trong hội thoại.</p>
+      </article>
+      <article>
+        <span>PART 4</span>
+        <h2>Inference from monologue</h2>
+        <p>Nghe đoạn nói dài hơn và xác định ý nghĩa hàm ẩn.</p>
+      </article>
+    </section>
+
+    <section class="schema-panel">
+      <div>
+        <p class="eyebrow">GOOGLE SHEET CONTRACT</p>
+        <h2>Bốn bảng dữ liệu</h2>
+      </div>
+      <div class="schema-list">
+        <div><strong>LISTENING_TESTS</strong><span>Thông tin bộ đề, level, thời lượng và trạng thái.</span></div>
+        <div><strong>LISTENING_TASKS</strong><span>Part, task type, audio ID, lượt nghe tối đa và thứ tự.</span></div>
+        <div><strong>LISTENING_AUDIO</strong><span>Audio URL, MIME type, thời lượng, transcript, nguồn và license.</span></div>
+        <div><strong>LISTENING_ITEMS</strong><span>Question ID, câu hỏi, lựa chọn, đáp án và giải thích.</span></div>
+      </div>
+      <div class="schema-actions">
+        <a href="/aptis/listening/schema-v1.json">Xem JSON Schema</a>
+        <a href="https://github.com/forlanguage/forlanguage.github.io/issues/new?template=contribute-questions.yml">Đóng góp câu hỏi Listening</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="/aptis/listening/listening-v6.js?v=1"></script>
+</body>
+</html>
