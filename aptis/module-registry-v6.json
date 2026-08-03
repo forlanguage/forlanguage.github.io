@@ -1,6 +1,6 @@
 {
-  "version": "6.0.0-alpha.1",
-  "phase": "A",
+  "version": "6.0.0-alpha.2",
+  "phase": "B",
   "modules": [
     {
       "id": "core",
@@ -23,11 +23,25 @@
       }
     },
     {
+      "id": "history",
+      "title": "Unified History",
+      "path": "/aptis/history/",
+      "status": "available",
+      "storage": "indexeddb-v6",
+      "legacy_migration": true
+    },
+    {
       "id": "listening",
       "title": "Listening",
       "path": "/aptis/listening/",
-      "status": "planned",
-      "phase": "B"
+      "status": "schema-ready",
+      "phase": "B",
+      "bank": {
+        "tests": 0,
+        "tasks": 0,
+        "audio": 0,
+        "items": 0
+      }
     },
     {
       "id": "speaking",
@@ -47,7 +61,10 @@
   "shared": {
     "question_ids": true,
     "local_history_compatible": true,
+    "indexeddb_attempt_store": true,
+    "indexeddb_asset_store": true,
     "json_export": true,
-    "google_drive": "planned-phase-e"
+    "google_drive": "planned-phase-e",
+    "external_sync": false
   }
 }
