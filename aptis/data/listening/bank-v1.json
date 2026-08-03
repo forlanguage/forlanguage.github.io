@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0-alpha.1",
+  "tests": [
+    {
+      "test_id": "LT01",
+      "title": "Community Information – Demo",
+      "level": "B2",
+      "duration_seconds": 2400,
+      "status": "DRAFT",
+      "tasks": [
+        {
+          "task_id": "LT01-T01",
+          "part": 1,
+          "task_type": "information_recognition",
+          "instructions_en": "Listen and choose the correct answer.",
+          "instructions_vi": "Nghe và chọn đáp án đúng.",
+          "display_order": 1,
+          "max_plays": 2,
+          "audio": {
+            "audio_id": "LT01-A01",
+            "audio_url": "",
+            "mime_type": "audio/wav",
+            "duration_seconds": 12,
+            "speaker_count": 1,
+            "accent": "International English",
+            "transcript": "The community library will close at six o'clock today because of a staff meeting.",
+            "source": "ForLanguage original demo",
+            "license": "Project-owned original content",
+            "status": "DRAFT"
+          },
+          "items": [
+            {
+              "item_id": "L0001",
+              "question": "Why will the library close early today?",
+              "options": [
+                "There is a staff meeting.",
+                "The building needs repairs.",
+                "A public event is starting."
+              ],
+              "correct": "A",
+              "correct_value": "There is a staff meeting.",
+              "explanation_en": "The speaker says the library will close early because of a staff meeting.",
+              "explanation_vi": "Người nói cho biết thư viện đóng cửa sớm vì có cuộc họp nhân viên.",
+              "concept_id": "LISTENING.INFORMATION_RECOGNITION",
+              "difficulty": "B2",
+              "status": "DRAFT"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
