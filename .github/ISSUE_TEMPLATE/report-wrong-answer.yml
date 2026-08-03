@@ -1,0 +1,67 @@
+name: Report đáp án sai
+description: Báo đáp án, giải thích hoặc nội dung câu hỏi có thể chưa chính xác
+title: "[Wrong answer] "
+labels:
+  - bug
+  - answer-review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Trong Aptis Practice, bạn có thể bấm nút **Báo lỗi** bên cạnh câu hỏi để sao chép Question ID và thông tin vị trí.
+  - type: input
+    id: question_id
+    attributes:
+      label: Question ID
+      placeholder: Ví dụ R0123
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Vị trí câu hỏi
+      placeholder: Ví dụ Reading · RT05 · Part 3 · RT05-P3
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Nội dung câu hỏi
+      description: Có thể dán phần Prompt từ mẫu Báo lỗi.
+  - type: input
+    id: current_answer
+    attributes:
+      label: Đáp án hiện tại
+      placeholder: Ví dụ B
+    validations:
+      required: true
+  - type: input
+    id: proposed_answer
+    attributes:
+      label: Đáp án bạn đề xuất
+      placeholder: Ví dụ C
+    validations:
+      required: true
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: Giải thích hoặc nguồn tham khảo
+      description: Nêu rõ vì sao đáp án hiện tại chưa đúng hoặc chưa đủ rõ.
+    validations:
+      required: true
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Loại vấn đề
+      options:
+        - Đáp án sai
+        - Có nhiều đáp án hợp lý
+        - Giải thích sai hoặc chưa rõ
+        - Lỗi chính tả hoặc ngữ pháp
+        - Lỗi hiển thị hoặc định dạng
+        - Khác
+    validations:
+      required: true
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Thông tin bổ sung
+      description: Ảnh chụp, phiên bản ngân hàng, mode làm bài hoặc ghi chú khác.
