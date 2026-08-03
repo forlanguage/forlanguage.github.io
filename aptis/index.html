@@ -2,182 +2,115 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0f172a">
-  <meta name="description" content="Aptis B2+ self-study practice with 1,000 grammar questions, 1,000 vocabulary questions and 24 full Reading mock tests.">
-  <title>Aptis B2+ Practice</title>
-  <link rel="stylesheet" href="styles.css?v=5">
-  <link rel="stylesheet" href="history-v5.css?v=2">
-  <link rel="stylesheet" href="question-id-v53.css?v=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153e75">
+  <meta name="description" content="Aptis General self-study dashboard for Grammar & Vocabulary, Reading, Listening, Speaking and Writing.">
+  <title>Aptis General · ForLanguage</title>
+  <link rel="stylesheet" href="dashboard-v6.css?v=1">
 </head>
 <body>
-<header class="topbar">
-  <div>
-    <p class="eyebrow">APTIS ESOL GENERAL · SELF-STUDY</p>
-    <h1>B2+ Practice</h1>
-  </div>
-  <div class="top-actions">
-    <button class="ghost" id="statsBtn" type="button">Thống kê</button>
-    <button class="ghost" id="themeBtn" type="button" aria-label="Đổi giao diện">◐</button>
-  </div>
-</header>
+  <header class="aptis-nav">
+    <a class="aptis-brand" href="/">
+      <span class="aptis-brand-mark">A</span>
+      <span><strong>Aptis General</strong><small>ForLanguage practice hub</small></span>
+    </a>
+    <nav class="aptis-nav-links" aria-label="Điều hướng Aptis">
+      <a href="#modules">Các phần thi</a>
+      <a href="#roadmap">Lộ trình v6</a>
+      <a class="primary-link" href="/">ForLanguage</a>
+    </nav>
+  </header>
 
-<main class="shell">
-  <section id="homeView">
-    <div class="hero card">
+  <main class="dashboard">
+    <section class="dashboard-hero">
       <div>
-        <span class="pill"><span id="bankTotal">2.696</span> ITEMS · LEARNING GRAPH v5</span>
-        <h2>Luyện Core và Reading B2–C1 trực tiếp trên trình duyệt</h2>
-        <p><span id="bankGrammar">1.000</span> câu Grammar, <span id="bankVocabulary">1.000</span> câu Vocabulary và <span id="bankReadingTests">24</span> bộ Reading hoàn chỉnh với <span id="bankReading">696</span> câu chấm điểm.</p>
+        <p class="eyebrow">APTIS GENERAL · SELF-STUDY PLATFORM</p>
+        <h1>Một không gian luyện tập riêng cho từng phần thi Aptis.</h1>
+        <p class="lead">Aptis Practice v6 tách từng kỹ năng thành module độc lập nhưng dùng chung lịch sử học, mã câu hỏi, review, export và tiến độ cá nhân.</p>
       </div>
-      <div class="hero-stat"><strong id="attemptCount">0</strong><span>lượt đã làm</span></div>
-    </div>
-
-    <div class="warning">
-      <b>PUBLISHED_FINAL · Bank v5.0.0 · App v5.3.0.</b> Mỗi câu có một ID ổn định để tra cứu, sao chép và báo lỗi. Kết quả được lưu cục bộ; JSON chỉ tải khi bạn chủ động chọn.
-    </div>
-
-    <h2 class="section-label">Core: Grammar &amp; Vocabulary</h2>
-    <section class="mode-grid" aria-label="Chọn bài Core">
-      <button class="mode card" data-mode="core50"><span>FULL CORE</span><strong>50 câu</strong><small>25 Grammar + 25 Vocabulary · 25 phút</small></button>
-      <button class="mode card" data-mode="mini10"><span>QUICK PRACTICE</span><strong>10 câu</strong><small>5 Grammar + 5 Vocabulary · 6 phút</small></button>
-      <button class="mode card" data-mode="grammar25"><span>GRAMMAR</span><strong>25 câu</strong><small>3 lựa chọn · 12 phút</small></button>
-      <button class="mode card" data-mode="vocab25"><span>VOCABULARY</span><strong>25 câu</strong><small>5 dạng bài · 13 phút</small></button>
+      <aside class="hero-panel">
+        <span>PHASE A IN PROGRESS</span>
+        <h2>Grammar & Vocabulary và Reading đã sẵn sàng.</h2>
+        <p>Ngân hàng hiện có 2.696 câu hỏi, gồm 1.000 Grammar, 1.000 Vocabulary và 696 Reading với 24 full mock tests.</p>
+        <a href="/aptis/core/">Bắt đầu với Grammar & Vocabulary →</a>
+      </aside>
     </section>
 
-    <h2 class="section-label">Reading mock tests</h2>
-    <section class="mode-grid reading-modes" aria-label="Chọn bài Reading">
-      <button class="mode card featured" data-mode="reading29"><span>FULL READING</span><strong>29 câu</strong><small>4 phần · 35 phút</small></button>
-      <button class="mode card" data-mode="readingP1"><span>PART 1</span><strong>5 câu</strong><small>Sentence comprehension · 7 phút</small></button>
-      <button class="mode card" data-mode="readingP2"><span>PART 2</span><strong>10 câu</strong><small>Text cohesion · 12 phút</small></button>
-      <button class="mode card" data-mode="readingP3"><span>PART 3</span><strong>7 câu</strong><small>Opinion matching · 8 phút</small></button>
-      <button class="mode card" data-mode="readingP4"><span>PART 4</span><strong>7 câu</strong><small>Long-text headings · 12 phút</small></button>
-    </section>
-
-    <section class="card filters">
-      <div>
-        <label for="topicSelect">Chủ điểm Grammar</label>
-        <select id="topicSelect"><option value="all">Tất cả chủ điểm</option></select>
+    <section class="section" id="modules">
+      <div class="section-heading">
+        <p class="eyebrow">EXAM MODULES</p>
+        <h2>Các phần thi</h2>
+        <p>Mỗi module có chế độ full test và practice theo Part, chủ đề hoặc dạng câu hỏi. Dữ liệu lịch sử tiếp tục được lưu trên cùng domain nên không làm mất kết quả cũ.</p>
       </div>
-      <div>
-        <label for="readingTestSelect">Bộ Reading</label>
-        <select id="readingTestSelect"><option value="random">Ngẫu nhiên RT01–RT24</option></select>
-      </div>
-    </section>
 
-    <section class="card stats">
-      <div><span>Điểm cao nhất</span><strong id="bestScore">—</strong></div>
-      <div><span>Lần gần nhất</span><strong id="lastScore">—</strong></div>
-      <div><span>Tổng câu đã làm</span><strong id="answeredTotal">0</strong></div>
-    </section>
+      <div class="module-grid">
+        <a class="module-card live" href="/aptis/core/">
+          <div class="module-top"><span class="module-icon">G·V</span><span class="status live">Available</span></div>
+          <h3>Grammar & Vocabulary</h3>
+          <p>Full Core 50 câu, bài luyện nhanh, Grammar theo chủ điểm và Vocabulary theo dạng bài.</p>
+          <div class="module-meta"><span>2.000 câu</span><span>25 phút</span><span>Review & retry</span></div>
+          <span class="module-action">Mở module →</span>
+        </a>
 
-    <div class="home-actions">
-      <button class="primary" type="button" onclick="document.getElementById('statsBtn').click()">Mở trang thống kê &amp; lịch sử</button>
-    </div>
+        <a class="module-card live" href="/aptis/reading/">
+          <div class="module-top"><span class="module-icon">R</span><span class="status live">Available</span></div>
+          <h3>Reading</h3>
+          <p>24 full mock tests, luyện riêng Part 1–4, review toàn bài và làm lại các câu sai.</p>
+          <div class="module-meta"><span>696 câu</span><span>24 tests</span><span>35 phút</span></div>
+          <span class="module-action">Mở module →</span>
+        </a>
 
-    <p class="source-links">
-      <a href="https://docs.google.com/spreadsheets/d/1Bjrp_IgqbhYdQmxF3Augs8rkHn-c4tZed-jFVqObNLI/edit?usp=drivesdk" target="_blank" rel="noopener">Mở Learning Graph v5 ↗</a>
-      <span>·</span>
-      <a href="https://github.com/forlanguage/forlanguage.github.io/tree/main/aptis" target="_blank" rel="noopener">Mã nguồn GitHub ↗</a>
-    </p>
-  </section>
+        <article class="module-card">
+          <div class="module-top"><span class="module-icon">L</span><span class="status planned">Phase B</span></div>
+          <h3>Listening</h3>
+          <p>Ngân hàng câu hỏi từ Google Sheet, audio theo task, giới hạn lượt nghe và transcript sau khi nộp bài.</p>
+          <div class="module-meta"><span>Audio links</span><span>Full test</span><span>Practice by Part</span></div>
+          <span class="module-action">Đang xây dựng</span>
+        </article>
 
-  <section id="quizView" hidden>
-    <div class="quiz-head card">
-      <button id="exitBtn" class="ghost" type="button">← Thoát</button>
-      <div class="progress-wrap">
-        <div class="progress-label"><span id="progressText">0/0</span><span id="timer">00:00</span></div>
-        <div class="progress"><i id="progressBar"></i></div>
-      </div>
-      <button id="submitBtn" class="primary small" type="button">Nộp bài</button>
-    </div>
-    <div id="blockHost"></div>
-    <div class="nav-row">
-      <button id="prevBtn" class="secondary" type="button">← Trước</button>
-      <button id="nextBtn" class="primary" type="button">Tiếp →</button>
-    </div>
-  </section>
+        <article class="module-card">
+          <div class="module-top"><span class="module-icon">S</span><span class="status planned">Phase C</span></div>
+          <h3>Speaking</h3>
+          <p>Câu hỏi theo Part, preparation timer, ghi âm bằng microphone, nghe lại và tải file recording.</p>
+          <div class="module-meta"><span>Record</span><span>Review</span><span>Download audio</span></div>
+          <span class="module-action">Đang xây dựng</span>
+        </article>
 
-  <section id="resultView" hidden>
-    <div class="result-hero card">
-      <p class="eyebrow">KẾT QUẢ</p>
-      <strong id="resultScore">0/0</strong>
-      <h2 id="resultPercent">0%</h2>
-      <p id="resultMessage"></p>
-    </div>
-    <div class="result-grid">
-      <div class="card"><span>Grammar</span><strong id="grammarScore">—</strong></div>
-      <div class="card"><span>Vocabulary</span><strong id="vocabScore">—</strong></div>
-      <div class="card"><span>Reading</span><strong id="readingScore">—</strong></div>
-      <div class="card"><span>Chưa trả lời</span><strong id="blankScore">0</strong></div>
-    </div>
-    <div class="result-actions">
-      <button class="primary" id="reviewAllBtn" type="button">Xem toàn bộ bài</button>
-      <button class="secondary" id="reviewBtn" type="button">Chỉ xem câu sai</button>
-      <button class="secondary" id="retryCurrentBtn" type="button">Làm lại bài này</button>
-      <button class="secondary" id="downloadResultBtn" type="button">Tải kết quả JSON</button>
-      <button class="secondary" id="restartBtn" type="button">Chọn bài khác</button>
-    </div>
-    <p id="reviewSummary" class="review-summary" aria-live="polite"></p>
-    <section id="reviewHost"></section>
-  </section>
+        <article class="module-card">
+          <div class="module-top"><span class="module-icon">W</span><span class="status planned">Phase D</span></div>
+          <h3>Writing</h3>
+          <p>Full test theo common topic, luyện theo Part hoặc chủ đề, auto-save, export JSON và bản in PDF.</p>
+          <div class="module-meta"><span>Word count</span><span>Draft history</span><span>PDF / JSON</span></div>
+          <span class="module-action">Đang xây dựng</span>
+        </article>
 
-  <section id="statsView" hidden>
-    <div class="stats-header card">
-      <div>
-        <p class="eyebrow">THỐNG KÊ &amp; LỊCH SỬ</p>
-        <h2>Ngân hàng và tiến độ làm bài</h2>
-        <p id="overallSummary">Chưa có dữ liệu lịch sử trên thiết bị này.</p>
-        <p id="sessionLabel" class="muted"></p>
-      </div>
-      <button id="backHomeBtn" class="secondary" type="button">← Về trang luyện</button>
-    </div>
-
-    <h2 class="section-label">Quy mô ngân hàng</h2>
-    <div id="bankStatsGrid" class="metric-grid"></div>
-
-    <h2 class="section-label">Phiên học hiện tại</h2>
-    <div id="sessionStatsGrid" class="metric-grid session-grid"></div>
-    <div class="session-retry">
-      <button id="retrySessionWrongBtn" class="primary" type="button">Không còn câu sai trong phiên</button>
-    </div>
-
-    <section class="stats-actions card">
-      <div>
-        <h3>Xuất và quản lý dữ liệu</h3>
-        <p>Kết quả được lưu trong localStorage của trình duyệt. File JSON không được gửi lên máy chủ.</p>
-      </div>
-      <div class="button-cluster">
-        <button id="exportSessionBtn" class="primary" type="button">Export phiên hiện tại</button>
-        <button id="exportAllBtn" class="secondary" type="button">Export toàn bộ lịch sử</button>
-        <button id="clearCacheBtn" class="secondary" type="button">Xóa browser cache</button>
-        <button id="clearAllBtn" class="danger" type="button">Xóa cache &amp; lịch sử</button>
+        <article class="module-card">
+          <div class="module-top"><span class="module-icon">☁</span><span class="status planned">Phase E</span></div>
+          <h3>Google Drive</h3>
+          <p>Đăng nhập tùy chọn và lưu JSON, PDF hoặc recording vào thư mục ForLanguage do người dùng cho phép.</p>
+          <div class="module-meta"><span>Optional login</span><span>drive.file</span><span>Local-first</span></div>
+          <span class="module-action">Đang thiết kế</span>
+        </article>
       </div>
     </section>
 
-    <h2 class="section-label">Số bài theo chế độ</h2>
-    <div class="table-card card">
-      <div class="table-scroll"><table><thead><tr><th>Chế độ</th><th>Số bài</th><th>Điểm TB</th><th>Số câu</th></tr></thead><tbody id="modeStatsBody"></tbody></table></div>
-    </div>
+    <section class="section" id="roadmap">
+      <div class="section-heading">
+        <p class="eyebrow">IMPLEMENTATION ROADMAP</p>
+        <h2>Batch triển khai hiện tại</h2>
+        <p>Phase A ưu tiên tách Core và Reading mà không đổi Question ID, ngân hàng dữ liệu hoặc lịch sử đã lưu.</p>
+      </div>
+      <div class="roadmap">
+        <article><strong>A1</strong><h3>Aptis dashboard</h3><p>Tạo điểm vào chung cho năm phần thi và trạng thái từng module.</p></article>
+        <article><strong>A2</strong><h3>Core module</h3><p>Di chuyển Grammar & Vocabulary sang URL riêng và giữ toàn bộ chức năng v5.3.</p></article>
+        <article><strong>A3</strong><h3>Reading module</h3><p>Di chuyển 24 Reading tests sang URL riêng, không đổi ID hay dữ liệu lịch sử.</p></article>
+      </div>
+    </section>
+  </main>
 
-    <h2 class="section-label">Tiến độ 24 bộ Reading</h2>
-    <div class="coverage-card card">
-      <div class="progress-label"><span id="readingCoverageText">Đã hoàn thành 0/24 bộ Full Reading</span></div>
-      <div class="progress"><i id="readingCoverageBar"></i></div>
-    </div>
-    <div class="table-card card">
-      <div class="table-scroll"><table><thead><tr><th>Test</th><th>Level</th><th>Số lượt</th><th>Tốt nhất</th><th>Lần gần nhất</th></tr></thead><tbody id="readingStatsBody"></tbody></table></div>
-    </div>
-
-    <h2 class="section-label">Lịch sử gần nhất</h2>
-    <div class="table-card card">
-      <div class="table-scroll"><table><thead><tr><th>Thời gian</th><th>Bài</th><th>Reading test</th><th>Kết quả</th><th>Thao tác</th></tr></thead><tbody id="historyBody"></tbody></table></div>
-    </div>
-  </section>
-</main>
-
-<footer>APTIS B2+ PRACTICE · LEARNING GRAPH v5.0.0 · APP v5.3.0 · QUESTION IDs</footer>
-<script src="runtime-v5.js?v=3"></script>
-<script src="question-id-v53.js?v=1"></script>
+  <footer class="dashboard-footer">
+    <div><strong>Aptis Practice v6</strong><br>Phase A · ForLanguage</div>
+    <div><a href="https://github.com/forlanguage/forlanguage.github.io">GitHub</a> · <a href="https://github.com/forlanguage/forlanguage.github.io/issues/new/choose">Đóng góp</a></div>
+  </footer>
 </body>
 </html>
