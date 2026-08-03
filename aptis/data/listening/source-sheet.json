@@ -1,0 +1,17 @@
+{
+  "spreadsheet_id": "1JYTZGLtHKDDHxItpPye_7q0Om4Mq_3iawCQqAMKfNug",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1JYTZGLtHKDDHxItpPye_7q0Om4Mq_3iawCQqAMKfNug/edit?usp=drivesdk",
+  "title": "Aptis General – Listening Question Bank v1",
+  "visibility": "private-authoring",
+  "schema_version": "1.0.0",
+  "sheets": [
+    "README",
+    "LISTENING_TESTS",
+    "LISTENING_TASKS",
+    "LISTENING_AUDIO",
+    "LISTENING_ITEMS",
+    "VALIDATION_LISTS"
+  ],
+  "publish_rule": "Only PUBLISHED_FINAL rows may be exported to the website.",
+  "repository_independence": "No data is synchronized from cuongtvee.github.io."
+}
