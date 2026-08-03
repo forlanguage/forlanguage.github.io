@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#153e75">
   <meta name="description" content="ForLanguage là không gian cộng đồng dành cho người tự học ngoại ngữ, với công cụ luyện tập, tài liệu và lộ trình học mở.">
   <title>ForLanguage · Cộng đồng tự học ngoại ngữ</title>
-  <link rel="stylesheet" href="assets/site.css?v=1">
+  <link rel="stylesheet" href="assets/site.css?v=2">
 </head>
 <body>
   <header class="topbar">
@@ -17,6 +17,7 @@
     <nav aria-label="Điều hướng chính">
       <a href="#learning-hubs">Không gian học</a>
       <a href="#community">Cộng đồng</a>
+      <a href="#contribute">Đóng góp</a>
       <a class="nav-cta" href="/aptis/">Luyện Aptis</a>
     </nav>
   </header>
@@ -91,11 +92,59 @@
         <article><strong>03</strong><h3>Nội dung có thể review</h3><p>Người học có thể xem toàn bài, lọc câu sai và làm lại đúng nhóm kiến thức còn yếu.</p></article>
       </div>
     </section>
+
+    <section class="section contribute" id="contribute">
+      <div class="section-heading">
+        <p class="eyebrow">CONTRIBUTION GUIDE</p>
+        <h2>Hướng dẫn đóng góp</h2>
+        <p>Mọi đóng góp đều được review trước khi đưa vào ngân hàng chung. Bạn có thể gửi thay đổi trực tiếp bằng Pull Request hoặc tạo Issue để nhóm dự án hỗ trợ chuẩn hóa.</p>
+      </div>
+
+      <div class="contribution-grid">
+        <article class="contribution-card">
+          <span class="step-label">CÁCH 1</span>
+          <h3>Fork repository và tạo Pull Request</h3>
+          <ol>
+            <li>Fork repository <code>forlanguage/forlanguage.github.io</code>.</li>
+            <li>Tạo branch mới, ví dụ <code>feat/add-aptis-reading-questions</code>.</li>
+            <li>Cập nhật nội dung, ghi rõ nguồn, loại câu hỏi và đáp án đề xuất.</li>
+            <li>Commit, push branch và mở Pull Request về nhánh <code>main</code>.</li>
+          </ol>
+          <a class="button secondary compact-button" href="https://github.com/forlanguage/forlanguage.github.io/fork">Fork repository</a>
+        </article>
+
+        <article class="contribution-card">
+          <span class="step-label">CÁCH 2</span>
+          <h3>Tạo Issue theo đúng loại</h3>
+          <p>Issue phù hợp khi bạn có dữ liệu cần đóng góp nhưng chưa muốn chỉnh sửa source code trực tiếp.</p>
+          <div class="issue-types">
+            <a class="issue-type" href="https://github.com/forlanguage/forlanguage.github.io/issues/new?template=contribute-questions.yml">
+              <strong>Đóng góp câu hỏi</strong>
+              <span>Dành cho bộ câu hỏi thực tế sau khi thi hoặc tài liệu luyện tập có giá trị. Sau khi review và chuẩn hóa, nội dung phù hợp sẽ được bổ sung để tăng số lượng câu trong ngân hàng.</span>
+            </a>
+            <a class="issue-type" href="https://github.com/forlanguage/forlanguage.github.io/issues/new?template=report-wrong-answer.yml">
+              <strong>Report đáp án sai</strong>
+              <span>Gửi Question ID, đáp án hiện tại, đáp án đề xuất và lý do. Có thể dùng nút “Báo lỗi” ngay bên cạnh mỗi câu trong Aptis Practice để sao chép thông tin.</span>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="contribution-note">
+        <strong>Lưu ý về câu hỏi thực tế sau kỳ thi</strong>
+        <p>Đây là nguồn đóng góp rất giá trị. Hãy ghi lại theo trí nhớ bằng cách diễn đạt của bạn, tránh đăng thông tin cá nhân, dữ liệu thí sinh hoặc nội dung mà bạn không có quyền chia sẻ. Nhóm dự án sẽ kiểm tra, viết lại và chuẩn hóa trước khi đưa vào ngân hàng.</p>
+      </div>
+
+      <div class="contribution-actions">
+        <a class="button primary" href="https://github.com/forlanguage/forlanguage.github.io/issues/new/choose">Tạo Issue đóng góp</a>
+        <a class="button secondary" href="https://github.com/forlanguage/forlanguage.github.io/blob/main/CONTRIBUTING.md">Đọc CONTRIBUTING.md</a>
+      </div>
+    </section>
   </main>
 
   <footer>
     <div><strong>ForLanguage</strong><span>Cộng đồng tự học ngoại ngữ mở.</span></div>
-    <div><a href="https://github.com/forlanguage/forlanguage.github.io">GitHub repository</a><span>·</span><a href="/aptis/">Aptis Practice</a></div>
+    <div><a href="https://github.com/forlanguage/forlanguage.github.io">GitHub repository</a><span>·</span><a href="/aptis/">Aptis Practice</a><span>·</span><a href="#contribute">Đóng góp</a></div>
   </footer>
 </body>
 </html>
