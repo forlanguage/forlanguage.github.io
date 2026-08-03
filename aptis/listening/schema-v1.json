@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aptis Listening Bank v1",
+  "type": "object",
+  "required": ["tests", "tasks", "audio", "items"],
+  "properties": {
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["test_id", "title", "level", "duration_seconds", "status"],
+        "properties": {
+          "test_id": {"type": "string", "pattern": "^LT[0-9]{2,}$"},
+          "title": {"type": "string"},
+          "level": {"type": "string"},
+          "duration_seconds": {"type": "integer", "minimum": 1},
+          "status": {"type": "string"},
+          "version": {"type": "string"},
+          "source_basis": {"type": "string"}
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["task_id", "test_id", "part", "task_type", "audio_id", "max_plays", "display_order"],
+        "properties": {
+          "task_id": {"type": "string"},
+          "test_id": {"type": "string"},
+          "part": {"type": "integer", "minimum": 1, "maximum": 4},
+          "task_type": {"type": "string"},
+          "instructions_vi": {"type": "string"},
+          "instructions_en": {"type": "string"},
+          "audio_id": {"type": "string"},
+          "max_plays": {"type": "integer", "minimum": 1},
+          "display_order": {"type": "integer", "minimum": 1},
+          "topic": {"type": "string"},
+          "level": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      }
+    },
+    "audio": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["audio_id", "audio_url", "mime_type", "status"],
+        "properties": {
+          "audio_id": {"type": "string"},
+          "audio_url": {"type": "string", "format": "uri"},
+          "file_name": {"type": "string"},
+          "mime_type": {"type": "string"},
+          "duration_seconds": {"type": "number", "minimum": 0},
+          "speaker_count": {"type": "integer", "minimum": 1},
+          "accent": {"type": "string"},
+          "transcript": {"type": "string"},
+          "source": {"type": "string"},
+          "license": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "task_id", "test_id", "part", "question", "correct", "status"],
+        "properties": {
+          "item_id": {"type": "string", "pattern": "^L[0-9]{4,}$"},
+          "task_id": {"type": "string"},
+          "test_id": {"type": "string"},
+          "part": {"type": "integer", "minimum": 1, "maximum": 4},
+          "question": {"type": "string"},
+          "options": {"type": "array", "minItems": 2},
+          "correct": {"type": "string"},
+          "correct_value": {"type": "string"},
+          "explanation_en": {"type": "string"},
+          "explanation_vi": {"type": "string"},
+          "difficulty": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      }
+    }
+  }
+}
