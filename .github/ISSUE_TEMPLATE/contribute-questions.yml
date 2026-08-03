@@ -1,9 +1,6 @@
 name: Đóng góp câu hỏi
 description: Gửi câu hỏi thực tế sau kỳ thi hoặc bộ câu hỏi mới để mở rộng ngân hàng
 title: "[Question contribution] "
-labels:
-  - contribution
-  - question-bank
 body:
   - type: markdown
     attributes:
