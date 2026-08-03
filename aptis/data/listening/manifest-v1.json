@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-alpha.1",
+  "status": "AUTHORING_READY",
+  "source": "google-sheet-private-authoring",
+  "source_sheet_id": "1JYTZGLtHKDDHxItpPye_7q0Om4Mq_3iawCQqAMKfNug",
+  "test_count": 1,
+  "task_count": 1,
+  "audio_count": 1,
+  "item_count": 1,
+  "published_test_count": 0,
+  "demo_test_count": 1,
+  "parts": {
+    "1": "information_recognition",
+    "2": "information_matching",
+    "3": "inference_discussion",
+    "4": "inference_monologue"
+  },
+  "notes": "The first original demo validates the player and answer flow. It remains DRAFT and is not counted as a published Aptis test."
+}
