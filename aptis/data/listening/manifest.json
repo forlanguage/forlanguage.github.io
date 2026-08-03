@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "status": "SCHEMA_READY",
+  "source": "google-sheet-planned",
+  "test_count": 0,
+  "task_count": 0,
+  "audio_count": 0,
+  "item_count": 0,
+  "parts": {
+    "1": "information_recognition",
+    "2": "information_matching",
+    "3": "inference_discussion",
+    "4": "inference_monologue"
+  },
+  "notes": "The Listening UI and schema are initialized. Question and audio data will be published from the dedicated Google Sheet after validation."
+}
