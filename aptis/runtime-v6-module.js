@@ -1,0 +1,57 @@
+(() => {
+  "use strict";
+
+  const ROOT = "/aptis/";
+  const fail = (message) => {
+    document.body.innerHTML = `<p style="padding:30px">${message}</p>`;
+  };
+
+  const waitForBank = () => new Promise((resolve, reject) => {
+    let checks = 0;
+    const timer = setInterval(() => {
+      checks += 1;
+      if (typeof reading !== "undefined" && reading.tests?.length) {
+        clearInterval(timer);
+        resolve();
+      } else if (checks > 400) {
+        clearInterval(timer);
+        reject(new Error("Bank initialization timed out"));
+      }
+    }, 50);
+  });
+
+  (async () => {
+    const response = await fetch(`${ROOT}app.js?v=12`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`app.js: HTTP ${response.status}`);
+
+    let source = await response.text();
+    source = source
+      .replaceAll('loadJson("data/', 'loadJson("/aptis/data/')
+      .replace(
+        "1R8Gg8of2uZnp7xYPIIWFfH5CpADR5_cYQYSgT8zKxg0",
+        "1Bjrp_IgqbhYdQmxF3Augs8rkHn-c4tZed-jFVqObNLI"
+      )
+      .replace(
+        "reading.tests.length!==10 || reading.items.length!==290 || readingMetadata.item_count!==290",
+        "reading.tests.length!==24 || reading.items.length!==696 || readingMetadata.item_count!==696"
+      )
+      .replace(
+        "Không tải được ngân hàng Aptis v3.",
+        "Không tải được ngân hàng Aptis v6."
+      );
+
+    const app = document.createElement("script");
+    app.textContent = `${source}\n//# sourceURL=aptis-app-v6-module.js`;
+    document.head.appendChild(app);
+
+    await waitForBank();
+
+    const history = document.createElement("script");
+    history.src = `${ROOT}history-v5.js?v=3`;
+    history.onerror = () => fail("Không tải được mô-đun lịch sử Aptis.");
+    document.body.appendChild(history);
+  })().catch((error) => {
+    console.error(error);
+    fail(`Không tải được ứng dụng Aptis v6.<br><small>${error.message || error}</small>`);
+  });
+})();
