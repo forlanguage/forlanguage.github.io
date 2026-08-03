@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153e75">
+  <meta name="description" content="Lịch sử học Aptis dùng chung cho các module Grammar & Vocabulary, Reading, Listening, Speaking và Writing.">
+  <title>Lịch sử Aptis · ForLanguage</title>
+  <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=1">
+  <link rel="stylesheet" href="/aptis/history-v6.css?v=1">
+</head>
+<body>
+  <header class="aptis-nav">
+    <a class="aptis-brand" href="/aptis/">
+      <span class="aptis-brand-mark">H</span>
+      <span><strong>Lịch sử Aptis</strong><small>Unified local history</small></span>
+    </a>
+    <nav class="aptis-nav-links">
+      <a href="/aptis/core/">Grammar & Vocabulary</a>
+      <a href="/aptis/reading/">Reading</a>
+      <a class="primary-link" href="/aptis/">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="history-page">
+    <section class="history-hero">
+      <div>
+        <p class="eyebrow">APTIS v6 · SHARED HISTORY</p>
+        <h1>Lịch sử học tập trên thiết bị</h1>
+        <p>Kết quả cũ từ Aptis v5 được giữ nguyên và tự động migrate vào IndexedDB. Đây là nền tảng dùng chung cho Listening, Speaking và Writing ở các phase tiếp theo.</p>
+      </div>
+      <div class="history-summary" id="historySummary">Đang tải dữ liệu…</div>
+    </section>
+
+    <section class="history-toolbar">
+      <label>Module
+        <select id="moduleFilter">
+          <option value="all">Tất cả</option>
+          <option value="core">Grammar & Vocabulary</option>
+          <option value="reading">Reading</option>
+          <option value="listening">Listening</option>
+          <option value="speaking">Speaking</option>
+          <option value="writing">Writing</option>
+        </select>
+      </label>
+      <label>Tìm kiếm
+        <input id="historySearch" type="search" placeholder="Test ID, mode, Question ID…">
+      </label>
+      <button id="refreshHistory" type="button">Làm mới</button>
+      <button id="exportHistory" type="button">Export JSON</button>
+    </section>
+
+    <section class="history-table-wrap">
+      <table>
+        <thead><tr><th>Thời gian</th><th>Module</th><th>Bài</th><th>Kết quả</th><th>Storage</th><th>Thao tác</th></tr></thead>
+        <tbody id="historyRows"><tr><td colspan="6">Đang tải…</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/aptis/shared/attempt-store-v6.js?v=1"></script>
+  <script src="/aptis/shared/history-bridge-v6.js?v=1"></script>
+  <script src="/aptis/shared/history-page-v6.js?v=1"></script>
+</body>
+</html>
