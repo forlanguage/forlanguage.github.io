@@ -1,0 +1,177 @@
+name: Migrate Aptis and deploy ForLanguage
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - assets/**
+      - .github/workflows/deploy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: forlanguage-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Migrate Aptis application and question bank
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE="https://cuongtvee.github.io/aptis"
+          mkdir -p aptis/data
+
+          static_files=(
+            index.html
+            styles.css
+            app.js
+            runtime-v5.js
+            history-v5.js
+            history-v5.css
+            question-id-v53.js
+            question-id-v53.css
+          )
+
+          data_files=(
+            grammar.json
+            vocabulary.json
+            reading-tests.json
+            reading-tasks.json
+            reading-units.json
+            reading-items.json
+            concepts.json
+            edges.json
+            item_graph.json
+            adaptive_rules.json
+            learner_state.json
+            reading-manifest.json
+            manifest.json
+          )
+
+          for file in "${static_files[@]}"; do
+            echo "Downloading aptis/${file}"
+            curl --fail --location --retry 4 --retry-delay 2 \
+              "${SOURCE}/${file}?migration=20260803" \
+              --output "aptis/${file}"
+          done
+
+          for file in "${data_files[@]}"; do
+            echo "Downloading aptis/data/${file}"
+            curl --fail --location --retry 4 --retry-delay 2 \
+              "${SOURCE}/data/${file}?migration=20260803" \
+              --output "aptis/data/${file}"
+          done
+
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("aptis/index.html")
+          text = path.read_text(encoding="utf-8")
+          text = text.replace(
+              "https://github.com/cuongtvee/cuongtvee.github.io/tree/master/aptis",
+              "https://github.com/forlanguage/forlanguage.github.io/tree/main/aptis",
+          )
+          text = text.replace(
+              "cuongtvee.github.io",
+              "forlanguage.github.io",
+          )
+          path.write_text(text, encoding="utf-8")
+          PY
+
+          touch .nojekyll
+
+      - name: Validate migrated bank
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("aptis/data")
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+          reading = json.loads((root / "reading-manifest.json").read_text(encoding="utf-8"))
+
+          expected = {
+              "grammar_count": 1000,
+              "vocabulary_count": 1000,
+              "reading_count": 696,
+              "total_item_count": 2696,
+              "reading_test_count": 24,
+          }
+          for key, value in expected.items():
+              if manifest.get(key) != value:
+                  raise SystemExit(f"manifest validation failed: {key}={manifest.get(key)!r}, expected {value}")
+
+          if reading.get("item_count") != 696 or reading.get("test_count") != 24:
+              raise SystemExit("reading manifest validation failed")
+
+          required = [
+              "grammar.json", "vocabulary.json", "reading-tests.json",
+              "reading-tasks.json", "reading-units.json", "reading-items.json",
+              "concepts.json", "edges.json", "item_graph.json",
+              "adaptive_rules.json", "learner_state.json",
+          ]
+          for name in required:
+              path = root / name
+              if not path.exists() or path.stat().st_size < 2:
+                  raise SystemExit(f"missing or empty: {path}")
+
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit migrated Aptis snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add aptis .nojekyll
+          if git diff --cached --quiet; then
+            echo "Aptis snapshot is unchanged."
+          else
+            git commit -m "chore: migrate Aptis v5.3 to ForLanguage"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Prepare Pages artifact
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_site' \
+            ./ _site/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
