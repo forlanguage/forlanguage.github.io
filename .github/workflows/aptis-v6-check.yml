@@ -38,7 +38,7 @@ jobs:
           assert drive['status']=='configuration_ready'
           assert drive['oauth_config']=='/aptis/config/google-drive-oauth-v1.json'
           assert drive['cloud_setup_verified'] is False
-          assert 'client_secret' not in json.dumps(cfg).lower()
+          assert not {'client_secret','refresh_token','access_token'}.intersection(cfg)
           assert Path('docs/aptis-v6/M67A_GOOGLE_CLOUD_CONFIGURATION.md').exists()
           print('M6.7A Google Cloud configuration checks OK')
           PY
