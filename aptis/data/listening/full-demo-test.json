@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "status": "PUBLISHED_DEMO",
+  "test_id": "LT02",
+  "title": "Everyday communication full demo",
+  "level": "B2",
+  "duration_seconds": 2400,
+  "tasks": [
+    {
+      "task_id": "LT02-T01",
+      "part": 1,
+      "task_type": "information_recognition",
+      "instructions": "Listen to the short announcement and choose the correct answer.",
+      "max_plays": 2,
+      "audio": {
+        "audio_id": "LT02-A01",
+        "audio_url": "",
+        "transcript": "The sports centre will open at ten o'clock on Saturday instead of eight because the staff are attending a safety training session.",
+        "source": "ForLanguage original content",
+        "license": "Project-owned original content"
+      },
+      "items": [
+        {
+          "item_id": "L0002",
+          "question": "Why will the sports centre open later on Saturday?",
+          "options": ["The building is being repaired.", "The staff have a training session.", "A competition is taking place."],
+          "correct": "B",
+          "explanation_vi": "Đoạn nghe cho biết nhân viên tham gia buổi tập huấn an toàn."
+        }
+      ]
+    },
+    {
+      "task_id": "LT02-T02",
+      "part": 2,
+      "task_type": "information_matching",
+      "instructions": "Listen to three people and match each speaker with the activity they prefer.",
+      "max_plays": 2,
+      "audio": {
+        "audio_id": "LT02-A02",
+        "audio_url": "",
+        "transcript": "Speaker one: I enjoy activities where I can make something useful with my hands. Speaker two: I prefer being outdoors and working with other people to improve the neighbourhood. Speaker three: I like learning practical computer skills that I can use at work.",
+        "source": "ForLanguage original content",
+        "license": "Project-owned original content"
+      },
+      "items": [
+        {"item_id":"L0003","question":"Speaker 1","options":["Digital skills workshop","Community gardening","Craft class"],"correct":"C","explanation_vi":"Người nói 1 thích tạo ra đồ vật hữu ích bằng tay."},
+        {"item_id":"L0004","question":"Speaker 2","options":["Digital skills workshop","Community gardening","Craft class"],"correct":"B","explanation_vi":"Người nói 2 thích hoạt động ngoài trời để cải thiện khu phố."},
+        {"item_id":"L0005","question":"Speaker 3","options":["Digital skills workshop","Community gardening","Craft class"],"correct":"A","explanation_vi":"Người nói 3 muốn học kỹ năng máy tính thực tế cho công việc."}
+      ]
+    },
+    {
+      "task_id": "LT02-T03",
+      "part": 3,
+      "task_type": "discussion_inference",
+      "instructions": "Listen to the discussion and identify each speaker's opinion.",
+      "max_plays": 2,
+      "audio": {
+        "audio_id": "LT02-A03",
+        "audio_url": "",
+        "transcript": "Maya: The new study room is bright and comfortable, but I wish it stayed open later. Daniel: I agree about the room itself, although the booking system is much too complicated. Maya: At least the staff are helpful when there is a problem.",
+        "source": "ForLanguage original content",
+        "license": "Project-owned original content"
+      },
+      "items": [
+        {"item_id":"L0006","question":"What concerns Maya most?","options":["The opening hours","The room lighting","The staff attitude"],"correct":"A","explanation_vi":"Maya mong phòng mở cửa muộn hơn."},
+        {"item_id":"L0007","question":"What does Daniel dislike?","options":["The furniture","The booking process","The location"],"correct":"B","explanation_vi":"Daniel cho rằng hệ thống đặt phòng quá phức tạp."}
+      ]
+    },
+    {
+      "task_id": "LT02-T04",
+      "part": 4,
+      "task_type": "monologue_inference",
+      "instructions": "Listen to the longer talk and choose the best answer.",
+      "max_plays": 2,
+      "audio": {
+        "audio_id": "LT02-A04",
+        "audio_url": "",
+        "transcript": "When I first started working from home, I assumed I would save time and become more productive. In reality, I found it difficult to separate work from the rest of my life. I eventually created a fixed schedule and stopped checking messages after six. The biggest improvement came not from new technology, but from setting clearer boundaries.",
+        "source": "ForLanguage original content",
+        "license": "Project-owned original content"
+      },
+      "items": [
+        {"item_id":"L0008","question":"What is the speaker's main point?","options":["Working from home requires expensive equipment.","Clear boundaries improved the speaker's routine.","Remote work always increases productivity."],"correct":"B","explanation_vi":"Người nói nhấn mạnh việc đặt ranh giới rõ ràng đã cải thiện thói quen làm việc."}
+      ]
+    }
+  ]
+}
