@@ -2,7 +2,7 @@ name: Aptis v6 checks
 
 on:
   pull_request:
-    paths: ["aptis/**", "tools/writing/**", "tools/speaking/**", "docs/aptis-v6/**", ".github/workflows/aptis-v6-check.yml", ".github/workflows/deploy.yml"]
+    paths: ["aptis/**", "tools/writing/**", "tools/speaking/**", "tools/drive/**", "docs/aptis-v6/**", ".github/workflows/aptis-v6-check.yml", ".github/workflows/deploy.yml"]
   workflow_dispatch:
 
 permissions:
@@ -20,28 +20,25 @@ jobs:
         run: |
           python tools/writing/validate_bank.py
           python tools/speaking/validate_bank.py
-      - name: Validate M6.5E Review Center closeout
+      - name: Validate M6.7A Google Cloud configuration
         run: |
+          python tools/drive/validate_oauth_config.py
           python - <<'PY'
           import json
           from pathlib import Path
           core=json.loads(Path('aptis/data/manifest.json').read_text())
           registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
-          html=Path('aptis/history/index.html').read_text()
-          js=Path('aptis/shared/review-center-closeout-v1.js').read_text()
-          css=Path('aptis/history-v6.css').read_text()
+          cfg=json.loads(Path('aptis/config/google-drive-oauth-v1.json').read_text())
           assert core['total_item_count']==2696 and core['reading_test_count']==24
-          for token in ['statusFilter','favouriteFilter','sortOrder','selectAllVisible','exportSelected','deleteSelected','reviewSummaryCards','reviewHealth','runHealthCheck']:
-              assert token in html
-          for token in ['currentFilteredAttempts','aptis_selected_attempts','deleteAttempt','listAssets','local data health','selected']:
-              assert token.lower() in js.lower()
-          for token in ['review-summary-cards','review-health-panel','bulk-toolbar','danger-button','select-column']:
-              assert token in css
-          modules={item['id']:item for item in registry['modules']}
-          history=modules['history']
-          assert registry['phase']=='M6.5E' and history['status']=='closeout_ready'
-          required={'module_filter','status_filter','favourite_filter','multi_sort','summary_cards','bulk_select','selected_json_export','bulk_delete_with_assets','local_data_health_check','draft_manager','backup_import_export'}
-          assert required.issubset(set(history['features']))
-          assert Path('docs/aptis-v6/M65E_REVIEW_CENTER_CLOSEOUT.md').exists()
-          print('M6.5E Unified Review Center closeout checks OK')
+          assert cfg['scopes']==['https://www.googleapis.com/auth/drive.file']
+          assert cfg['authorized_javascript_origins']==['https://forlanguage.github.io']
+          assert cfg['offline_access'] is False and cfg['client_secret_required'] is False
+          assert registry['phase']=='M6.7A'
+          drive={item['id']:item for item in registry['modules']}['google_drive']
+          assert drive['status']=='configuration_ready'
+          assert drive['oauth_config']=='/aptis/config/google-drive-oauth-v1.json'
+          assert drive['cloud_setup_verified'] is False
+          assert 'client_secret' not in json.dumps(cfg).lower()
+          assert Path('docs/aptis-v6/M67A_GOOGLE_CLOUD_CONFIGURATION.md').exists()
+          print('M6.7A Google Cloud configuration checks OK')
           PY
