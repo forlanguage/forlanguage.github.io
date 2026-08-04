@@ -1,29 +1,9 @@
 {
-  "schema_version": "2.0.0",
-  "bank_version": "2.0.0",
-  "release_id": "SPK-2026.08-R1",
-  "status": "PUBLISHED_DEMO",
-  "source": "/aptis/data/speaking/bank-v2.json",
-  "schema": "/aptis/data/speaking/schema-v2.json",
-  "test_count": 1,
-  "task_count": 4,
-  "topic_count": 4,
-  "rubric_count": 1,
-  "image_count": 0,
-  "levels": ["B2"],
-  "parts": [1,2,3,4],
-  "compatibility": {
-    "preserved_test_ids": ["ST01"],
-    "preserved_task_ids": true,
-    "attempt_contract": "2.0.0",
-    "recording_assets": true,
-    "resume": true
-  },
-  "publishing": {
-    "allowed_public_statuses": ["PUBLISHED_DEMO", "PUBLISHED_FINAL"],
-    "draft_rows_exported": false,
-    "final_release_ready": false,
-    "image_registry_required_for_image_tasks": true
-  },
-  "notes": "M6.4A freezes the Speaking authoring contract and image registry. ST01 remains a demo release without image assets."
+  "schema_version":"2.0.0","bank_version":"2.1.0","release_id":"SPK-2026.08-R2","status":"PUBLISHED_FINAL",
+  "source":"/aptis/data/speaking/bank-v2.json","schema":"/aptis/data/speaking/schema-v2.json",
+  "test_count":5,"task_count":50,"topic_count":19,"rubric_count":1,"image_count":11,"levels":["B2"],"parts":[1,2,3,4],
+  "format_alignment":{"authority":"British Council","variant":"Aptis General / Aptis ESOL General","official_content_copied":false,"structure":{"part_1_responses":3,"part_2_responses":3,"part_3_responses":3,"part_4_responses":1,"total_responses":10}},
+  "compatibility":{"preserved_test_ids":["ST01"],"preserved_task_ids":true,"attempt_contract":"2.0.0","recording_assets":true,"resume":true},
+  "publishing":{"allowed_public_statuses":["PUBLISHED_DEMO","PUBLISHED_FINAL"],"draft_rows_exported":false,"final_release_ready":true,"image_registry_required_for_image_tasks":true,"independent_external_review":false},
+  "notes":"Five internally reviewed original practice tests aligned to the official public British Council format description. Not an official British Council test bank."
 }
