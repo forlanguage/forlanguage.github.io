@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forlanguage.github.io/aptis/contracts/attempt-contract-v2.json",
+  "title": "ForLanguage Aptis Local Data Contract v2",
+  "version": "2.0.0",
+  "definitions": {
+    "score": {
+      "type": ["object", "null"],
+      "properties": {
+        "correct": {"type": "number"},
+        "total": {"type": "number", "minimum": 0},
+        "percent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "blank": {"type": "number", "minimum": 0}
+      },
+      "required": ["correct", "total", "percent", "blank"]
+    },
+    "attempt": {
+      "type": "object",
+      "required": ["schema_version", "attempt_id", "module", "mode", "status", "responses", "storage"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "attempt_id": {"type": "string", "minLength": 1},
+        "result_id": {"type": "string"},
+        "module": {"enum": ["core", "reading", "listening", "speaking", "writing", "unknown"]},
+        "test_id": {"type": ["string", "null"]},
+        "mode": {"type": "string"},
+        "mode_label": {"type": "string"},
+        "status": {"enum": ["in_progress", "completed", "abandoned", "reviewed"]},
+        "started_at": {"type": ["string", "null"]},
+        "submitted_at": {"type": ["string", "null"]},
+        "updated_at": {"type": "string"},
+        "duration_seconds": {"type": "number", "minimum": 0},
+        "score": {"$ref": "#/$defs/score"},
+        "responses": {"type": "array"},
+        "asset_refs": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "string"},
+        "storage": {
+          "type": "object",
+          "required": ["local", "drive"],
+          "properties": {"local": {"type": "boolean"}, "drive": {"type": "boolean"}}
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "required": ["schema_version", "asset_id", "attempt_id", "kind", "created_at"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "asset_id": {"type": "string"},
+        "attempt_id": {"type": "string"},
+        "kind": {"enum": ["speaking_recording", "writing_pdf", "export_json", "other"]},
+        "task_id": {"type": ["string", "null"]},
+        "mime_type": {"type": ["string", "null"]},
+        "duration_seconds": {"type": ["number", "null"]},
+        "created_at": {"type": "string"}
+      }
+    },
+    "draft": {
+      "type": "object",
+      "required": ["schema_version", "draft_id", "module", "test_id", "mode", "status", "updated_at", "responses"],
+      "properties": {
+        "schema_version": {"const": "2.0.0"},
+        "draft_id": {"type": "string"},
+        "module": {"enum": ["listening", "speaking", "writing"]},
+        "test_id": {"type": "string"},
+        "mode": {"type": "string"},
+        "status": {"enum": ["in_progress", "completed", "abandoned"]},
+        "updated_at": {"type": "string"},
+        "responses": {"type": "array"}
+      }
+    }
+  },
+  "$defs": {
+    "score": {
+      "type": ["object", "null"],
+      "properties": {
+        "correct": {"type": "number"},
+        "total": {"type": "number", "minimum": 0},
+        "percent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "blank": {"type": "number", "minimum": 0}
+      },
+      "required": ["correct", "total", "percent", "blank"]
+    }
+  },
+  "oneOf": [
+    {"$ref": "#/definitions/attempt"},
+    {"$ref": "#/definitions/asset"},
+    {"$ref": "#/definitions/draft"}
+  ]
+}

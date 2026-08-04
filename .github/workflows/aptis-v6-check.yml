@@ -26,9 +26,11 @@ jobs:
           node --check aptis/history-v5.js
           node --check aptis/question-id-v53.js
           node --check aptis/listening/listening-v6.js
+          node --check aptis/listening/listening-player-v1.js
           node --check aptis/speaking/speaking-v6.js
           node --check aptis/writing/writing-v6.js
           node --check aptis/shared/attempt-store-v6.js
+          node --check aptis/shared/history-page-v6.js
 
       - name: Validate HTML application contract
         run: |
@@ -66,17 +68,17 @@ jobs:
               duplicates = sorted({item for item in parser.ids if parser.ids.count(item) > 1})
               if missing or duplicates:
                   raise SystemExit(f"{filename}: missing={missing}, duplicate IDs={duplicates}")
-              print(f"{filename}: HTML contract OK")
 
-          for filename in [
-              "aptis/index.html", "aptis/listening/index.html",
-              "aptis/speaking/index.html", "aptis/writing/index.html",
-              "aptis/history/index.html"
-          ]:
+          for filename in ["aptis/index.html","aptis/listening/index.html","aptis/speaking/index.html","aptis/writing/index.html","aptis/history/index.html"]:
               if not Path(filename).exists(): raise SystemExit(f"missing page: {filename}")
+
+          history = IdParser(); history.feed(Path("aptis/history/index.html").read_text(encoding="utf-8"))
+          for required_id in ["reviewDialog","reviewContent","storageSummary","importHistory"]:
+              assert required_id in history.ids, required_id
+          print("HTML contracts OK")
           PY
 
-      - name: Validate bank and module registry
+      - name: Validate bank registry and contract v2
         run: |
           python - <<'PY'
           import json
@@ -88,6 +90,7 @@ jobs:
           listening = json.loads(Path("aptis/data/listening/demo-test.json").read_text(encoding="utf-8"))
           speaking = json.loads(Path("aptis/data/speaking/demo-test.json").read_text(encoding="utf-8"))
           writing = json.loads(Path("aptis/data/writing/demo-test.json").read_text(encoding="utf-8"))
+          contract = json.loads(Path("aptis/contracts/attempt-contract-v2.json").read_text(encoding="utf-8"))
 
           assert manifest["grammar_count"] == 1000
           assert manifest["vocabulary_count"] == 1000
@@ -95,7 +98,6 @@ jobs:
           assert manifest["total_item_count"] == 2696
           assert manifest["reading_test_count"] == 24
           assert reading["item_count"] == 696 and reading["test_count"] == 24
-
           modules = {item["id"]: item for item in registry["modules"]}
           assert modules["core"]["status"] == "available"
           assert modules["reading"]["status"] == "available"
@@ -105,5 +107,7 @@ jobs:
           assert listening["test_id"] == "LT01" and listening["tasks"]
           assert speaking["test_id"] == "ST01" and len(speaking["tasks"]) == 4
           assert writing["test_id"] == "WT01" and len(writing["tasks"]) == 5
-          print("Aptis v6 MVP registry and banks OK")
+          assert contract["version"] == "2.0.0"
+          assert {"attempt","asset","draft"}.issubset(contract["definitions"])
+          print("Aptis v6 contract and banks OK")
           PY
