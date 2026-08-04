@@ -6,6 +6,7 @@
   const waitForBank=()=>new Promise((resolve,reject)=>{let checks=0;const timer=setInterval(()=>{checks+=1;if(typeof reading!=="undefined"&&reading.tests?.length){clearInterval(timer);resolve();}else if(checks>400){clearInterval(timer);reject(new Error("Bank initialization timed out"));}},50);});
   (async()=>{
     await loadScript(`${ROOT}shared/attempt-store-v6.js?v=3`);
+    await loadScript(`${ROOT}shared/tab-lock-v1.js?v=1`);
     await loadScript(`${ROOT}shared/history-bridge-v6.js?v=1`);
     const response=await fetch(`${ROOT}app.js?v=12`,{cache:"no-store"});
     if(!response.ok)throw new Error(`app.js: HTTP ${response.status}`);
@@ -14,6 +15,7 @@
     const app=document.createElement("script");app.textContent=`${source}\n//# sourceURL=aptis-app-v6-module.js`;document.head.appendChild(app);
     await waitForBank();
     const history=document.createElement("script");history.src=`${ROOT}history-v5.js?v=3`;history.onerror=()=>fail("Không tải được mô-đun lịch sử Aptis.");document.body.appendChild(history);
+    await loadScript(`${ROOT}shared/active-resource-lock-v1.js?v=1`);
     await loadScript(`${ROOT}shared/legacy-resume-v2.js?v=1`);
   })().catch(error=>{console.error(error);fail(`Không tải được ứng dụng Aptis v6.<br><small>${error.message||error}</small>`);});
 })();

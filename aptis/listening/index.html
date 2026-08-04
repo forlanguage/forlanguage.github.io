@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#153e75">
-  <meta name="description" content="Aptis Listening practice backed by a structured Google Sheet question bank.">
+  <meta name="description" content="Aptis Listening practice with recoverable in-progress attempts.">
   <title>Aptis Listening · ForLanguage</title>
   <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=1">
   <link rel="stylesheet" href="/aptis/listening/listening-v6.css?v=1">
@@ -12,17 +12,18 @@
 </head>
 <body>
   <header class="aptis-nav">
-    <a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">L</span><span><strong>Aptis Listening</strong><small>Practice · review · retry wrong</small></span></a>
+    <a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">L</span><span><strong>Aptis Listening</strong><small>Practice · resume · retry wrong</small></span></a>
     <nav class="aptis-nav-links"><a href="/aptis/history/">Lịch sử</a><a href="/aptis/core/">Core</a><a href="/aptis/reading/">Reading</a><a class="primary-link" href="/aptis/">Dashboard</a></nav>
   </header>
   <main class="listening-page">
-    <section class="listening-hero"><div><p class="eyebrow">APTIS v6 · LISTENING</p><h1>Luyện Listening theo bộ đề và làm lại câu sai từ Review Center.</h1><p>Dữ liệu được quản lý độc lập trong ForLanguage. Transcript chỉ hiển thị sau khi nộp.</p></div><aside id="listeningStatus" class="status-panel">Đang tải manifest…</aside></section>
-    <section class="practice-section"><div class="section-heading"><p class="eyebrow">PLAYER</p><h2>Listening practice</h2><p>Hỗ trợ giới hạn lượt nghe, lưu lịch sử và handoff làm lại câu sai.</p></div><div id="practiceHost"><div class="practice-card">Đang tải Listening…</div></div></section>
+    <section class="listening-hero"><div><p class="eyebrow">APTIS v6 · LISTENING</p><h1>Luyện Listening, khôi phục giữa bài và làm lại câu sai.</h1><p>Đáp án, task hiện tại và số lượt nghe được lưu vào IndexedDB. Hệ thống cảnh báo khi cùng attempt được mở ở hai tab.</p></div><aside id="listeningStatus" class="status-panel">Đang tải manifest…</aside></section>
+    <section class="practice-section"><div class="section-heading"><p class="eyebrow">PLAYER</p><h2>Listening practice</h2><p>Hỗ trợ giới hạn lượt nghe, lưu tiến độ, resume và handoff làm lại câu sai.</p></div><div id="practiceHost"><div class="practice-card">Đang tải Listening…</div></div></section>
     <section class="listening-grid"><article><span>PART 1</span><h2>Information recognition</h2><p>Nghe thông tin ngắn và chọn chi tiết chính xác.</p></article><article><span>PART 2</span><h2>Information matching</h2><p>Ghép người nói với thông tin phù hợp.</p></article><article><span>PART 3</span><h2>Inference from discussion</h2><p>Nhận diện thái độ và suy luận trong hội thoại.</p></article><article><span>PART 4</span><h2>Inference from monologue</h2><p>Nghe đoạn nói dài và xác định ý nghĩa hàm ẩn.</p></article></section>
     <section class="schema-panel"><div><p class="eyebrow">AUTHORING</p><h2>Google Sheet Listening</h2></div><div class="schema-actions"><a href="https://docs.google.com/spreadsheets/d/1JYTZGLtHKDDHxItpPye_7q0Om4Mq_3iawCQqAMKfNug/edit?usp=drivesdk" target="_blank" rel="noopener">Mở question bank</a><a href="/aptis/listening/schema-v1.json">JSON Schema</a><a href="https://github.com/forlanguage/forlanguage.github.io/issues/new?template=contribute-questions.yml">Đóng góp câu hỏi</a></div></section>
   </main>
   <script src="/aptis/shared/attempt-store-v6.js?v=2"></script>
-  <script src="/aptis/listening/listening-player-v1.js?v=2"></script>
+  <script src="/aptis/shared/tab-lock-v1.js?v=1"></script>
+  <script src="/aptis/listening/listening-player-v1.js?v=3"></script>
   <script src="/aptis/listening/listening-retry-v2.js?v=1"></script>
 </body>
 </html>
