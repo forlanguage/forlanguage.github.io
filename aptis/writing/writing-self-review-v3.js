@@ -53,13 +53,26 @@
     };
   }
 
+  function installAttemptHook() {
+    const store = window.AptisAttemptStore;
+    if (!store || store.__writingReviewHooked) return;
+    const original = store.saveAttempt.bind(store);
+    store.saveAttempt = attempt => {
+      if (attempt?.module === "writing" && attempt?.status === "completed") {
+        attempt = { ...attempt, self_assessment: collect(), review_status: "self_reviewed" };
+      }
+      return original(attempt);
+    };
+    store.__writingReviewHooked = true;
+  }
+
   function reset() {
     document.querySelectorAll("[data-rubric]").forEach(select => { select.value = ""; });
     const note = document.querySelector("#writingReviewNote");
     if (note) note.value = "";
   }
 
-  document.addEventListener("DOMContentLoaded", ensurePanel);
-  window.addEventListener("aptis-writing-rendered", ensurePanel);
+  document.addEventListener("DOMContentLoaded", () => { ensurePanel(); installAttemptHook(); });
+  window.addEventListener("aptis-writing-rendered", () => { ensurePanel(); installAttemptHook(); });
   window.AptisWritingSelfReview = { collect, reset, dimensions };
 })();
