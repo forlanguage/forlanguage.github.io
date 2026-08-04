@@ -1,70 +1,21 @@
 {
-  "version": "6.0.0-alpha.2",
-  "phase": "B",
+  "version": "6.0.0-beta.1",
+  "phase": "MVP",
   "modules": [
-    {
-      "id": "core",
-      "title": "Grammar & Vocabulary",
-      "path": "/aptis/core/",
-      "status": "available",
-      "bank": {
-        "grammar": 1000,
-        "vocabulary": 1000
-      }
-    },
-    {
-      "id": "reading",
-      "title": "Reading",
-      "path": "/aptis/reading/",
-      "status": "available",
-      "bank": {
-        "items": 696,
-        "tests": 24
-      }
-    },
-    {
-      "id": "history",
-      "title": "Unified History",
-      "path": "/aptis/history/",
-      "status": "available",
-      "storage": "indexeddb-v6",
-      "legacy_migration": true
-    },
-    {
-      "id": "listening",
-      "title": "Listening",
-      "path": "/aptis/listening/",
-      "status": "schema-ready",
-      "phase": "B",
-      "bank": {
-        "tests": 0,
-        "tasks": 0,
-        "audio": 0,
-        "items": 0
-      }
-    },
-    {
-      "id": "speaking",
-      "title": "Speaking",
-      "path": "/aptis/speaking/",
-      "status": "planned",
-      "phase": "C"
-    },
-    {
-      "id": "writing",
-      "title": "Writing",
-      "path": "/aptis/writing/",
-      "status": "planned",
-      "phase": "D"
-    }
+    {"id":"core","title":"Grammar & Vocabulary","path":"/aptis/core/","status":"available","bank":{"grammar":1000,"vocabulary":1000}},
+    {"id":"reading","title":"Reading","path":"/aptis/reading/","status":"available","bank":{"items":696,"tests":24}},
+    {"id":"listening","title":"Listening","path":"/aptis/listening/","status":"mvp","demo_test":"LT01","features":["max_plays","answer_review","transcript_after_submit"]},
+    {"id":"speaking","title":"Speaking","path":"/aptis/speaking/","status":"mvp","demo_test":"ST01","features":["microphone_recording","playback","download","indexeddb_assets"]},
+    {"id":"writing","title":"Writing","path":"/aptis/writing/","status":"mvp","demo_test":"WT01","features":["full_test","practice_by_part","autosave","word_count","json_export","print_pdf"]},
+    {"id":"history","title":"Unified History","path":"/aptis/history/","status":"available"},
+    {"id":"google_drive","title":"Google Drive","status":"configuration_required","required":"Google OAuth web client ID with drive.file scope"}
   ],
   "shared": {
     "question_ids": true,
     "local_history_compatible": true,
-    "indexeddb_attempt_store": true,
-    "indexeddb_asset_store": true,
+    "indexeddb_attempts": true,
+    "indexeddb_assets": true,
     "json_export": true,
-    "google_drive": "planned-phase-e",
     "external_sync": false
   }
 }

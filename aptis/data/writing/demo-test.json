@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "status": "PUBLISHED_DEMO",
+  "test_id": "WT01",
+  "title": "Community Technology Club",
+  "topic": "Technology club",
+  "duration_seconds": 3000,
+  "tasks": [
+    {"task_id":"WT01-P1","part":1,"type":"short_answers","prompt":"You have joined a technology club. Answer five profile questions using short phrases.","questions":["What is your name?","What technology do you use most?","How often do you visit the club?","What skill would you like to learn?","Who do you usually study with?"],"min_words":1,"max_words":5},
+    {"task_id":"WT01-P2","part":2,"type":"short_message","prompt":"A club member asks why you joined. Write a reply.","min_words":20,"max_words":30},
+    {"task_id":"WT01-P3","part":3,"type":"social_responses","prompt":"Reply to the three club members.","questions":["Which workshop should the club organise next?","Should beginners and advanced members study together?","How can the club attract more members?"],"min_words":30,"max_words":40},
+    {"task_id":"WT01-P4A","part":4,"type":"informal_email","prompt":"Write an email to a friend about a change to the club schedule and explain what you plan to do.","min_words":40,"max_words":50},
+    {"task_id":"WT01-P4B","part":4,"type":"formal_email","prompt":"Write to the club secretary. Explain why the schedule change is inconvenient and suggest a solution.","min_words":120,"max_words":150}
+  ]
+}
