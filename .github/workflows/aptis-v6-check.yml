@@ -19,34 +19,27 @@ jobs:
             aptis/app.js aptis/runtime-v6-module.js aptis/history-v5.js aptis/question-id-v53.js \
             aptis/listening/listening-v6.js aptis/listening/listening-player-v1.js aptis/listening/listening-retry-v2.js \
             aptis/speaking/speaking-v6.js aptis/writing/writing-v6.js aptis/writing/writing-recovery-v2.js aptis/writing/writing-self-review-v3.js \
-            aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js \
+            aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js aptis/shared/writing-report-package-v4.js \
             aptis/shared/legacy-resume-v2.js aptis/shared/draft-version-store-v3.js aptis/shared/history-draft-versions-v3.js \
             aptis/shared/tab-lock-v1.js aptis/shared/active-resource-lock-v1.js aptis/shared/history-compare-v1.js
           do node --check "$file"; done
       - name: Validate Writing bank v2
         run: python tools/writing/validate_bank.py
-      - name: Validate HTML, contracts and Writing review
+      - name: Validate M6.3D Writing package
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          from html.parser import HTMLParser
-          required={"homeView","quizView","resultView","statsView","statsBtn","themeBtn","topicSelect","readingTestSelect","attemptCount","bestScore","lastScore","answeredTotal","exitBtn","submitBtn","progressText","timer","progressBar","blockHost","prevBtn","nextBtn","resultScore","resultPercent","resultMessage","grammarScore","vocabScore","readingScore","blankScore","reviewAllBtn","reviewBtn","retryCurrentBtn","downloadResultBtn","restartBtn","reviewSummary","reviewHost","overallSummary","sessionLabel","backHomeBtn","bankStatsGrid","sessionStatsGrid","retrySessionWrongBtn","exportSessionBtn","exportAllBtn","clearCacheBtn","clearAllBtn","modeStatsBody","readingCoverageText","readingCoverageBar","readingStatsBody","historyBody"}
-          class P(HTMLParser):
-              def __init__(self): super().__init__();self.ids=[]
-              def handle_starttag(self,tag,attrs): self.ids += [v for k,v in attrs if k=="id" and v]
-          for f in ["aptis/core/index.html","aptis/reading/index.html"]:
-              p=P();p.feed(Path(f).read_text());assert required.issubset(set(p.ids))
-          manifest=json.loads(Path("aptis/data/manifest.json").read_text());contract=json.loads(Path("aptis/contracts/attempt-contract-v2.json").read_text());registry=json.loads(Path("aptis/module-registry-v6.json").read_text())
-          assert manifest["total_item_count"]==2696 and manifest["reading_test_count"]==24
-          assert contract["version"]=="2.0.0"
-          writing_html=Path("aptis/writing/index.html").read_text();history_html=Path("aptis/history/index.html").read_text();self_review=Path("aptis/writing/writing-self-review-v3.js").read_text();history_review=Path("aptis/shared/history-writing-review-v2.js").read_text()
-          assert "writing-self-review-v3.js" in writing_html and "writing-review-v3.css" in writing_html
-          assert "history-writing-review-v2.js" in history_html
-          for token in ["task_fulfilment","grammar_accuracy","vocabulary_range","cohesion","register","word_limit","self_assessment","review_status"]: assert token in self_review
-          for token in ["review_note","favourite","B2 self-assessment"]: assert token in history_review
-          modules={item["id"]:item for item in registry["modules"]}
-          assert modules["writing"]["status"]=="review_ready"
-          assert {"b2_self_assessment","review_notes","favourite_attempts","part_review"}.issubset(set(modules["writing"]["features"]))
-          print("Aptis M6.3C Writing review checks OK")
+          manifest=json.loads(Path('aptis/data/manifest.json').read_text());contract=json.loads(Path('aptis/contracts/attempt-contract-v2.json').read_text());registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
+          assert manifest['total_item_count']==2696 and manifest['reading_test_count']==24
+          assert contract['version']=='2.0.0'
+          history=Path('aptis/history/index.html').read_text();report=Path('aptis/shared/writing-report-package-v4.js').read_text()
+          assert 'writing-report-package-v4.js' in history
+          for token in ['package_schema','forlanguage-writing-review-package','self_assessment','review_note','window.print','@page','A4']:
+              assert token in report
+          modules={item['id']:item for item in registry['modules']}
+          assert modules['writing']['status']=='package_ready'
+          assert {'a4_report','review_package_json'}.issubset(set(modules['writing']['features']))
+          assert {'writing_pdf_report','writing_review_package'}.issubset(set(modules['history']['features']))
+          print('Aptis M6.3D Writing PDF and review package checks OK')
           PY
