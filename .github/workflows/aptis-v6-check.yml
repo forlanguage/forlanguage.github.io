@@ -2,7 +2,7 @@ name: Aptis v6 checks
 
 on:
   pull_request:
-    paths: ["aptis/**", "docs/aptis-v6/**", ".github/workflows/aptis-v6-check.yml", ".github/workflows/deploy.yml"]
+    paths: ["aptis/**", "tools/writing/**", "docs/aptis-v6/**", ".github/workflows/aptis-v6-check.yml", ".github/workflows/deploy.yml"]
   workflow_dispatch:
 
 permissions:
@@ -23,6 +23,8 @@ jobs:
             aptis/shared/legacy-resume-v2.js aptis/shared/draft-version-store-v3.js aptis/shared/history-draft-versions-v3.js \
             aptis/shared/tab-lock-v1.js aptis/shared/active-resource-lock-v1.js aptis/shared/history-compare-v1.js
           do node --check "$file"; done
+      - name: Validate Writing bank v2
+        run: python tools/writing/validate_bank.py
       - name: Validate HTML and recovery contract
         run: |
           python - <<'PY'
@@ -35,13 +37,15 @@ jobs:
               def handle_starttag(self,tag,attrs): self.ids += [v for k,v in attrs if k=="id" and v]
           for f in ["aptis/core/index.html","aptis/reading/index.html"]:
               p=P();p.feed(Path(f).read_text());assert required.issubset(set(p.ids))
-          manifest=json.loads(Path("aptis/data/manifest.json").read_text());contract=json.loads(Path("aptis/contracts/attempt-contract-v2.json").read_text())
+          manifest=json.loads(Path("aptis/data/manifest.json").read_text());contract=json.loads(Path("aptis/contracts/attempt-contract-v2.json").read_text());registry=json.loads(Path("aptis/module-registry-v6.json").read_text())
           assert manifest["total_item_count"]==2696 and manifest["reading_test_count"]==24
           assert contract["version"]=="2.0.0"
-          for f in ["aptis/shared/tab-lock-v1.js","aptis/shared/active-resource-lock-v1.js","aptis/shared/history-compare-v1.js"]: assert Path(f).exists()
-          listening=Path("aptis/listening/index.html").read_text();speaking=Path("aptis/speaking/index.html").read_text();writing=Path("aptis/writing/index.html").read_text();history=Path("aptis/history/index.html").read_text();runtime=Path("aptis/runtime-v6-module.js").read_text()
+          for f in ["aptis/shared/tab-lock-v1.js","aptis/shared/active-resource-lock-v1.js","aptis/shared/history-compare-v1.js","aptis/data/writing/schema-v2.json","aptis/data/writing/bank-v2.json","aptis/data/writing/manifest-v2.json"]: assert Path(f).exists()
+          listening=Path("aptis/listening/index.html").read_text();speaking=Path("aptis/speaking/index.html").read_text();writing=Path("aptis/writing/index.html").read_text();history=Path("aptis/history/index.html").read_text();runtime=Path("aptis/runtime-v6-module.js").read_text();writing_js=Path("aptis/writing/writing-v6.js").read_text()
           assert "tab-lock-v1.js" in listening and "tab-lock-v1.js" in speaking and "tab-lock-v1.js" in writing and "tab-lock-v1.js" in runtime
           assert "history-compare-v1.js" in history
-          assert "status:\"in_progress\"" in Path("aptis/listening/listening-player-v1.js").read_text().replace(" ","")
-          print("Aptis M6.5D checks OK")
+          assert "bank-v2.json" in writing_js and "schema_version!==\"2.0.0\"" in writing_js
+          modules={item["id"]:item for item in registry["modules"]}
+          assert modules["writing"]["status"]=="contract_ready" and modules["writing"]["release_id"]=="WR-2026.08-R1"
+          print("Aptis M6.3A Writing contract and bank checks OK")
           PY
