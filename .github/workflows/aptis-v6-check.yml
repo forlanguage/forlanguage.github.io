@@ -28,26 +28,25 @@ jobs:
         run: python tools/writing/validate_bank.py
       - name: Validate Speaking bank v2
         run: python tools/speaking/validate_bank.py
-      - name: Validate M6.4B recorder service
+      - name: Validate M6.4C Speaking session workflow
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           core=json.loads(Path('aptis/data/manifest.json').read_text())
           registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
-          service=Path('aptis/shared/media-recorder-service-v2.js').read_text()
           speaking=Path('aptis/speaking/speaking-v6.js').read_text()
           html=Path('aptis/speaking/index.html').read_text()
+          css=Path('aptis/speaking/speaking-v6.css').read_text()
           assert core['total_item_count']==2696 and core['reading_test_count']==24
-          for token in ['chooseMimeType','requestMicrophone','startLevelMeter','duration_seconds','empty','stopTracks']:
-              assert token in service
-          assert 'media-recorder-service-v2.js' in html
-          assert all(token in html for token in ['micLevel','micHint','recordingInfo'])
-          assert 'new AptisMediaRecorderService' in speaking
-          assert 'recording.empty' in speaking and 'size_bytes' in speaking and 'duration_seconds' in speaking
+          for token in ['practiceMode','partSelect','topicSelect','sessionOverview','progressMap','partInstructions','imageStage','finalReview','completeSession']:
+              assert token in html
+          for token in ['buildTaskScope','required microphone preflight','showPartGate','renderImage','showFinalReview','session_scope','current_index']:
+              assert token.lower() in speaking.lower()
+          assert 'progress-dot' in css and 'review-item' in css and 'part-instructions' in css
           modules={item['id']:item for item in registry['modules']}
-          assert modules['speaking']['status']=='recorder_ready'
-          required={'mime_detection','microphone_test','level_meter','actual_recording_duration','empty_recording_detection','safe_microphone_shutdown'}
+          assert modules['speaking']['status']=='workflow_ready'
+          required={'full_test_mode','practice_by_part','practice_by_topic','required_microphone_preflight','part_instructions','image_rendering','progress_map','final_review'}
           assert required.issubset(set(modules['speaking']['features']))
-          print('Aptis M6.4B Media Recorder Service v2 checks OK')
+          print('Aptis M6.4C Speaking session workflow checks OK')
           PY
