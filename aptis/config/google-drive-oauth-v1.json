@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "provider": "google",
+  "integration": "google_drive_manual_sync",
+  "status": "AWAITING_CLIENT_ID",
+  "client_id": "",
+  "authorized_javascript_origins": [
+    "https://forlanguage.github.io"
+  ],
+  "scopes": [
+    "https://www.googleapis.com/auth/drive.file"
+  ],
+  "discovery": {
+    "drive_api_base": "https://www.googleapis.com/drive/v3",
+    "upload_api_base": "https://www.googleapis.com/upload/drive/v3",
+    "gis_script": "https://accounts.google.com/gsi/client"
+  },
+  "token_model": "browser_access_token",
+  "offline_access": false,
+  "client_secret_required": false,
+  "sync_mode": "manual_only",
+  "data_root_name": "ForLanguage Aptis",
+  "notes": "Populate client_id only after creating a Google OAuth Web Client. A web client ID is public configuration; never commit a client secret or refresh token."
+}
