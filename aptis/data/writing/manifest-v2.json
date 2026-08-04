@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0.0",
-  "bank_version": "2.0.0",
-  "release_id": "WR-2026.08-R1",
-  "status": "PUBLISHED_DEMO",
+  "bank_version": "2.1.0",
+  "release_id": "WR-2026.08-R2",
+  "status": "PUBLISHED_FINAL",
   "source": "/aptis/data/writing/bank-v2.json",
   "schema": "/aptis/data/writing/schema-v2.json",
-  "test_count": 3,
-  "task_count": 15,
-  "topic_count": 3,
+  "test_count": 10,
+  "task_count": 50,
+  "topic_count": 10,
   "rubric_count": 1,
   "levels": ["B2"],
   "parts": [1, 2, 3, 4],
@@ -20,7 +20,18 @@
   "publishing": {
     "allowed_public_statuses": ["PUBLISHED_DEMO", "PUBLISHED_FINAL"],
     "draft_rows_exported": false,
-    "final_release_ready": false
+    "final_release_ready": true,
+    "review_method": "structured editorial checklist and cross-test consistency review",
+    "independent_external_review": false
   },
-  "notes": "M6.3A freezes the Writing authoring contract and migrates the existing original demo bank without changing IDs."
+  "coverage": {
+    "full_tests": 10,
+    "topic_groups": 10,
+    "part_1_tasks": 10,
+    "part_2_tasks": 10,
+    "part_3_tasks": 10,
+    "part_4_informal_tasks": 10,
+    "part_4_formal_tasks": 10
+  },
+  "notes": "M6.3E expands the original Writing bank to ten full B2 practice tests. Review is an internal structured editorial review, not independent external examiner validation."
 }
