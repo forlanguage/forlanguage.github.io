@@ -1,0 +1,45 @@
+{
+  "version": "1.1.0",
+  "status": "PUBLISHED_DEMO",
+  "tests": [
+    {
+      "test_id": "WT01",
+      "title": "Community Technology Club",
+      "topic": "Technology club",
+      "duration_seconds": 3000,
+      "tasks": [
+        {"task_id":"WT01-P1","part":1,"type":"short_answers","prompt":"You have joined a technology club. Answer five profile questions using short phrases.","questions":["What is your name?","What technology do you use most?","How often do you visit the club?","What skill would you like to learn?","Who do you usually study with?"],"min_words":1,"max_words":5},
+        {"task_id":"WT01-P2","part":2,"type":"short_message","prompt":"A club member asks why you joined. Write a reply.","min_words":20,"max_words":30},
+        {"task_id":"WT01-P3","part":3,"type":"social_responses","prompt":"Reply to the three club members.","questions":["Which workshop should the club organise next?","Should beginners and advanced members study together?","How can the club attract more members?"],"min_words":30,"max_words":40},
+        {"task_id":"WT01-P4A","part":4,"type":"informal_email","prompt":"Write an email to a friend about a change to the club schedule and explain what you plan to do.","min_words":40,"max_words":50},
+        {"task_id":"WT01-P4B","part":4,"type":"formal_email","prompt":"Write to the club secretary. Explain why the schedule change is inconvenient and suggest a solution.","min_words":120,"max_words":150}
+      ]
+    },
+    {
+      "test_id": "WT02",
+      "title": "Local Sports Centre",
+      "topic": "Sports and facilities",
+      "duration_seconds": 3000,
+      "tasks": [
+        {"task_id":"WT02-P1","part":1,"type":"short_answers","prompt":"You have joined a local sports centre. Answer five profile questions.","questions":["Which sport do you enjoy?","How often do you exercise?","What time do you usually train?","Do you prefer indoor or outdoor activities?","Who do you exercise with?"],"min_words":1,"max_words":5},
+        {"task_id":"WT02-P2","part":2,"type":"short_message","prompt":"A member asks what you like about the sports centre. Write a reply.","min_words":20,"max_words":30},
+        {"task_id":"WT02-P3","part":3,"type":"social_responses","prompt":"Reply to the three members.","questions":["Which new class should the centre offer?","Should weekend opening hours be longer?","How could the centre support beginners?"],"min_words":30,"max_words":40},
+        {"task_id":"WT02-P4A","part":4,"type":"informal_email","prompt":"Write to a friend about the closure of the swimming pool this weekend and suggest another activity.","min_words":40,"max_words":50},
+        {"task_id":"WT02-P4B","part":4,"type":"formal_email","prompt":"Write to the centre manager. Explain how the pool closure affects members and suggest a fair solution.","min_words":120,"max_words":150}
+      ]
+    },
+    {
+      "test_id": "WT03",
+      "title": "Community Arts Festival",
+      "topic": "Arts and events",
+      "duration_seconds": 3000,
+      "tasks": [
+        {"task_id":"WT03-P1","part":1,"type":"short_answers","prompt":"You have volunteered for a community arts festival. Answer five profile questions.","questions":["Which art form do you like?","Have you volunteered before?","Which day can you help?","What task would you prefer?","Who told you about the festival?"],"min_words":1,"max_words":5},
+        {"task_id":"WT03-P2","part":2,"type":"short_message","prompt":"Another volunteer asks why the festival is important. Write a reply.","min_words":20,"max_words":30},
+        {"task_id":"WT03-P3","part":3,"type":"social_responses","prompt":"Reply to the three volunteers.","questions":["Should the festival include more activities for children?","Is it better to hold the event indoors or outdoors?","How can organisers reduce waste during the festival?"],"min_words":30,"max_words":40},
+        {"task_id":"WT03-P4A","part":4,"type":"informal_email","prompt":"Write to a friend explaining that an outdoor performance has moved indoors because of the weather.","min_words":40,"max_words":50},
+        {"task_id":"WT03-P4B","part":4,"type":"formal_email","prompt":"Write to the festival organiser. Explain a problem with the new venue and propose practical improvements.","min_words":120,"max_words":150}
+      ]
+    }
+  ]
+}
