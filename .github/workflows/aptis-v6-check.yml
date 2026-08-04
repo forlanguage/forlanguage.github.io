@@ -18,7 +18,8 @@ jobs:
           for file in \
             aptis/app.js aptis/runtime-v6-module.js aptis/history-v5.js aptis/question-id-v53.js \
             aptis/listening/listening-v6.js aptis/listening/listening-player-v1.js aptis/listening/listening-retry-v2.js \
-            aptis/speaking/speaking-v6.js aptis/writing/writing-v6.js aptis/writing/writing-recovery-v2.js aptis/writing/writing-self-review-v3.js \
+            aptis/speaking/speaking-v6.js aptis/shared/media-recorder-service-v2.js \
+            aptis/writing/writing-v6.js aptis/writing/writing-recovery-v2.js aptis/writing/writing-self-review-v3.js \
             aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js aptis/shared/writing-report-package-v4.js \
             aptis/shared/legacy-resume-v2.js aptis/shared/draft-version-store-v3.js aptis/shared/history-draft-versions-v3.js \
             aptis/shared/tab-lock-v1.js aptis/shared/active-resource-lock-v1.js aptis/shared/history-compare-v1.js
@@ -27,26 +28,26 @@ jobs:
         run: python tools/writing/validate_bank.py
       - name: Validate Speaking bank v2
         run: python tools/speaking/validate_bank.py
-      - name: Validate M6.4A Speaking contract
+      - name: Validate M6.4B recorder service
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           core=json.loads(Path('aptis/data/manifest.json').read_text())
-          bank=json.loads(Path('aptis/data/speaking/bank-v2.json').read_text())
-          manifest=json.loads(Path('aptis/data/speaking/manifest-v2.json').read_text())
           registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
-          js=Path('aptis/speaking/speaking-v6.js').read_text()
+          service=Path('aptis/shared/media-recorder-service-v2.js').read_text()
+          speaking=Path('aptis/speaking/speaking-v6.js').read_text()
+          html=Path('aptis/speaking/index.html').read_text()
           assert core['total_item_count']==2696 and core['reading_test_count']==24
-          assert bank['schema_version']=='2.0.0' and bank['release']['release_id']=='SPK-2026.08-R1'
-          assert manifest['test_count']==1 and manifest['task_count']==4 and manifest['image_count']==0
-          assert [t['test_id'] for t in bank['tests']]==['ST01']
-          assert [q['task_id'] for q in bank['tests'][0]['tasks']]==['ST01-P1-Q1','ST01-P2-Q1','ST01-P3-Q1','ST01-P4-Q1']
-          assert 'bank-v2.json' in js and 'forlanguage-speaking-v2' in js and 'rubric_id' in js and 'bank_release' in js
+          for token in ['chooseMimeType','requestMicrophone','startLevelMeter','duration_seconds','empty','stopTracks']:
+              assert token in service
+          assert 'media-recorder-service-v2.js' in html
+          assert all(token in html for token in ['micLevel','micHint','recordingInfo'])
+          assert 'new AptisMediaRecorderService' in speaking
+          assert 'recording.empty' in speaking and 'size_bytes' in speaking and 'duration_seconds' in speaking
           modules={item['id']:item for item in registry['modules']}
-          assert modules['speaking']['status']=='contract_ready'
-          assert modules['speaking']['bank_counts']=={'tests':1,'tasks':4,'topics':4,'rubrics':1,'images':0}
-          assert {'stable_task_ids','topic_registry','rubric_registry','image_registry','bank_validation'}.issubset(set(modules['speaking']['features']))
-          assert Path('docs/aptis-v6/SPEAKING_AUTHORING_GUIDE.md').exists()
-          print('Aptis M6.4A Speaking contract and bank checks OK')
+          assert modules['speaking']['status']=='recorder_ready'
+          required={'mime_detection','microphone_test','level_meter','actual_recording_duration','empty_recording_detection','safe_microphone_shutdown'}
+          assert required.issubset(set(modules['speaking']['features']))
+          print('Aptis M6.4B Media Recorder Service v2 checks OK')
           PY
