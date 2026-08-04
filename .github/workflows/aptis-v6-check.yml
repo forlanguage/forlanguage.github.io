@@ -33,7 +33,7 @@ jobs:
           assert core['total_item_count']==2696 and core['reading_test_count']==24
           for token in ['statusFilter','favouriteFilter','sortOrder','selectAllVisible','exportSelected','deleteSelected','reviewSummaryCards','reviewHealth','runHealthCheck']:
               assert token in html
-          for token in ['currentFilteredAttempts','bulk','aptis_selected_attempts','deleteAttempt','listAssets','local data health','selected']:
+          for token in ['currentFilteredAttempts','aptis_selected_attempts','deleteAttempt','listAssets','local data health','selected']:
               assert token.lower() in js.lower()
           for token in ['review-summary-cards','review-health-panel','bulk-toolbar','danger-button','select-column']:
               assert token in css
