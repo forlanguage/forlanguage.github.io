@@ -35,7 +35,7 @@ jobs:
           assert contract['version']=='2.0.0'
           history=Path('aptis/history/index.html').read_text();report=Path('aptis/shared/writing-report-package-v4.js').read_text()
           assert 'writing-report-package-v4.js' in history
-          for token in ['package_schema','review_package','self_assessment','review_note','window.print','@page','A4']:
+          for token in ['package_schema','forlanguage-writing-review-package','self_assessment','review_note','window.print','@page','A4']:
               assert token in report
           modules={item['id']:item for item in registry['modules']}
           assert modules['writing']['status']=='package_ready'
