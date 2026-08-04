@@ -7,15 +7,25 @@
   <meta name="description" content="Review Center dùng chung cho Grammar & Vocabulary, Reading, Listening, Speaking và Writing.">
   <title>Aptis Review Center · ForLanguage</title>
   <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=2">
-  <link rel="stylesheet" href="/aptis/history-v6.css?v=4">
+  <link rel="stylesheet" href="/aptis/history-v6.css?v=5">
   <link rel="stylesheet" href="/aptis/writing/writing-review-v3.css?v=1">
 </head>
 <body>
-  <header class="aptis-nav"><a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">H</span><span><strong>Aptis Review Center</strong><small>M6.4D · Speaking review package</small></span></a><nav class="aptis-nav-links"><a href="/aptis/listening/">Listening</a><a href="/aptis/speaking/">Speaking</a><a href="/aptis/writing/">Writing</a><a class="primary-link" href="/aptis/">Dashboard</a></nav></header>
+  <header class="aptis-nav"><a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">H</span><span><strong>Aptis Review Center</strong><small>M6.5E · Unified closeout</small></span></a><nav class="aptis-nav-links"><a href="/aptis/listening/">Listening</a><a href="/aptis/speaking/">Speaking</a><a href="/aptis/writing/">Writing</a><a class="primary-link" href="/aptis/">Dashboard</a></nav></header>
   <main class="history-page">
-    <section class="history-hero"><div><p class="eyebrow">M6.4D + M6.5D</p><h1>Lịch sử, review và gói dữ liệu đa kỹ năng</h1><p>Speaking attempts hỗ trợ self-assessment B2, nghe lại recording, so sánh audio và tải ZIP gồm metadata cùng toàn bộ recording.</p></div><div class="history-summary" id="historySummary">Đang tải dữ liệu…</div></section>
+    <section class="history-hero"><div><p class="eyebrow">M6.5E</p><h1>Một Review Center cho toàn bộ hành trình luyện Aptis.</h1><p>Lọc, sắp xếp, review, tiếp tục bài đang làm, xuất dữ liệu, kiểm tra storage và quản lý nhiều attempts trong cùng một giao diện local-first.</p></div><div class="history-summary" id="historySummary">Đang tải dữ liệu…</div></section>
+    <section id="reviewSummaryCards" class="review-summary-cards" aria-label="Tổng quan lịch sử"></section>
     <section class="storage-panel" id="storageSummary">Đang kiểm tra dung lượng…</section>
-    <section class="history-toolbar"><label>Module<select id="moduleFilter"><option value="all">Tất cả</option><option value="core">Grammar & Vocabulary</option><option value="reading">Reading</option><option value="listening">Listening</option><option value="speaking">Speaking</option><option value="writing">Writing</option></select></label><label>Tìm kiếm<input id="historySearch" type="search" placeholder="Test ID, mode, Question ID…"></label><button id="refreshHistory" type="button">Làm mới</button><button id="exportHistory" type="button">Export backup</button><label class="import-button">Import backup<input id="importHistory" type="file" accept="application/json,.json" hidden></label></section>
+    <section class="review-health-panel"><div id="reviewHealth">Chưa kiểm tra dữ liệu cục bộ.</div><button id="runHealthCheck" type="button">Kiểm tra lại</button></section>
+    <section class="history-toolbar history-toolbar-closeout">
+      <label>Module<select id="moduleFilter"><option value="all">Tất cả</option><option value="core">Grammar & Vocabulary</option><option value="reading">Reading</option><option value="listening">Listening</option><option value="speaking">Speaking</option><option value="writing">Writing</option></select></label>
+      <label>Trạng thái<select id="statusFilter"><option value="all">Tất cả</option><option value="completed">Đã hoàn thành</option><option value="in_progress">Đang làm</option></select></label>
+      <label>Yêu thích<select id="favouriteFilter"><option value="all">Tất cả</option><option value="yes">Chỉ yêu thích</option><option value="no">Không yêu thích</option></select></label>
+      <label>Sắp xếp<select id="sortOrder"><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option><option value="module">Theo module</option><option value="test">Theo test</option><option value="completion">Theo mức hoàn thành</option></select></label>
+      <label>Tìm kiếm<input id="historySearch" type="search" placeholder="Test ID, mode, Question ID…"></label>
+      <button id="refreshHistory" type="button">Làm mới</button><button id="exportHistory" type="button">Export backup</button><label class="import-button">Import backup<input id="importHistory" type="file" accept="application/json,.json" hidden></label>
+    </section>
+    <section class="bulk-toolbar" aria-label="Thao tác nhiều attempts"><label><input id="selectAllVisible" type="checkbox"> Chọn tất cả đang hiển thị</label><strong id="selectedCount">0 attempt đã chọn</strong><button id="exportSelected" type="button" disabled>Export đã chọn</button><button id="deleteSelected" class="danger-button" type="button" disabled>Xóa đã chọn</button></section>
     <section class="history-table-wrap"><table><thead><tr><th>Thời gian</th><th>Module</th><th>Bài</th><th>Kết quả</th><th>Storage</th><th>Thao tác</th></tr></thead><tbody id="historyRows"><tr><td colspan="6">Đang tải…</td></tr></tbody></table></section>
   </main>
   <dialog id="reviewDialog" class="review-dialog"><form method="dialog" class="dialog-head"><div><p class="eyebrow">ATTEMPT REVIEW</p><h2 id="reviewTitle">Review</h2></div><button value="close" aria-label="Đóng">✕</button></form><div id="reviewContent" class="review-content"></div></dialog>
@@ -28,5 +38,6 @@
   <script src="/aptis/shared/history-writing-review-v2.js?v=1"></script>
   <script src="/aptis/shared/writing-report-package-v4.js?v=1"></script>
   <script src="/aptis/shared/speaking-review-package-v5.js?v=1"></script>
+  <script src="/aptis/shared/review-center-closeout-v1.js?v=1"></script>
 </body>
 </html>
