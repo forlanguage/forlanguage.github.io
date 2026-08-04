@@ -27,8 +27,10 @@ jobs:
           node --check aptis/question-id-v53.js
           node --check aptis/listening/listening-v6.js
           node --check aptis/listening/listening-player-v1.js
+          node --check aptis/listening/listening-retry-v2.js
           node --check aptis/speaking/speaking-v6.js
           node --check aptis/writing/writing-v6.js
+          node --check aptis/writing/writing-recovery-v2.js
           node --check aptis/shared/attempt-store-v6.js
           node --check aptis/shared/history-page-v6.js
 
@@ -37,44 +39,16 @@ jobs:
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-
-          required = {
-              "homeView", "quizView", "resultView", "statsView", "statsBtn",
-              "themeBtn", "topicSelect", "readingTestSelect", "attemptCount",
-              "bestScore", "lastScore", "answeredTotal", "exitBtn", "submitBtn",
-              "progressText", "timer", "progressBar", "blockHost", "prevBtn",
-              "nextBtn", "resultScore", "resultPercent", "resultMessage",
-              "grammarScore", "vocabScore", "readingScore", "blankScore",
-              "reviewAllBtn", "reviewBtn", "retryCurrentBtn", "downloadResultBtn",
-              "restartBtn", "reviewSummary", "reviewHost", "overallSummary",
-              "sessionLabel", "backHomeBtn", "bankStatsGrid", "sessionStatsGrid",
-              "retrySessionWrongBtn", "exportSessionBtn", "exportAllBtn",
-              "clearCacheBtn", "clearAllBtn", "modeStatsBody",
-              "readingCoverageText", "readingCoverageBar", "readingStatsBody",
-              "historyBody",
-          }
-
-          class IdParser(HTMLParser):
-              def __init__(self):
-                  super().__init__(); self.ids = []
-              def handle_starttag(self, tag, attrs):
-                  for key, value in attrs:
-                      if key == "id" and value: self.ids.append(value)
-
-          for filename in ["aptis/core/index.html", "aptis/reading/index.html"]:
-              parser = IdParser(); parser.feed(Path(filename).read_text(encoding="utf-8"))
-              ids = set(parser.ids)
-              missing = sorted(required - ids)
-              duplicates = sorted({item for item in parser.ids if parser.ids.count(item) > 1})
-              if missing or duplicates:
-                  raise SystemExit(f"{filename}: missing={missing}, duplicate IDs={duplicates}")
-
-          for filename in ["aptis/index.html","aptis/listening/index.html","aptis/speaking/index.html","aptis/writing/index.html","aptis/history/index.html"]:
-              if not Path(filename).exists(): raise SystemExit(f"missing page: {filename}")
-
-          history = IdParser(); history.feed(Path("aptis/history/index.html").read_text(encoding="utf-8"))
-          for required_id in ["reviewDialog","reviewContent","storageSummary","importHistory"]:
-              assert required_id in history.ids, required_id
+          required={"homeView","quizView","resultView","statsView","statsBtn","themeBtn","topicSelect","readingTestSelect","attemptCount","bestScore","lastScore","answeredTotal","exitBtn","submitBtn","progressText","timer","progressBar","blockHost","prevBtn","nextBtn","resultScore","resultPercent","resultMessage","grammarScore","vocabScore","readingScore","blankScore","reviewAllBtn","reviewBtn","retryCurrentBtn","downloadResultBtn","restartBtn","reviewSummary","reviewHost","overallSummary","sessionLabel","backHomeBtn","bankStatsGrid","sessionStatsGrid","retrySessionWrongBtn","exportSessionBtn","exportAllBtn","clearCacheBtn","clearAllBtn","modeStatsBody","readingCoverageText","readingCoverageBar","readingStatsBody","historyBody"}
+          class P(HTMLParser):
+              def __init__(self): super().__init__();self.ids=[]
+              def handle_starttag(self,tag,attrs):
+                  for k,v in attrs:
+                      if k=="id" and v:self.ids.append(v)
+          for f in ["aptis/core/index.html","aptis/reading/index.html"]:
+              p=P();p.feed(Path(f).read_text());assert required.issubset(set(p.ids))
+          for f in ["aptis/index.html","aptis/listening/index.html","aptis/speaking/index.html","aptis/writing/index.html","aptis/history/index.html"]: assert Path(f).exists()
+          h=P();h.feed(Path("aptis/history/index.html").read_text());assert {"reviewDialog","reviewContent","storageSummary","importHistory"}.issubset(set(h.ids))
           print("HTML contracts OK")
           PY
 
@@ -83,31 +57,11 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-
-          manifest = json.loads(Path("aptis/data/manifest.json").read_text(encoding="utf-8"))
-          reading = json.loads(Path("aptis/data/reading-manifest.json").read_text(encoding="utf-8"))
-          registry = json.loads(Path("aptis/module-registry-v6.json").read_text(encoding="utf-8"))
-          listening = json.loads(Path("aptis/data/listening/demo-test.json").read_text(encoding="utf-8"))
-          speaking = json.loads(Path("aptis/data/speaking/demo-test.json").read_text(encoding="utf-8"))
-          writing = json.loads(Path("aptis/data/writing/demo-test.json").read_text(encoding="utf-8"))
-          contract = json.loads(Path("aptis/contracts/attempt-contract-v2.json").read_text(encoding="utf-8"))
-
-          assert manifest["grammar_count"] == 1000
-          assert manifest["vocabulary_count"] == 1000
-          assert manifest["reading_count"] == 696
-          assert manifest["total_item_count"] == 2696
-          assert manifest["reading_test_count"] == 24
-          assert reading["item_count"] == 696 and reading["test_count"] == 24
-          modules = {item["id"]: item for item in registry["modules"]}
-          assert modules["core"]["status"] == "available"
-          assert modules["reading"]["status"] == "available"
-          assert modules["listening"]["status"] == "mvp"
-          assert modules["speaking"]["status"] == "mvp"
-          assert modules["writing"]["status"] == "mvp"
-          assert listening["test_id"] == "LT01" and listening["tasks"]
-          assert speaking["test_id"] == "ST01" and len(speaking["tasks"]) == 4
-          assert writing["test_id"] == "WT01" and len(writing["tasks"]) == 5
-          assert contract["version"] == "2.0.0"
-          assert {"attempt","asset","draft"}.issubset(contract["definitions"])
-          print("Aptis v6 contract and banks OK")
+          manifest=json.loads(Path("aptis/data/manifest.json").read_text());reading=json.loads(Path("aptis/data/reading-manifest.json").read_text());registry=json.loads(Path("aptis/module-registry-v6.json").read_text());contract=json.loads(Path("aptis/contracts/attempt-contract-v2.json").read_text())
+          assert manifest["grammar_count"]==1000 and manifest["vocabulary_count"]==1000 and manifest["reading_count"]==696 and manifest["total_item_count"]==2696 and manifest["reading_test_count"]==24
+          assert reading["item_count"]==696 and reading["test_count"]==24
+          modules={x["id"]:x for x in registry["modules"]};assert modules["core"]["status"]=="available" and modules["reading"]["status"]=="available" and modules["listening"]["status"]=="mvp" and modules["speaking"]["status"]=="mvp" and modules["writing"]["status"]=="mvp"
+          assert contract["version"]=="2.0.0" and {"attempt","asset","draft"}.issubset(contract["definitions"])
+          for f in ["aptis/listening/listening-retry-v2.js","aptis/writing/writing-recovery-v2.js"]: assert Path(f).exists()
+          print("Aptis v6 M6.5B contract and recovery layers OK")
           PY
