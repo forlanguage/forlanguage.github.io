@@ -1,11 +1,11 @@
 {
-  "version": "6.0.0-beta.6",
-  "phase": "M6.3E",
+  "version": "6.0.0-beta.7",
+  "phase": "M6.4A",
   "modules": [
     {"id":"core","title":"Grammar & Vocabulary","path":"/aptis/core/","status":"available","bank":{"grammar":1000,"vocabulary":1000}},
     {"id":"reading","title":"Reading","path":"/aptis/reading/","status":"available","bank":{"items":696,"tests":24}},
     {"id":"listening","title":"Listening","path":"/aptis/listening/","status":"functional_mvp_content_blocked","features":["max_plays","answer_review","retry_wrong","resume"]},
-    {"id":"speaking","title":"Speaking","path":"/aptis/speaking/","status":"mvp","demo_test":"ST01","features":["microphone_recording","playback","download","indexeddb_assets","resume"]},
+    {"id":"speaking","title":"Speaking","path":"/aptis/speaking/","status":"contract_ready","schema":"/aptis/data/speaking/schema-v2.json","manifest":"/aptis/data/speaking/manifest-v2.json","bank":"/aptis/data/speaking/bank-v2.json","release_id":"SPK-2026.08-R1","demo_test":"ST01","bank_counts":{"tests":1,"tasks":4,"topics":4,"rubrics":1,"images":0},"features":["microphone_recording","playback","download","indexeddb_assets","resume","stable_task_ids","topic_registry","rubric_registry","image_registry","bank_validation"]},
     {"id":"writing","title":"Writing","path":"/aptis/writing/","status":"content_ready","schema":"/aptis/data/writing/schema-v2.json","manifest":"/aptis/data/writing/manifest-v2.json","bank":"/aptis/data/writing/bank-v2.json","release_id":"WR-2026.08-R2","bank_counts":{"tests":10,"tasks":50,"topics":10,"rubrics":1},"review":{"method":"structured_internal_editorial_review","external_independent_review":false},"features":["full_test","practice_by_part","exam_mode","part_navigation","completion_map","autosave_status","timer_resume","focus_mode","submit_validation","draft_versions","word_count","json_export","print_pdf","attempt_compare","tab_lock","b2_self_assessment","review_notes","favourite_attempts","part_review","a4_report","review_package_json","topic_coverage","content_release_validation"]},
     {"id":"history","title":"Unified History","path":"/aptis/history/","status":"available","features":["writing_rubric_review","review_notes","favourites","attempt_compare","writing_pdf_report","writing_review_package"]},
     {"id":"google_drive","title":"Google Drive","status":"deferred","required":"Google OAuth web client ID with drive.file scope"}
