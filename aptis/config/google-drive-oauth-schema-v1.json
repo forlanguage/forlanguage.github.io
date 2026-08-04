@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/aptis/config/google-drive-oauth-schema-v1.json",
+  "title": "ForLanguage Google Drive OAuth public configuration",
+  "type": "object",
+  "required": ["schema_version","provider","integration","status","client_id","authorized_javascript_origins","scopes","token_model","offline_access","client_secret_required","sync_mode"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "provider": {"const": "google"},
+    "integration": {"const": "google_drive_manual_sync"},
+    "status": {"enum": ["AWAITING_CLIENT_ID","CONFIGURED","DISABLED"]},
+    "client_id": {"type": "string"},
+    "authorized_javascript_origins": {"type": "array","minItems":1,"items":{"type":"string","pattern":"^https://"}},
+    "scopes": {"type":"array","minItems":1,"items":{"type":"string"}},
+    "discovery": {"type":"object"},
+    "token_model": {"const":"browser_access_token"},
+    "offline_access": {"const":false},
+    "client_secret_required": {"const":false},
+    "sync_mode": {"const":"manual_only"},
+    "data_root_name": {"type":"string"},
+    "notes": {"type":"string"}
+  }
+}
