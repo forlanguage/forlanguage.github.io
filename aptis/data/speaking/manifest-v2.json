@@ -1,0 +1,29 @@
+{
+  "schema_version": "2.0.0",
+  "bank_version": "2.0.0",
+  "release_id": "SPK-2026.08-R1",
+  "status": "PUBLISHED_DEMO",
+  "source": "/aptis/data/speaking/bank-v2.json",
+  "schema": "/aptis/data/speaking/schema-v2.json",
+  "test_count": 1,
+  "task_count": 4,
+  "topic_count": 4,
+  "rubric_count": 1,
+  "image_count": 0,
+  "levels": ["B2"],
+  "parts": [1,2,3,4],
+  "compatibility": {
+    "preserved_test_ids": ["ST01"],
+    "preserved_task_ids": true,
+    "attempt_contract": "2.0.0",
+    "recording_assets": true,
+    "resume": true
+  },
+  "publishing": {
+    "allowed_public_statuses": ["PUBLISHED_DEMO", "PUBLISHED_FINAL"],
+    "draft_rows_exported": false,
+    "final_release_ready": false,
+    "image_registry_required_for_image_tasks": true
+  },
+  "notes": "M6.4A freezes the Speaking authoring contract and image registry. ST01 remains a demo release without image assets."
+}
