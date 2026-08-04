@@ -1,30 +1,17 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#153e75">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#153e75">
   <title>Aptis Speaking · ForLanguage</title>
-  <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=2">
-  <link rel="stylesheet" href="/aptis/speaking/speaking-v6.css?v=1">
+  <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=2"><link rel="stylesheet" href="/aptis/speaking/speaking-v6.css?v=2">
 </head>
 <body data-aptis-module="speaking">
-<header class="aptis-nav">
-  <a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">S</span><span><strong>Aptis Speaking</strong><small>Record · review · resume</small></span></a>
-  <nav class="aptis-nav-links"><a href="/aptis/history/">Lịch sử</a><a href="/aptis/writing/">Writing</a><a class="primary-link" href="/aptis/">Dashboard</a></nav>
-</header>
+<header class="aptis-nav"><a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">S</span><span><strong>Aptis Speaking</strong><small>Record · review · resume</small></span></a><nav class="aptis-nav-links"><a href="/aptis/history/">Lịch sử</a><a href="/aptis/writing/">Writing</a><a class="primary-link" href="/aptis/">Dashboard</a></nav></header>
 <main class="speaking-page">
-  <section class="speaking-hero">
-    <div><p class="eyebrow">APTIS v6 · SPEAKING</p><h1>Luyện nói, ghi âm và nghe lại ngay trên trình duyệt.</h1><p>Recording được lưu cục bộ trong IndexedDB. Phiên resume được khóa theo tab để hạn chế ghi đè.</p></div>
-    <aside class="permission-card"><strong>Microphone</strong><span id="permissionState">Chưa kiểm tra quyền</span><button id="requestMic" type="button">Cho phép microphone</button></aside>
-  </section>
+  <section class="speaking-hero"><div><p class="eyebrow">APTIS v6 · SPEAKING</p><h1>Luyện nói, ghi âm và nghe lại ngay trên trình duyệt.</h1><p>Recording được lưu cục bộ trong IndexedDB. Microphone được kiểm tra trước khi luyện.</p></div><aside class="permission-card"><strong>Microphone</strong><span id="permissionState">Chưa kiểm tra quyền</span><button id="requestMic" type="button">Kiểm tra microphone</button><label for="micLevel">Mức tín hiệu</label><meter id="micLevel" min="0" max="1" low="0.08" high="0.45" optimum="0.3" value="0"></meter><small id="micHint">Hãy nói thử sau khi cấp quyền.</small></aside></section>
   <section class="speaking-controls"><label>Bộ đề <select id="testSelect"><option value="ST01">ST01 · Everyday life and community</option></select></label><button id="startPractice" type="button">Bắt đầu luyện</button><button id="downloadAll" type="button" disabled>Tải metadata JSON</button></section>
-  <section id="taskHost" class="task-host" hidden><div class="task-head"><span id="taskProgress"></span><span id="timerLabel">Sẵn sàng</span></div><article class="prompt-card"><p id="partLabel"></p><h2 id="promptText"></h2><p id="topicText"></p></article><div class="record-panel"><button id="prepareBtn" type="button">Bắt đầu chuẩn bị</button><button id="recordBtn" type="button" disabled>Ghi âm</button><button id="stopBtn" type="button" disabled>Dừng</button><button id="retryBtn" type="button" disabled>Ghi lại</button><audio id="playback" controls hidden></audio><a id="downloadRecording" hidden>Tải file ghi âm</a><textarea id="selfNote" placeholder="Ghi chú tự đánh giá: phát âm, từ vựng, độ trôi chảy..."></textarea></div><div class="task-nav"><button id="prevTask" type="button">← Trước</button><button id="saveNext" type="button">Lưu và tiếp →</button></div></section>
+  <section id="taskHost" class="task-host" hidden><div class="task-head"><span id="taskProgress"></span><span id="timerLabel">Sẵn sàng</span></div><article class="prompt-card"><p id="partLabel"></p><h2 id="promptText"></h2><p id="topicText"></p></article><div class="record-panel"><button id="prepareBtn" type="button">Bắt đầu chuẩn bị</button><button id="recordBtn" type="button" disabled>Ghi âm</button><button id="stopBtn" type="button" disabled>Dừng</button><button id="retryBtn" type="button" disabled>Ghi lại</button><span id="recordingInfo" role="status"></span><audio id="playback" controls hidden></audio><a id="downloadRecording" hidden>Tải file ghi âm</a><textarea id="selfNote" placeholder="Ghi chú tự đánh giá: phát âm, từ vựng, độ trôi chảy..."></textarea></div><div class="task-nav"><button id="prevTask" type="button">← Trước</button><button id="saveNext" type="button">Lưu và tiếp →</button></div></section>
   <section class="rubric"><h2>Checklist tự đánh giá</h2><div><label><input type="checkbox"> Tôi trả lời đúng trọng tâm.</label><label><input type="checkbox"> Ý được liên kết rõ ràng.</label><label><input type="checkbox"> Từ vựng phù hợp và đủ đa dạng.</label><label><input type="checkbox"> Phát âm dễ hiểu.</label></div></section>
 </main>
-<script src="/aptis/shared/attempt-store-v6.js?v=2"></script>
-<script src="/aptis/shared/tab-lock-v1.js?v=1"></script>
-<script src="/aptis/speaking/speaking-v6.js?v=2"></script>
-<script src="/aptis/shared/active-resource-lock-v1.js?v=1"></script>
-</body>
-</html>
+<script src="/aptis/shared/attempt-store-v6.js?v=2"></script><script src="/aptis/shared/tab-lock-v1.js?v=1"></script><script src="/aptis/shared/media-recorder-service-v2.js?v=1"></script><script src="/aptis/speaking/speaking-v6.js?v=3"></script><script src="/aptis/shared/active-resource-lock-v1.js?v=1"></script>
+</body></html>
