@@ -1,0 +1,26 @@
+{
+  "schema_version": "2.0.0",
+  "bank_version": "2.0.0",
+  "release_id": "WR-2026.08-R1",
+  "status": "PUBLISHED_DEMO",
+  "source": "/aptis/data/writing/bank-v2.json",
+  "schema": "/aptis/data/writing/schema-v2.json",
+  "test_count": 3,
+  "task_count": 15,
+  "topic_count": 3,
+  "rubric_count": 1,
+  "levels": ["B2"],
+  "parts": [1, 2, 3, 4],
+  "compatibility": {
+    "preserved_test_ids": ["WT01", "WT02", "WT03"],
+    "preserved_task_ids": true,
+    "attempt_contract": "2.0.0",
+    "draft_recovery": true
+  },
+  "publishing": {
+    "allowed_public_statuses": ["PUBLISHED_DEMO", "PUBLISHED_FINAL"],
+    "draft_rows_exported": false,
+    "final_release_ready": false
+  },
+  "notes": "M6.3A freezes the Writing authoring contract and migrates the existing original demo bank without changing IDs."
+}
