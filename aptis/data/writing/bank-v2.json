@@ -1,0 +1,50 @@
+{
+  "schema_version": "2.0.0",
+  "release": {
+    "release_id": "WR-2026.08-R1",
+    "status": "PUBLISHED_DEMO",
+    "created_at": "2026-08-04T02:44:00Z",
+    "bank_version": "2.0.0",
+    "notes": "M6.3A contract freeze. Existing WT01-WT03 IDs are preserved for draft and attempt compatibility."
+  },
+  "topics": [
+    {"topic_id":"WR-TOP-TECHNOLOGY-CLUB","title_en":"Technology club","title_vi":"Câu lạc bộ công nghệ","status":"PUBLISHED_DEMO"},
+    {"topic_id":"WR-TOP-SPORTS-FACILITIES","title_en":"Sports and facilities","title_vi":"Thể thao và cơ sở vật chất","status":"PUBLISHED_DEMO"},
+    {"topic_id":"WR-TOP-ARTS-EVENTS","title_en":"Arts and events","title_vi":"Nghệ thuật và sự kiện","status":"PUBLISHED_DEMO"}
+  ],
+  "rubrics": [
+    {"rubric_id":"WR-RUB-B2-GENERAL","level":"B2","dimensions":["task_fulfilment","grammar_accuracy","vocabulary_range","cohesion","register","word_limit"],"status":"PUBLISHED_DEMO"}
+  ],
+  "tests": [
+    {
+      "test_id":"WT01","title":"Community Technology Club","topic_id":"WR-TOP-TECHNOLOGY-CLUB","topic":"Technology club","level":"B2","duration_seconds":3000,"rubric_id":"WR-RUB-B2-GENERAL","status":"PUBLISHED_DEMO","version":"2.0.0","source_note":"ForLanguage original demo content.","reviewed_by":[],
+      "tasks":[
+        {"task_id":"WT01-P1","part":1,"type":"short_answers","prompt":"You have joined a technology club. Answer five profile questions using short phrases.","questions":["What is your name?","What technology do you use most?","How often do you visit the club?","What skill would you like to learn?","Who do you usually study with?"],"min_words":1,"max_words":5,"formality":"short","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT01-P2","part":2,"type":"short_message","prompt":"A club member asks why you joined. Write a reply.","min_words":20,"max_words":30,"formality":"neutral","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT01-P3","part":3,"type":"social_responses","prompt":"Reply to the three club members.","questions":["Which workshop should the club organise next?","Should beginners and advanced members study together?","How can the club attract more members?"],"min_words":30,"max_words":40,"formality":"neutral","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT01-P4A","part":4,"type":"informal_email","prompt":"Write an email to a friend about a change to the club schedule and explain what you plan to do.","min_words":40,"max_words":50,"formality":"informal","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT01-P4B","part":4,"type":"formal_email","prompt":"Write to the club secretary. Explain why the schedule change is inconvenient and suggest a solution.","min_words":120,"max_words":150,"formality":"formal","status":"PUBLISHED_DEMO"}
+      ]
+    },
+    {
+      "test_id":"WT02","title":"Local Sports Centre","topic_id":"WR-TOP-SPORTS-FACILITIES","topic":"Sports and facilities","level":"B2","duration_seconds":3000,"rubric_id":"WR-RUB-B2-GENERAL","status":"PUBLISHED_DEMO","version":"2.0.0","source_note":"ForLanguage original demo content.","reviewed_by":[],
+      "tasks":[
+        {"task_id":"WT02-P1","part":1,"type":"short_answers","prompt":"You have joined a local sports centre. Answer five profile questions.","questions":["Which sport do you enjoy?","How often do you exercise?","What time do you usually train?","Do you prefer indoor or outdoor activities?","Who do you exercise with?"],"min_words":1,"max_words":5,"formality":"short","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT02-P2","part":2,"type":"short_message","prompt":"A member asks what you like about the sports centre. Write a reply.","min_words":20,"max_words":30,"formality":"neutral","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT02-P3","part":3,"type":"social_responses","prompt":"Reply to the three members.","questions":["Which new class should the centre offer?","Should weekend opening hours be longer?","How could the centre support beginners?"],"min_words":30,"max_words":40,"formality":"neutral","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT02-P4A","part":4,"type":"informal_email","prompt":"Write to a friend about the closure of the swimming pool this weekend and suggest another activity.","min_words":40,"max_words":50,"formality":"informal","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT02-P4B","part":4,"type":"formal_email","prompt":"Write to the centre manager. Explain how the pool closure affects members and suggest a fair solution.","min_words":120,"max_words":150,"formality":"formal","status":"PUBLISHED_DEMO"}
+      ]
+    },
+    {
+      "test_id":"WT03","title":"Community Arts Festival","topic_id":"WR-TOP-ARTS-EVENTS","topic":"Arts and events","level":"B2","duration_seconds":3000,"rubric_id":"WR-RUB-B2-GENERAL","status":"PUBLISHED_DEMO","version":"2.0.0","source_note":"ForLanguage original demo content.","reviewed_by":[],
+      "tasks":[
+        {"task_id":"WT03-P1","part":1,"type":"short_answers","prompt":"You have volunteered for a community arts festival. Answer five profile questions.","questions":["Which art form do you like?","Have you volunteered before?","Which day can you help?","What task would you prefer?","Who told you about the festival?"],"min_words":1,"max_words":5,"formality":"short","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT03-P2","part":2,"type":"short_message","prompt":"Another volunteer asks why the festival is important. Write a reply.","min_words":20,"max_words":30,"formality":"neutral","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT03-P3","part":3,"type":"social_responses","prompt":"Reply to the three volunteers.","questions":["Should the festival include more activities for children?","Is it better to hold the event indoors or outdoors?","How can organisers reduce waste during the festival?"],"min_words":30,"max_words":40,"formality":"neutral","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT03-P4A","part":4,"type":"informal_email","prompt":"Write to a friend explaining that an outdoor performance has moved indoors because of the weather.","min_words":40,"max_words":50,"formality":"informal","status":"PUBLISHED_DEMO"},
+        {"task_id":"WT03-P4B","part":4,"type":"formal_email","prompt":"Write to the festival organiser. Explain a problem with the new venue and propose practical improvements.","min_words":120,"max_words":150,"formality":"formal","status":"PUBLISHED_DEMO"}
+      ]
+    }
+  ]
+}
