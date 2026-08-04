@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0-alpha.1",
+  "version": "1.1.0",
   "tests": [
     {
       "test_id": "LT01",
-      "title": "Community Information – Demo",
+      "title": "Community Information – Quick Demo",
       "level": "B2",
-      "duration_seconds": 2400,
-      "status": "DRAFT",
+      "duration_seconds": 600,
+      "status": "PUBLISHED_DEMO",
       "tasks": [
         {
           "task_id": "LT01-T01",
@@ -16,36 +16,44 @@
           "instructions_vi": "Nghe và chọn đáp án đúng.",
           "display_order": 1,
           "max_plays": 2,
-          "audio": {
-            "audio_id": "LT01-A01",
-            "audio_url": "",
-            "mime_type": "audio/wav",
-            "duration_seconds": 12,
-            "speaker_count": 1,
-            "accent": "International English",
-            "transcript": "The community library will close at six o'clock today because of a staff meeting.",
-            "source": "ForLanguage original demo",
-            "license": "Project-owned original content",
-            "status": "DRAFT"
-          },
-          "items": [
-            {
-              "item_id": "L0001",
-              "question": "Why will the library close early today?",
-              "options": [
-                "There is a staff meeting.",
-                "The building needs repairs.",
-                "A public event is starting."
-              ],
-              "correct": "A",
-              "correct_value": "There is a staff meeting.",
-              "explanation_en": "The speaker says the library will close early because of a staff meeting.",
-              "explanation_vi": "Người nói cho biết thư viện đóng cửa sớm vì có cuộc họp nhân viên.",
-              "concept_id": "LISTENING.INFORMATION_RECOGNITION",
-              "difficulty": "B2",
-              "status": "DRAFT"
-            }
+          "audio": {"audio_id":"LT01-A01","audio_url":"","mime_type":"audio/wav","duration_seconds":12,"speaker_count":1,"accent":"International English","transcript":"The community library will close at six o'clock today because of a staff meeting.","source":"ForLanguage original demo","license":"Project-owned original content","status":"PUBLISHED_DEMO"},
+          "items": [{"item_id":"L0001","question":"Why will the library close early today?","options":["There is a staff meeting.","The building needs repairs.","A public event is starting."],"correct":"A","correct_value":"There is a staff meeting.","explanation_vi":"Người nói cho biết thư viện đóng cửa sớm vì có cuộc họp nhân viên.","concept_id":"LISTENING.INFORMATION_RECOGNITION","difficulty":"B2","status":"PUBLISHED_DEMO"}]
+        }
+      ]
+    },
+    {
+      "test_id": "LT02",
+      "title": "Everyday Communication – Four-Part Demo",
+      "level": "B2",
+      "duration_seconds": 2400,
+      "status": "PUBLISHED_DEMO",
+      "tasks": [
+        {
+          "task_id":"LT02-T01","part":1,"task_type":"information_recognition","instructions_en":"Listen to the short announcement and choose the correct answer.","instructions_vi":"Nghe thông báo ngắn và chọn đáp án đúng.","display_order":1,"max_plays":2,
+          "audio":{"audio_id":"LT02-A01","audio_url":"","mime_type":"audio/wav","duration_seconds":14,"speaker_count":1,"accent":"International English","transcript":"The sports centre will open at ten o'clock on Saturday instead of eight because the staff are attending a safety training session.","source":"ForLanguage original content","license":"Project-owned original content","status":"PUBLISHED_DEMO"},
+          "items":[{"item_id":"L0002","question":"Why will the sports centre open later on Saturday?","options":["The building is being repaired.","The staff have a training session.","A competition is taking place."],"correct":"B","correct_value":"The staff have a training session.","explanation_vi":"Đoạn nghe cho biết nhân viên tham gia buổi tập huấn an toàn.","concept_id":"LISTENING.INFORMATION_RECOGNITION","difficulty":"B2","status":"PUBLISHED_DEMO"}]
+        },
+        {
+          "task_id":"LT02-T02","part":2,"task_type":"information_matching","instructions_en":"Listen to three people and match each speaker with the activity they prefer.","instructions_vi":"Nghe ba người nói và ghép mỗi người với hoạt động họ yêu thích.","display_order":2,"max_plays":2,
+          "audio":{"audio_id":"LT02-A02","audio_url":"","mime_type":"audio/wav","duration_seconds":24,"speaker_count":3,"accent":"International English","transcript":"Speaker one: I enjoy activities where I can make something useful with my hands. Speaker two: I prefer being outdoors and working with other people to improve the neighbourhood. Speaker three: I like learning practical computer skills that I can use at work.","source":"ForLanguage original content","license":"Project-owned original content","status":"PUBLISHED_DEMO"},
+          "items":[
+            {"item_id":"L0003","question":"Speaker 1","options":["Digital skills workshop","Community gardening","Craft class"],"correct":"C","correct_value":"Craft class","explanation_vi":"Người nói 1 thích tạo đồ vật hữu ích bằng tay.","concept_id":"LISTENING.INFORMATION_MATCHING","difficulty":"B2","status":"PUBLISHED_DEMO"},
+            {"item_id":"L0004","question":"Speaker 2","options":["Digital skills workshop","Community gardening","Craft class"],"correct":"B","correct_value":"Community gardening","explanation_vi":"Người nói 2 thích hoạt động ngoài trời để cải thiện khu phố.","concept_id":"LISTENING.INFORMATION_MATCHING","difficulty":"B2","status":"PUBLISHED_DEMO"},
+            {"item_id":"L0005","question":"Speaker 3","options":["Digital skills workshop","Community gardening","Craft class"],"correct":"A","correct_value":"Digital skills workshop","explanation_vi":"Người nói 3 muốn học kỹ năng máy tính thực tế cho công việc.","concept_id":"LISTENING.INFORMATION_MATCHING","difficulty":"B2","status":"PUBLISHED_DEMO"}
           ]
+        },
+        {
+          "task_id":"LT02-T03","part":3,"task_type":"discussion_inference","instructions_en":"Listen to the discussion and identify each speaker's opinion.","instructions_vi":"Nghe cuộc thảo luận và xác định quan điểm của người nói.","display_order":3,"max_plays":2,
+          "audio":{"audio_id":"LT02-A03","audio_url":"","mime_type":"audio/wav","duration_seconds":22,"speaker_count":2,"accent":"International English","transcript":"Maya: The new study room is bright and comfortable, but I wish it stayed open later. Daniel: I agree about the room itself, although the booking system is much too complicated. Maya: At least the staff are helpful when there is a problem.","source":"ForLanguage original content","license":"Project-owned original content","status":"PUBLISHED_DEMO"},
+          "items":[
+            {"item_id":"L0006","question":"What concerns Maya most?","options":["The opening hours","The room lighting","The staff attitude"],"correct":"A","correct_value":"The opening hours","explanation_vi":"Maya mong phòng mở cửa muộn hơn.","concept_id":"LISTENING.DISCUSSION_INFERENCE","difficulty":"B2","status":"PUBLISHED_DEMO"},
+            {"item_id":"L0007","question":"What does Daniel dislike?","options":["The furniture","The booking process","The location"],"correct":"B","correct_value":"The booking process","explanation_vi":"Daniel cho rằng hệ thống đặt phòng quá phức tạp.","concept_id":"LISTENING.DISCUSSION_INFERENCE","difficulty":"B2","status":"PUBLISHED_DEMO"}
+          ]
+        },
+        {
+          "task_id":"LT02-T04","part":4,"task_type":"monologue_inference","instructions_en":"Listen to the longer talk and choose the best answer.","instructions_vi":"Nghe đoạn nói dài hơn và chọn đáp án phù hợp nhất.","display_order":4,"max_plays":2,
+          "audio":{"audio_id":"LT02-A04","audio_url":"","mime_type":"audio/wav","duration_seconds":30,"speaker_count":1,"accent":"International English","transcript":"When I first started working from home, I assumed I would save time and become more productive. In reality, I found it difficult to separate work from the rest of my life. I eventually created a fixed schedule and stopped checking messages after six. The biggest improvement came not from new technology, but from setting clearer boundaries.","source":"ForLanguage original content","license":"Project-owned original content","status":"PUBLISHED_DEMO"},
+          "items":[{"item_id":"L0008","question":"What is the speaker's main point?","options":["Working from home requires expensive equipment.","Clear boundaries improved the speaker's routine.","Remote work always increases productivity."],"correct":"B","correct_value":"Clear boundaries improved the speaker's routine.","explanation_vi":"Người nói nhấn mạnh rằng việc đặt ranh giới rõ ràng đã cải thiện thói quen làm việc.","concept_id":"LISTENING.MONOLOGUE_INFERENCE","difficulty":"B2","status":"PUBLISHED_DEMO"}]
         }
       ]
     }
