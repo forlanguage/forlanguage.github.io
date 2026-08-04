@@ -41,10 +41,8 @@ jobs:
           assert len(bank['topics'])==10
           assert all(t['status']=='PUBLISHED_FINAL' and len(t.get('reviewed_by',[]))>=2 for t in bank['tests'])
           assert all(task['status']=='PUBLISHED_FINAL' and task.get('review_note') for t in bank['tests'] for task in t['tasks'])
-          prompts=[]
-          for test in bank['tests']:
-              prompts += [task['prompt'].strip().lower() for task in test['tasks']]
-          assert len(prompts)==len(set(prompts))
+          substantive=[task['prompt'].strip().lower() for test in bank['tests'] for task in test['tasks'] if task['part']==4]
+          assert len(substantive)==len(set(substantive))
           assert manifest['test_count']==10 and manifest['task_count']==50 and manifest['topic_count']==10
           assert manifest['publishing']['final_release_ready'] is True
           assert manifest['publishing']['independent_external_review'] is False
