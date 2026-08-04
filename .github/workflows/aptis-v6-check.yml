@@ -18,9 +18,9 @@ jobs:
           for file in \
             aptis/app.js aptis/runtime-v6-module.js aptis/history-v5.js aptis/question-id-v53.js \
             aptis/listening/listening-v6.js aptis/listening/listening-player-v1.js aptis/listening/listening-retry-v2.js \
-            aptis/speaking/speaking-v6.js aptis/shared/media-recorder-service-v2.js \
+            aptis/speaking/speaking-v6.js aptis/speaking/speaking-self-review-v1.js aptis/shared/media-recorder-service-v2.js \
             aptis/writing/writing-v6.js aptis/writing/writing-recovery-v2.js aptis/writing/writing-self-review-v3.js \
-            aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js aptis/shared/writing-report-package-v4.js \
+            aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js aptis/shared/writing-report-package-v4.js aptis/shared/speaking-review-package-v5.js \
             aptis/shared/legacy-resume-v2.js aptis/shared/draft-version-store-v3.js aptis/shared/history-draft-versions-v3.js \
             aptis/shared/tab-lock-v1.js aptis/shared/active-resource-lock-v1.js aptis/shared/history-compare-v1.js
           do node --check "$file"; done
@@ -28,25 +28,30 @@ jobs:
         run: python tools/writing/validate_bank.py
       - name: Validate Speaking bank v2
         run: python tools/speaking/validate_bank.py
-      - name: Validate M6.4C Speaking session workflow
+      - name: Validate M6.4D Speaking review package
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           core=json.loads(Path('aptis/data/manifest.json').read_text())
           registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
-          speaking=Path('aptis/speaking/speaking-v6.js').read_text()
-          html=Path('aptis/speaking/index.html').read_text()
-          css=Path('aptis/speaking/speaking-v6.css').read_text()
+          speaking_html=Path('aptis/speaking/index.html').read_text()
+          history_html=Path('aptis/history/index.html').read_text()
+          self_review=Path('aptis/speaking/speaking-self-review-v1.js').read_text()
+          package=Path('aptis/shared/speaking-review-package-v5.js').read_text()
+          css=Path('aptis/history-v6.css').read_text()
           assert core['total_item_count']==2696 and core['reading_test_count']==24
-          for token in ['practiceMode','partSelect','topicSelect','sessionOverview','progressMap','partInstructions','imageStage','finalReview','completeSession']:
-              assert token in html
-          for token in ['buildTaskScope','preflightReady','showPartGate','renderImage','showFinalReview','session_scope','current_index']:
-              assert token.lower() in speaking.lower()
-          assert 'progress-dot' in css and 'review-item' in css and 'part-instructions' in css
+          assert 'speakingSelfReview' in speaking_html and 'speaking-self-review-v1.js' in speaking_html
+          assert 'speaking-review-package-v5.js' in history_html
+          for token in ['task_fulfilment','fluency','grammar_accuracy','vocabulary_range','pronunciation','coherence','self_assessment','review_status']:
+              assert token in self_review
+          for token in ['forlanguage-speaking-review-package/1.0','application/zip','makeZip','recordings/','data-speaking-package','data-speaking-compare','showCompare']:
+              assert token in package
+          assert 'speaking-compare-row' in css and 'speaking-review-summary' in css
           modules={item['id']:item for item in registry['modules']}
-          assert modules['speaking']['status']=='workflow_ready'
-          required={'full_test_mode','practice_by_part','practice_by_topic','required_microphone_preflight','part_instructions','image_rendering','progress_map','final_review'}
+          assert modules['speaking']['status']=='review_package_ready'
+          required={'b2_self_assessment','speaking_review_center','recording_zip_package','side_by_side_audio_compare'}
           assert required.issubset(set(modules['speaking']['features']))
-          print('Aptis M6.4C Speaking session workflow checks OK')
+          assert {'speaking_rubric_review','speaking_recording_zip','speaking_audio_compare'}.issubset(set(modules['history']['features']))
+          print('Aptis M6.4D Speaking review package checks OK')
           PY
