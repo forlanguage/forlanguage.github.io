@@ -1,0 +1,38 @@
+{
+  "schema_version": "2.0.0",
+  "release": {
+    "release_id": "SPK-2026.08-R1",
+    "status": "PUBLISHED_DEMO",
+    "created_at": "2026-08-04T03:30:00Z",
+    "bank_version": "2.0.0",
+    "notes": "M6.4A contract freeze. Existing ST01 and task IDs are preserved."
+  },
+  "topics": [
+    {"topic_id":"SPK-TOP-LOCAL-AREA","title_en":"Local area","title_vi":"Khu vực địa phương","status":"PUBLISHED_DEMO"},
+    {"topic_id":"SPK-TOP-PUBLIC-PLACES","title_en":"Public places","title_vi":"Địa điểm công cộng","status":"PUBLISHED_DEMO"},
+    {"topic_id":"SPK-TOP-LEARNING","title_en":"Learning","title_vi":"Học tập","status":"PUBLISHED_DEMO"},
+    {"topic_id":"SPK-TOP-LEARNING-HABITS","title_en":"Learning habits","title_vi":"Thói quen học tập","status":"PUBLISHED_DEMO"}
+  ],
+  "rubrics": [
+    {"rubric_id":"SPK-RUB-B2-GENERAL","level":"B2","dimensions":["task_fulfilment","fluency","grammar_accuracy","vocabulary_range","pronunciation","coherence"],"status":"PUBLISHED_DEMO"}
+  ],
+  "images": [],
+  "tests": [
+    {
+      "test_id":"ST01",
+      "title":"Everyday life and community",
+      "level":"B2",
+      "rubric_id":"SPK-RUB-B2-GENERAL",
+      "status":"PUBLISHED_DEMO",
+      "version":"2.0.0",
+      "source_note":"ForLanguage original demo content.",
+      "reviewed_by":[],
+      "tasks":[
+        {"task_id":"ST01-P1-Q1","part":1,"prompt":"Tell me about a place in your town that you enjoy visiting.","preparation_seconds":5,"response_seconds":30,"topic_id":"SPK-TOP-LOCAL-AREA","topic":"Local area","image_ids":[],"status":"PUBLISHED_DEMO"},
+        {"task_id":"ST01-P2-Q1","part":2,"prompt":"Describe a busy public place. What can people do there, and why is it popular?","preparation_seconds":10,"response_seconds":45,"topic_id":"SPK-TOP-PUBLIC-PLACES","topic":"Public places","image_ids":[],"status":"PUBLISHED_DEMO"},
+        {"task_id":"ST01-P3-Q1","part":3,"prompt":"Compare studying alone with studying in a group. Which is more effective for you, and why?","preparation_seconds":10,"response_seconds":45,"topic_id":"SPK-TOP-LEARNING","topic":"Learning","image_ids":[],"status":"PUBLISHED_DEMO"},
+        {"task_id":"ST01-P4-Q1","part":4,"prompt":"Why do some people find it difficult to maintain a learning routine? What can schools, families and learners do to help?","preparation_seconds":60,"response_seconds":120,"topic_id":"SPK-TOP-LEARNING-HABITS","topic":"Learning habits","image_ids":[],"status":"PUBLISHED_DEMO"}
+      ]
+    }
+  ]
+}
