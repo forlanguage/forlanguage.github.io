@@ -15,36 +15,33 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate JavaScript syntax
         run: |
-          for file in aptis/app.js aptis/runtime-v6-module.js aptis/history-v5.js aptis/question-id-v53.js aptis/listening/listening-v6.js aptis/listening/listening-player-v1.js aptis/listening/listening-retry-v2.js aptis/speaking/speaking-v6.js aptis/speaking/speaking-self-review-v1.js aptis/shared/media-recorder-service-v2.js aptis/writing/writing-v6.js aptis/writing/writing-recovery-v2.js aptis/writing/writing-self-review-v3.js aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js aptis/shared/writing-report-package-v4.js aptis/shared/speaking-review-package-v5.js aptis/shared/legacy-resume-v2.js aptis/shared/draft-version-store-v3.js aptis/shared/history-draft-versions-v3.js aptis/shared/tab-lock-v1.js aptis/shared/active-resource-lock-v1.js aptis/shared/history-compare-v1.js; do node --check "$file"; done
+          for file in aptis/app.js aptis/runtime-v6-module.js aptis/history-v5.js aptis/question-id-v53.js aptis/listening/listening-v6.js aptis/listening/listening-player-v1.js aptis/listening/listening-retry-v2.js aptis/speaking/speaking-v6.js aptis/speaking/speaking-self-review-v1.js aptis/shared/media-recorder-service-v2.js aptis/writing/writing-v6.js aptis/writing/writing-recovery-v2.js aptis/writing/writing-self-review-v3.js aptis/shared/attempt-store-v6.js aptis/shared/history-page-v6.js aptis/shared/history-writing-review-v2.js aptis/shared/writing-report-package-v4.js aptis/shared/speaking-review-package-v5.js aptis/shared/review-center-closeout-v1.js aptis/shared/legacy-resume-v2.js aptis/shared/draft-version-store-v3.js aptis/shared/history-draft-versions-v3.js aptis/shared/tab-lock-v1.js aptis/shared/active-resource-lock-v1.js aptis/shared/history-compare-v1.js; do node --check "$file"; done
       - name: Validate banks
         run: |
           python tools/writing/validate_bank.py
           python tools/speaking/validate_bank.py
-      - name: Validate M6.4E Speaking content release
+      - name: Validate M6.5E Review Center closeout
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           core=json.loads(Path('aptis/data/manifest.json').read_text())
-          bank=json.loads(Path('aptis/data/speaking/bank-v2.json').read_text())
-          manifest=json.loads(Path('aptis/data/speaking/manifest-v2.json').read_text())
           registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
+          html=Path('aptis/history/index.html').read_text()
+          js=Path('aptis/shared/review-center-closeout-v1.js').read_text()
+          css=Path('aptis/history-v6.css').read_text()
           assert core['total_item_count']==2696 and core['reading_test_count']==24
-          assert bank['release']['release_id']=='SPK-2026.08-R2'
-          assert len(bank['tests'])==5 and sum(len(t['tasks']) for t in bank['tests'])==50
-          assert len(bank['images'])==11 and manifest['image_count']==11
-          assert manifest['format_alignment']['authority']=='British Council'
-          assert manifest['format_alignment']['official_content_copied'] is False
-          assert manifest['publishing']['final_release_ready'] is True
-          for test in bank['tests']:
-              parts=[q['part'] for q in test['tasks']]
-              assert parts.count(1)==3 and parts.count(2)==3 and parts.count(3)==3 and parts.count(4)==1
-              assert test['reviewed_by'] and 'British Council' in test['format_reference']
-              assert 'no official prompts or photographs copied' in test['source_note']
-          modules={m['id']:m for m in registry['modules']}
-          assert modules['speaking']['status']=='content_ready'
-          assert modules['speaking']['bank_counts']=={'tests':5,'tasks':50,'topics':19,'rubrics':1,'images':11}
-          assert Path('docs/aptis-v6/SPEAKING_M64E_SOURCE_POLICY.md').exists()
-          assert Path('docs/aptis-v6/SPEAKING_M64E_REVIEW_REPORT.md').exists()
-          print('M6.4E Speaking content release checks OK')
+          for token in ['statusFilter','favouriteFilter','sortOrder','selectAllVisible','exportSelected','deleteSelected','reviewSummaryCards','reviewHealth','runHealthCheck']:
+              assert token in html
+          for token in ['currentFilteredAttempts','bulk','aptis_selected_attempts','deleteAttempt','listAssets','local data health','selected']:
+              assert token.lower() in js.lower()
+          for token in ['review-summary-cards','review-health-panel','bulk-toolbar','danger-button','select-column']:
+              assert token in css
+          modules={item['id']:item for item in registry['modules']}
+          history=modules['history']
+          assert registry['phase']=='M6.5E' and history['status']=='closeout_ready'
+          required={'module_filter','status_filter','favourite_filter','multi_sort','summary_cards','bulk_select','selected_json_export','bulk_delete_with_assets','local_data_health_check','draft_manager','backup_import_export'}
+          assert required.issubset(set(history['features']))
+          assert Path('docs/aptis-v6/M65E_REVIEW_CENTER_CLOSEOUT.md').exists()
+          print('M6.5E Unified Review Center closeout checks OK')
           PY
