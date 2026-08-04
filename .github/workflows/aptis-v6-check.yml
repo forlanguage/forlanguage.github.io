@@ -2,7 +2,7 @@ name: Aptis v6 checks
 
 on:
   pull_request:
-    paths: ["aptis/**", "tools/writing/**", "docs/aptis-v6/**", ".github/workflows/aptis-v6-check.yml", ".github/workflows/deploy.yml"]
+    paths: ["aptis/**", "tools/writing/**", "tools/speaking/**", "docs/aptis-v6/**", ".github/workflows/aptis-v6-check.yml", ".github/workflows/deploy.yml"]
   workflow_dispatch:
 
 permissions:
@@ -25,31 +25,28 @@ jobs:
           do node --check "$file"; done
       - name: Validate Writing bank v2
         run: python tools/writing/validate_bank.py
-      - name: Validate M6.3E Writing content release
+      - name: Validate Speaking bank v2
+        run: python tools/speaking/validate_bank.py
+      - name: Validate M6.4A Speaking contract
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          bank=json.loads(Path('aptis/data/writing/bank-v2.json').read_text())
-          manifest=json.loads(Path('aptis/data/writing/manifest-v2.json').read_text())
-          registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
           core=json.loads(Path('aptis/data/manifest.json').read_text())
+          bank=json.loads(Path('aptis/data/speaking/bank-v2.json').read_text())
+          manifest=json.loads(Path('aptis/data/speaking/manifest-v2.json').read_text())
+          registry=json.loads(Path('aptis/module-registry-v6.json').read_text())
+          js=Path('aptis/speaking/speaking-v6.js').read_text()
           assert core['total_item_count']==2696 and core['reading_test_count']==24
-          assert bank['release']['release_id']=='WR-2026.08-R2'
-          assert bank['release']['status']=='PUBLISHED_FINAL'
-          assert len(bank['tests'])==10 and sum(len(t['tasks']) for t in bank['tests'])==50
-          assert len(bank['topics'])==10
-          assert all(t['status']=='PUBLISHED_FINAL' and len(t.get('reviewed_by',[]))>=2 for t in bank['tests'])
-          assert all(task['status']=='PUBLISHED_FINAL' and task.get('review_note') for t in bank['tests'] for task in t['tasks'])
-          substantive=[task['prompt'].strip().lower() for test in bank['tests'] for task in test['tasks'] if task['part']==4]
-          assert len(substantive)==len(set(substantive))
-          assert manifest['test_count']==10 and manifest['task_count']==50 and manifest['topic_count']==10
-          assert manifest['publishing']['final_release_ready'] is True
-          assert manifest['publishing']['independent_external_review'] is False
+          assert bank['schema_version']=='2.0.0' and bank['release']['release_id']=='SPK-2026.08-R1'
+          assert manifest['test_count']==1 and manifest['task_count']==4 and manifest['image_count']==0
+          assert [t['test_id'] for t in bank['tests']]==['ST01']
+          assert [q['task_id'] for q in bank['tests'][0]['tasks']]==['ST01-P1-Q1','ST01-P2-Q1','ST01-P3-Q1','ST01-P4-Q1']
+          assert 'bank-v2.json' in js and 'forlanguage-speaking-v2' in js and 'rubric_id' in js and 'bank_release' in js
           modules={item['id']:item for item in registry['modules']}
-          assert modules['writing']['status']=='content_ready'
-          assert modules['writing']['release_id']=='WR-2026.08-R2'
-          assert modules['writing']['bank_counts']=={'tests':10,'tasks':50,'topics':10,'rubrics':1}
-          assert Path('docs/aptis-v6/WRITING_M63E_REVIEW_REPORT.md').exists()
-          print('Aptis M6.3E Writing content release checks OK')
+          assert modules['speaking']['status']=='contract_ready'
+          assert modules['speaking']['bank_counts']=={'tests':1,'tasks':4,'topics':4,'rubrics':1,'images':0}
+          assert {'stable_task_ids','topic_registry','rubric_registry','image_registry','bank_validation'}.issubset(set(modules['speaking']['features']))
+          assert Path('docs/aptis-v6/SPEAKING_AUTHORING_GUIDE.md').exists()
+          print('Aptis M6.4A Speaking contract and bank checks OK')
           PY
