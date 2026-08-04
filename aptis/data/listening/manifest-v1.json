@@ -1,19 +1,19 @@
 {
-  "version": "1.0.0-alpha.1",
-  "status": "AUTHORING_READY",
-  "source": "google-sheet-private-authoring",
+  "version": "1.1.0",
+  "status": "MVP_READY",
+  "source": "forlanguage-original-demo-bank",
   "source_sheet_id": "1JYTZGLtHKDDHxItpPye_7q0Om4Mq_3iawCQqAMKfNug",
-  "test_count": 1,
-  "task_count": 1,
-  "audio_count": 1,
-  "item_count": 1,
+  "test_count": 2,
+  "task_count": 5,
+  "audio_count": 5,
+  "item_count": 8,
   "published_test_count": 0,
-  "demo_test_count": 1,
+  "demo_test_count": 2,
   "parts": {
     "1": "information_recognition",
     "2": "information_matching",
     "3": "inference_discussion",
     "4": "inference_monologue"
   },
-  "notes": "The first original demo validates the player and answer flow. It remains DRAFT and is not counted as a published Aptis test."
+  "notes": "Two original ForLanguage demo tests validate quick practice and a four-part workflow. They are demo content, not official exam material."
 }
