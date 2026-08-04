@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "status": "PUBLISHED_DEMO",
+  "test_id": "ST01",
+  "title": "Everyday life and community",
+  "level": "B2",
+  "tasks": [
+    {
+      "task_id": "ST01-P1-Q1",
+      "part": 1,
+      "prompt": "Tell me about a place in your town that you enjoy visiting.",
+      "preparation_seconds": 5,
+      "response_seconds": 30,
+      "topic": "Local area"
+    },
+    {
+      "task_id": "ST01-P2-Q1",
+      "part": 2,
+      "prompt": "Describe a busy public place. What can people do there, and why is it popular?",
+      "preparation_seconds": 10,
+      "response_seconds": 45,
+      "topic": "Public places"
+    },
+    {
+      "task_id": "ST01-P3-Q1",
+      "part": 3,
+      "prompt": "Compare studying alone with studying in a group. Which is more effective for you, and why?",
+      "preparation_seconds": 10,
+      "response_seconds": 45,
+      "topic": "Learning"
+    },
+    {
+      "task_id": "ST01-P4-Q1",
+      "part": 4,
+      "prompt": "Why do some people find it difficult to maintain a learning routine? What can schools, families and learners do to help?",
+      "preparation_seconds": 60,
+      "response_seconds": 120,
+      "topic": "Learning habits"
+    }
+  ]
+}
