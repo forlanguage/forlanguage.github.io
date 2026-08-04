@@ -1,126 +1,27 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#153e75">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#153e75">
   <meta name="description" content="Aptis General self-study dashboard for Grammar & Vocabulary, Reading, Listening, Speaking and Writing.">
-  <title>Aptis General · ForLanguage</title>
-  <link rel="stylesheet" href="dashboard-v6.css?v=1">
+  <title>Aptis General · ForLanguage</title><link rel="stylesheet" href="dashboard-v6.css?v=2">
 </head>
 <body>
-  <header class="aptis-nav">
-    <a class="aptis-brand" href="/">
-      <span class="aptis-brand-mark">A</span>
-      <span><strong>Aptis General</strong><small>ForLanguage practice hub</small></span>
-    </a>
-    <nav class="aptis-nav-links" aria-label="Điều hướng Aptis">
-      <a href="#modules">Các phần thi</a>
-      <a href="/aptis/history/">Lịch sử</a>
-      <a href="#roadmap">Lộ trình v6</a>
-      <a class="primary-link" href="/">ForLanguage</a>
-    </nav>
-  </header>
+<header class="aptis-nav"><a class="aptis-brand" href="/"><span class="aptis-brand-mark">A</span><span><strong>Aptis General</strong><small>ForLanguage practice hub</small></span></a><nav class="aptis-nav-links"><a href="#modules">Các phần thi</a><a href="/aptis/history/">Lịch sử</a><a class="primary-link" href="/">ForLanguage</a></nav></header>
+<main class="dashboard">
+  <section class="dashboard-hero"><div><p class="eyebrow">APTIS GENERAL · SELF-STUDY PLATFORM</p><h1>Luyện tập riêng cho từng phần thi, dùng chung một lịch sử học.</h1><p class="lead">Grammar & Vocabulary, Reading, Listening, Speaking và Writing được tổ chức thành các module độc lập trên chính domain ForLanguage.</p></div><aside class="hero-panel"><span>v6 MVP AVAILABLE</span><h2>Năm phần thi đã có điểm vào hoạt động.</h2><p>Core và Reading dùng ngân hàng hiện tại; Listening, Speaking và Writing có bộ demo gốc để kiểm tra đầy đủ workflow.</p><a href="/aptis/history/">Mở lịch sử học tập →</a></aside></section>
 
-  <main class="dashboard">
-    <section class="dashboard-hero">
-      <div>
-        <p class="eyebrow">APTIS GENERAL · SELF-STUDY PLATFORM</p>
-        <h1>Một không gian luyện tập riêng cho từng phần thi Aptis.</h1>
-        <p class="lead">Aptis Practice v6 tách từng kỹ năng thành module độc lập nhưng dùng chung lịch sử học, mã câu hỏi, review, export và tiến độ cá nhân.</p>
-      </div>
-      <aside class="hero-panel">
-        <span>PHASE A2 COMPLETED</span>
-        <h2>Core, Reading và lịch sử dùng chung đã sẵn sàng.</h2>
-        <p>Ngân hàng hiện có 2.696 câu hỏi. Kết quả v5 được giữ trong localStorage và tự động migrate sang IndexedDB v6 trên chính domain ForLanguage.</p>
-        <a href="/aptis/history/">Mở lịch sử học tập →</a>
-      </aside>
-    </section>
+  <section class="section" id="modules"><div class="section-heading"><p class="eyebrow">EXAM MODULES</p><h2>Các phần thi</h2><p>Dữ liệu được lưu local-first. Không đồng bộ với website cá nhân cũ.</p></div><div class="module-grid">
+    <a class="module-card live" href="/aptis/core/"><div class="module-top"><span class="module-icon">G·V</span><span class="status live">Available</span></div><h3>Grammar & Vocabulary</h3><p>Full Core, bài luyện nhanh, Grammar theo chủ điểm và Vocabulary theo dạng bài.</p><div class="module-meta"><span>2.000 câu</span><span>25 phút</span><span>Review & retry</span></div><span class="module-action">Mở module →</span></a>
+    <a class="module-card live" href="/aptis/reading/"><div class="module-top"><span class="module-icon">R</span><span class="status live">Available</span></div><h3>Reading</h3><p>24 full mock tests, luyện riêng Part 1–4 và làm lại câu sai.</p><div class="module-meta"><span>696 câu</span><span>24 tests</span><span>35 phút</span></div><span class="module-action">Mở module →</span></a>
+    <a class="module-card live" href="/aptis/listening/"><div class="module-top"><span class="module-icon">L</span><span class="status live">MVP</span></div><h3>Listening</h3><p>Demo tương tác có giới hạn lượt nghe, chấm đáp án và transcript sau khi nộp.</p><div class="module-meta"><span>2 plays</span><span>Question ID</span><span>Local history</span></div><span class="module-action">Mở module →</span></a>
+    <a class="module-card live" href="/aptis/speaking/"><div class="module-top"><span class="module-icon">S</span><span class="status live">MVP</span></div><h3>Speaking</h3><p>Preparation timer, ghi âm microphone, nghe lại, tải file và lưu asset vào IndexedDB.</p><div class="module-meta"><span>Record</span><span>Review</span><span>Download</span></div><span class="module-action">Mở module →</span></a>
+    <a class="module-card live" href="/aptis/writing/"><div class="module-top"><span class="module-icon">W</span><span class="status live">MVP</span></div><h3>Writing</h3><p>Full test theo chủ đề, luyện theo Part, word count, autosave, JSON và PDF.</p><div class="module-meta"><span>Autosave</span><span>Word count</span><span>PDF / JSON</span></div><span class="module-action">Mở module →</span></a>
+    <a class="module-card live" href="/aptis/history/"><div class="module-top"><span class="module-icon">H</span><span class="status live">Available</span></div><h3>Lịch sử dùng chung</h3><p>Tổng hợp attempt theo module, tìm kiếm, export JSON và migrate lịch sử v5.</p><div class="module-meta"><span>IndexedDB v6</span><span>v5 migration</span><span>Local-first</span></div><span class="module-action">Mở lịch sử →</span></a>
+    <article class="module-card"><div class="module-top"><span class="module-icon">☁</span><span class="status planned">Next</span></div><h3>Google Drive</h3><p>Đăng nhập và upload theo quyền <code>drive.file</code> sẽ được bật sau khi cấu hình OAuth Client ID của organization.</p><div class="module-meta"><span>Optional login</span><span>User consent</span><span>No secret in client</span></div><span class="module-action">Chờ cấu hình OAuth</span></article>
+  </div></section>
 
-    <section class="section" id="modules">
-      <div class="section-heading">
-        <p class="eyebrow">EXAM MODULES</p>
-        <h2>Các phần thi</h2>
-        <p>Mỗi module có chế độ full test và practice theo Part, chủ đề hoặc dạng câu hỏi. Toàn bộ dữ liệu vận hành độc lập trong repository và domain ForLanguage.</p>
-      </div>
-
-      <div class="module-grid">
-        <a class="module-card live" href="/aptis/core/">
-          <div class="module-top"><span class="module-icon">G·V</span><span class="status live">Available</span></div>
-          <h3>Grammar & Vocabulary</h3>
-          <p>Full Core 50 câu, bài luyện nhanh, Grammar theo chủ điểm và Vocabulary theo dạng bài.</p>
-          <div class="module-meta"><span>2.000 câu</span><span>25 phút</span><span>Review & retry</span></div>
-          <span class="module-action">Mở module →</span>
-        </a>
-
-        <a class="module-card live" href="/aptis/reading/">
-          <div class="module-top"><span class="module-icon">R</span><span class="status live">Available</span></div>
-          <h3>Reading</h3>
-          <p>24 full mock tests, luyện riêng Part 1–4, review toàn bài và làm lại các câu sai.</p>
-          <div class="module-meta"><span>696 câu</span><span>24 tests</span><span>35 phút</span></div>
-          <span class="module-action">Mở module →</span>
-        </a>
-
-        <a class="module-card live" href="/aptis/history/">
-          <div class="module-top"><span class="module-icon">H</span><span class="status live">Available</span></div>
-          <h3>Lịch sử dùng chung</h3>
-          <p>Tổng hợp kết quả theo module, tìm theo Test ID hoặc Question ID, export JSON và chuẩn bị lưu audio/draft trong các phase tiếp theo.</p>
-          <div class="module-meta"><span>IndexedDB v6</span><span>v5 migration</span><span>Local-first</span></div>
-          <span class="module-action">Mở lịch sử →</span>
-        </a>
-
-        <article class="module-card">
-          <div class="module-top"><span class="module-icon">L</span><span class="status planned">Phase B</span></div>
-          <h3>Listening</h3>
-          <p>Ngân hàng câu hỏi từ Google Sheet, audio theo task, giới hạn lượt nghe và transcript sau khi nộp bài.</p>
-          <div class="module-meta"><span>Audio links</span><span>Full test</span><span>Practice by Part</span></div>
-          <span class="module-action">Đang xây dựng</span>
-        </article>
-
-        <article class="module-card">
-          <div class="module-top"><span class="module-icon">S</span><span class="status planned">Phase C</span></div>
-          <h3>Speaking</h3>
-          <p>Câu hỏi theo Part, preparation timer, ghi âm bằng microphone, nghe lại và tải file recording.</p>
-          <div class="module-meta"><span>Record</span><span>Review</span><span>Download audio</span></div>
-          <span class="module-action">Đang xây dựng</span>
-        </article>
-
-        <article class="module-card">
-          <div class="module-top"><span class="module-icon">W</span><span class="status planned">Phase D</span></div>
-          <h3>Writing</h3>
-          <p>Full test theo common topic, luyện theo Part hoặc chủ đề, auto-save, export JSON và bản in PDF.</p>
-          <div class="module-meta"><span>Word count</span><span>Draft history</span><span>PDF / JSON</span></div>
-          <span class="module-action">Đang xây dựng</span>
-        </article>
-
-        <article class="module-card">
-          <div class="module-top"><span class="module-icon">☁</span><span class="status planned">Phase E</span></div>
-          <h3>Google Drive</h3>
-          <p>Đăng nhập tùy chọn và lưu JSON, PDF hoặc recording vào thư mục ForLanguage do người dùng cho phép.</p>
-          <div class="module-meta"><span>Optional login</span><span>drive.file</span><span>Local-first</span></div>
-          <span class="module-action">Đang thiết kế</span>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="roadmap">
-      <div class="section-heading">
-        <p class="eyebrow">IMPLEMENTATION ROADMAP</p>
-        <h2>Tiến độ triển khai</h2>
-        <p>Phase A đã hoàn thành việc tách module và tạo lớp lưu trữ dùng chung. Batch kế tiếp chuyển sang Listening schema, Google Sheet và audio task engine.</p>
-      </div>
-      <div class="roadmap">
-        <article><strong>✓ A1</strong><h3>Aptis dashboard</h3><p>Điểm vào chung cho năm phần thi và trạng thái từng module.</p></article>
-        <article><strong>✓ A2</strong><h3>Core + Reading</h3><p>Hai module độc lập, không đổi Question ID, ngân hàng hoặc chức năng review.</p></article>
-        <article><strong>✓ A3</strong><h3>Shared storage</h3><p>IndexedDB cho attempt và asset, tự động migrate lịch sử v5 và trang lịch sử dùng chung.</p></article>
-        <article><strong>→ B1</strong><h3>Listening data model</h3><p>Tạo schema Google Sheet, manifest và pipeline Sheet → JSON.</p></article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="dashboard-footer">
-    <div><strong>Aptis Practice v6</strong><br>Phase A2 · ForLanguage</div>
-    <div><a href="/aptis/history/">Lịch sử</a> · <a href="https://github.com/forlanguage/forlanguage.github.io">GitHub</a> · <a href="https://github.com/forlanguage/forlanguage.github.io/issues/new/choose">Đóng góp</a></div>
-  </footer>
+  <section class="section" id="roadmap"><div class="section-heading"><p class="eyebrow">STATUS</p><h2>Phạm vi đã hoàn thành</h2></div><div class="roadmap"><article><strong>✓</strong><h3>Core + Reading</h3><p>Giữ Question ID, review, retry và ngân hàng hiện tại.</p></article><article><strong>✓</strong><h3>Shared storage</h3><p>IndexedDB cho attempt và asset, cùng trang lịch sử chung.</p></article><article><strong>✓</strong><h3>Listening MVP</h3><p>Player demo, giới hạn lượt nghe, submit và transcript.</p></article><article><strong>✓</strong><h3>Speaking + Writing MVP</h3><p>Recording, autosave, export và print workflow.</p></article></div></section>
+</main>
+<footer class="dashboard-footer"><div><strong>Aptis Practice v6</strong><br>ForLanguage</div><div><a href="/aptis/history/">Lịch sử</a> · <a href="https://github.com/forlanguage/forlanguage.github.io">GitHub</a> · <a href="https://github.com/forlanguage/forlanguage.github.io/issues/new/choose">Đóng góp</a></div></footer>
 </body>
 </html>
