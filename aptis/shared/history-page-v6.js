@@ -1,100 +1,23 @@
 (() => {
   "use strict";
-
-  const q = (selector) => document.querySelector(selector);
-  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));
-  const fmt = (iso) => { try { return iso ? new Intl.DateTimeFormat("vi-VN", { dateStyle: "short", timeStyle: "short" }).format(new Date(iso)) : "—"; } catch { return iso || "—"; } };
-  const moduleName = (value) => ({core:"Grammar & Vocabulary",reading:"Reading",listening:"Listening",speaking:"Speaking",writing:"Writing",unknown:"Khác"})[value] || value || "Khác";
-  const byteText = (bytes) => { const value=Number(bytes||0); if(value<1024)return `${value} B`; if(value<1024**2)return `${(value/1024).toFixed(1)} KB`; return `${(value/1024**2).toFixed(1)} MB`; };
-  let rows = [];
-  const objectUrls = new Set();
-
-  function downloadJson(data, filename) {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json;charset=utf-8" }));
-    const anchor = document.createElement("a"); anchor.href = url; anchor.download = filename; anchor.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
-
-  function filteredRows() {
-    const module = q("#moduleFilter").value;
-    const term = q("#historySearch").value.trim().toLowerCase();
-    return rows.filter((row) => {
-      if (module !== "all" && row.module !== module) return false;
-      if (!term) return true;
-      return JSON.stringify({attempt_id:row.attempt_id,module:row.module,test_id:row.test_id,mode:row.mode,mode_label:row.mode_label,responses:(row.responses||[]).map((answer)=>answer.item_id||answer.task_id)}).toLowerCase().includes(term);
-    });
-  }
-
-  function scoreText(row) {
-    if (row.score?.total) return `${row.score.correct}/${row.score.total} (${row.score.percent ?? "—"}%)`;
-    if (Number.isFinite(Number(row.completed)) && Number.isFinite(Number(row.total))) return `${row.completed}/${row.total} hoàn thành`;
-    return row.status === "in_progress" ? "Đang làm" : "Hoàn thành";
-  }
-
-  async function updateSummary() {
-    const summary = await AptisAttemptStore.getStorageSummary();
-    const totalQuestions = rows.reduce((sum,row)=>sum+Number(row.score?.total||0),0);
-    q("#historySummary").innerHTML=`<strong>${rows.length} lượt làm</strong><br><span>${totalQuestions.toLocaleString("vi-VN")} câu · ${summary.assets} assets · ${summary.drafts} drafts</span>`;
-    const quota = summary.quota ? `${byteText(summary.usage)} / ${byteText(summary.quota)}` : `${byteText(summary.asset_bytes)} recording assets`;
-    q("#storageSummary").innerHTML=`<strong>IndexedDB v2 · Contract ${AptisAttemptStore.contractVersion}</strong><span>${quota}</span><a href="/aptis/contracts/attempt-contract-v2.json">Xem data contract</a>`;
-  }
-
-  function render() {
-    const visible = filteredRows();
-    q("#historyRows").innerHTML = visible.length ? visible.map((row) => `<tr>
-      <td>${esc(fmt(row.submitted_at||row.updated_at))}</td>
-      <td><span class="badge">${esc(moduleName(row.module))}</span></td>
-      <td><strong>${esc(row.mode_label||row.mode||row.test_id||"Bài luyện")}</strong><br><small>${esc(row.test_id||row.attempt_id)}</small></td>
-      <td>${esc(scoreText(row))}</td>
-      <td>${row.migrated_from_legacy?"Migrated v5":"IndexedDB v2"}${row.synced_to_drive?" · Drive":""}</td>
-      <td><div class="row-actions"><button data-review="${esc(row.attempt_id)}">Review</button><button data-json="${esc(row.attempt_id)}">JSON</button><button data-delete="${esc(row.attempt_id)}">Xóa</button></div></td>
-    </tr>`).join("") : `<tr><td class="empty" colspan="6">Không có kết quả phù hợp.</td></tr>`;
-
-    document.querySelectorAll("[data-review]").forEach((button)=>button.onclick=()=>openReview(button.dataset.review));
-    document.querySelectorAll("[data-json]").forEach((button)=>button.onclick=()=>{const row=rows.find((item)=>item.attempt_id===button.dataset.json);if(row)downloadJson(row,`aptis-${row.module}-${row.attempt_id}.json`);});
-    document.querySelectorAll("[data-delete]").forEach((button)=>button.onclick=async()=>{const id=button.dataset.delete;if(!confirm("Xóa attempt và toàn bộ asset liên quan khỏi thiết bị?"))return;await AptisAttemptStore.deleteAttempt(id);await load();});
-    updateSummary().catch(console.error);
-  }
-
-  function responseCard(response, index) {
-    const correct = response.is_correct === true;
-    const wrong = response.is_correct === false;
-    const title = response.question || response.prompt || response.item_id || response.task_id || `Response ${index+1}`;
-    const body = response.text || response.response || response.note || "";
-    return `<article class="review-card ${correct?"correct":wrong?"wrong":""}"><small>${esc(response.item_id||response.task_id||`#${index+1}`)}${response.part?` · Part ${esc(response.part)}`:""}</small><h3>${esc(title)}</h3>${body?`<p class="response-text">${esc(body)}</p>`:""}${response.user_label||response.correct_label?`<p>Bạn chọn: <strong>${esc(response.user_label||"Chưa trả lời")}</strong> · Đáp án: <strong>${esc(response.correct_label||response.correct||"—")}</strong></p>`:""}${response.explanation_vi?`<p>${esc(response.explanation_vi)}</p>`:""}</article>`;
-  }
-
-  async function speakingAssets(row) {
-    const assets = await AptisAttemptStore.listAssets(row.attempt_id);
-    if (!assets.length) return `<p class="empty-card">Không tìm thấy recording cho attempt này.</p>`;
-    return assets.map((asset)=>{
-      const url=asset.blob?URL.createObjectURL(asset.blob):"";if(url)objectUrls.add(url);
-      return `<article class="review-card"><small>${esc(asset.task_id||asset.asset_id)}</small><h3>Speaking recording</h3>${url?`<audio controls src="${url}"></audio><a class="download-link" href="${url}" download="${esc(asset.task_id||asset.asset_id)}.${asset.mime_type?.includes("mp4")?"m4a":asset.mime_type?.includes("ogg")?"ogg":"webm"}">Tải recording</a>`:"<p>Asset không có Blob.</p>"}<button data-delete-asset="${esc(asset.asset_id)}">Xóa recording</button></article>`;
-    }).join("");
-  }
-
-  async function openReview(attemptId) {
-    objectUrls.forEach((url)=>URL.revokeObjectURL(url)); objectUrls.clear();
-    const row = rows.find((item)=>item.attempt_id===attemptId); if(!row)return;
-    q("#reviewTitle").textContent=`${moduleName(row.module)} · ${row.test_id||row.mode_label}`;
-    let body=`<section class="attempt-meta"><span>${esc(row.attempt_id)}</span><span>${esc(fmt(row.submitted_at||row.updated_at))}</span><span>${esc(scoreText(row))}</span><span>${esc(row.status)}</span></section>`;
-    if(row.module==="speaking") body+=await speakingAssets(row);
-    const responses=row.responses||row.answers||[];
-    if(row.module==="writing") {
-      body+=responses.map((task,index)=>`<article class="review-card"><small>${esc(task.task_id||`Part ${task.part||index+1}`)}</small><h3>Part ${esc(task.part||index+1)}</h3>${(task.responses||[]).map((item)=>`<div class="writing-response"><p>${esc(item.text||"")}</p><small>${Number(item.word_count||0)} words</small></div>`).join("")}</article>`).join("");
-    } else if(row.module!=="speaking") body+=responses.length?responses.map(responseCard).join(""):`<p class="empty-card">Attempt chưa có response chi tiết.</p>`;
-    q("#reviewContent").innerHTML=body;
-    q("#reviewDialog").showModal();
-    document.querySelectorAll("[data-delete-asset]").forEach((button)=>button.onclick=async()=>{if(!confirm("Xóa recording này?"))return;await AptisAttemptStore.deleteAsset(button.dataset.deleteAsset);await openReview(attemptId);await updateSummary();});
-  }
-
-  async function load() { await AptisAttemptStore.migrateLegacyHistory(); rows=await AptisAttemptStore.listAttempts(); render(); }
-
-  q("#moduleFilter").addEventListener("change",render);
-  q("#historySearch").addEventListener("input",render);
-  q("#refreshHistory").onclick=load;
-  q("#exportHistory").onclick=async()=>downloadJson(await AptisAttemptStore.exportBackup(),`aptis-backup-${new Date().toISOString().slice(0,10)}.json`);
-  q("#importHistory").addEventListener("change",async(event)=>{const file=event.target.files?.[0];if(!file)return;try{const result=await AptisAttemptStore.importBackup(JSON.parse(await file.text()));alert(`Đã import ${result.attempts} attempts và ${result.drafts} drafts.`);await load();}catch(error){alert(`Không thể import: ${error.message}`);}event.target.value="";});
-  q("#reviewDialog").addEventListener("close",()=>{objectUrls.forEach((url)=>URL.revokeObjectURL(url));objectUrls.clear();});
-  document.addEventListener("aptis:history-synced",load);
-  load().catch((error)=>{console.error(error);q("#historyRows").innerHTML=`<tr><td class="empty" colspan="6">Không thể tải lịch sử: ${esc(error.message||error)}</td></tr>`;});
+  const q=s=>document.querySelector(s);const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  const fmt=iso=>{try{return iso?new Intl.DateTimeFormat("vi-VN",{dateStyle:"short",timeStyle:"short"}).format(new Date(iso)):"—"}catch{return iso||"—"}};
+  const names={core:"Grammar & Vocabulary",reading:"Reading",listening:"Listening",speaking:"Speaking",writing:"Writing",unknown:"Khác"};
+  let rows=[],drafts=[];const objectUrls=new Set();
+  function downloadJson(data,name){const u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));const a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),800)}
+  function moduleName(v){return names[v]||v||"Khác"}function scoreText(r){if(r.score?.total)return`${r.score.correct}/${r.score.total} (${r.score.percent??"—"}%)`;if(Number.isFinite(Number(r.completed)))return`${r.completed}/${r.total} hoàn thành`;return r.status==="in_progress"?"Đang làm":"Hoàn thành"}
+  function filteredRows(){const m=q("#moduleFilter").value,t=q("#historySearch").value.trim().toLowerCase();return rows.filter(r=>(m==="all"||r.module===m)&&(!t||JSON.stringify(r).toLowerCase().includes(t)))}
+  function actions(r){let x=`<button data-review="${esc(r.attempt_id)}">Review</button>`;if(r.status==="in_progress")x+=`<button data-resume="${esc(r.attempt_id)}">Tiếp tục</button>`;if(r.module==="writing")x+=`<button data-restore="${esc(r.attempt_id)}">Tạo draft</button>`;if(r.module==="listening"&&(r.responses||[]).some(a=>a.is_correct===false))x+=`<button data-retry-wrong="${esc(r.attempt_id)}">Làm lại câu sai</button>`;return x+`<button data-json="${esc(r.attempt_id)}">JSON</button><button data-delete="${esc(r.attempt_id)}">Xóa</button>`}
+  async function updateSummary(){const s=await AptisAttemptStore.getStorageSummary();q("#historySummary").innerHTML=`<strong>${rows.length} lượt làm</strong><br><span>${s.assets} recordings · ${s.drafts} drafts</span>`;q("#storageSummary").innerHTML=`<strong>Contract ${AptisAttemptStore.contractVersion}</strong><span>IndexedDB v2 · local-first</span><a href="/aptis/contracts/attempt-contract-v2.json">Xem contract</a>`}
+  function render(){const visible=filteredRows();q("#historyRows").innerHTML=visible.length?visible.map(r=>`<tr><td>${esc(fmt(r.submitted_at||r.updated_at))}</td><td><span class="badge">${esc(moduleName(r.module))}</span></td><td><strong>${esc(r.mode_label||r.test_id||"Bài luyện")}</strong><br><small>${esc(r.test_id||r.attempt_id)}</small></td><td>${esc(scoreText(r))}</td><td>${r.migrated_from_legacy?"Migrated v5":"IndexedDB v2"}</td><td><div class="row-actions">${actions(r)}</div></td></tr>`).join(""):`<tr><td class="empty" colspan="6">Không có kết quả phù hợp.</td></tr>`;bind();renderDrafts();updateSummary()}
+  function renderDrafts(){let host=q("#draftManager");if(!host){host=document.createElement("section");host.id="draftManager";host.className="draft-manager";q(".history-table-wrap").after(host)}host.innerHTML=`<div class="draft-head"><div><p class="eyebrow">DRAFT MANAGER</p><h2>Draft đang lưu</h2></div><span>${drafts.length} drafts</span></div>${drafts.length?drafts.map(d=>`<article><div><strong>${esc(d.test_id)} · ${esc(d.mode||"full")}</strong><small>${esc(fmt(d.updated_at))}</small></div><div class="row-actions"><button data-open-draft="${esc(d.draft_id)}">Mở</button><button data-download-draft="${esc(d.draft_id)}">JSON</button><button data-delete-draft="${esc(d.draft_id)}">Xóa</button></div></article>`).join(""):`<p class="empty-card">Chưa có draft.</p>`;document.querySelectorAll("[data-open-draft]").forEach(b=>b.onclick=()=>openDraft(b.dataset.openDraft));document.querySelectorAll("[data-download-draft]").forEach(b=>b.onclick=()=>{const d=drafts.find(x=>x.draft_id===b.dataset.downloadDraft);if(d)downloadJson(d,`${d.draft_id}.json`)});document.querySelectorAll("[data-delete-draft]").forEach(b=>b.onclick=async()=>{if(confirm("Xóa draft này?")){await AptisAttemptStore.deleteDraft(b.dataset.deleteDraft);await load()}})}
+  function bind(){document.querySelectorAll("[data-review]").forEach(b=>b.onclick=()=>openReview(b.dataset.review));document.querySelectorAll("[data-json]").forEach(b=>b.onclick=()=>{const r=rows.find(x=>x.attempt_id===b.dataset.json);if(r)downloadJson(r,`aptis-${r.module}-${r.attempt_id}.json`)});document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=async()=>{if(confirm("Xóa attempt và assets liên quan?")){await AptisAttemptStore.deleteAttempt(b.dataset.delete);await load()}});document.querySelectorAll("[data-restore]").forEach(b=>b.onclick=()=>restoreWriting(b.dataset.restore));document.querySelectorAll("[data-retry-wrong]").forEach(b=>b.onclick=()=>retryWrong(b.dataset.retryWrong));document.querySelectorAll("[data-resume]").forEach(b=>b.onclick=()=>resumeAttempt(b.dataset.resume))}
+  async function restoreWriting(id){const r=rows.find(x=>x.attempt_id===id);const draft={draft_id:`writing:${r.test_id}:${r.mode||"full"}`,module:"writing",test_id:r.test_id,mode:r.mode||"full",title:r.mode_label,responses:r.responses||[],source_attempt_id:id,status:"in_progress"};await AptisAttemptStore.saveDraft(draft);location.href=`/aptis/writing/?draft=${encodeURIComponent(draft.draft_id)}`}
+  function retryWrong(id){const r=rows.find(x=>x.attempt_id===id);const wrong=(r.responses||[]).filter(x=>x.is_correct===false).map(x=>x.item_id);sessionStorage.setItem("aptisListeningRetryWrong",JSON.stringify({test_id:r.test_id,item_ids:wrong,source_attempt_id:id}));location.href="/aptis/listening/?retry=wrong"}
+  function resumeAttempt(id){const r=rows.find(x=>x.attempt_id===id);if(r.module==="writing")return restoreWriting(id);sessionStorage.setItem("aptisResumeAttempt",JSON.stringify(r));location.href=`/aptis/${r.module}/?resume=${encodeURIComponent(id)}`}
+  function responseCard(x,i){return`<article class="review-card ${x.is_correct===true?"correct":x.is_correct===false?"wrong":""}"><small>${esc(x.item_id||x.task_id||`#${i+1}`)}</small><h3>${esc(x.question||x.prompt||"Response")}</h3>${x.text?`<p class="response-text">${esc(x.text)}</p>`:""}${x.user_label||x.correct_label?`<p>Bạn chọn: <strong>${esc(x.user_label||"Chưa trả lời")}</strong> · Đáp án: <strong>${esc(x.correct_label||"—")}</strong></p>`:""}${x.explanation_vi?`<p>${esc(x.explanation_vi)}</p>`:""}</article>`}
+  async function openReview(id){objectUrls.forEach(URL.revokeObjectURL);objectUrls.clear();const r=rows.find(x=>x.attempt_id===id);q("#reviewTitle").textContent=`${moduleName(r.module)} · ${r.test_id||r.mode_label}`;let body=`<section class="attempt-meta"><span>${esc(r.attempt_id)}</span><span>${esc(fmt(r.submitted_at||r.updated_at))}</span><span>${esc(scoreText(r))}</span></section>`;if(r.module==="speaking"){const assets=await AptisAttemptStore.listAssets(id);body+=assets.length?assets.map(a=>{const u=URL.createObjectURL(a.blob);objectUrls.add(u);return`<article class="review-card"><h3>${esc(a.task_id||a.asset_id)}</h3><audio controls src="${u}"></audio><a href="${u}" download="${esc(a.task_id||a.asset_id)}.webm">Tải recording</a></article>`}).join(""):`<p class="empty-card">Không có recording.</p>`}else if(r.module==="writing")body+=(r.responses||[]).map(t=>`<article class="review-card"><h3>Part ${esc(t.part||"")}</h3>${(t.responses||[]).map(x=>`<div class="writing-response"><p>${esc(x.text||"")}</p><small>${x.word_count||0} words</small></div>`).join("")}</article>`).join("");else body+=(r.responses||[]).map(responseCard).join("")||`<p class="empty-card">Chưa có response chi tiết.</p>`;q("#reviewContent").innerHTML=body;q("#reviewDialog").showModal()}
+  function openDraft(id){location.href=`/aptis/writing/?draft=${encodeURIComponent(id)}`}
+  async function load(){await AptisAttemptStore.migrateLegacyHistory();[rows,drafts]=await Promise.all([AptisAttemptStore.listAttempts(),AptisAttemptStore.listDrafts()]);render()}
+  q("#moduleFilter").onchange=render;q("#historySearch").oninput=render;q("#refreshHistory").onclick=load;q("#exportHistory").onclick=async()=>downloadJson(await AptisAttemptStore.exportBackup(),`aptis-backup-${new Date().toISOString().slice(0,10)}.json`);q("#importHistory").onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const r=await AptisAttemptStore.importBackup(JSON.parse(await f.text()));alert(`Đã import ${r.attempts} attempts và ${r.drafts} drafts.`);await load()}catch(err){alert(err.message)}e.target.value=""};q("#reviewDialog").addEventListener("close",()=>{objectUrls.forEach(URL.revokeObjectURL);objectUrls.clear()});load().catch(console.error);
 })();
