@@ -3,16 +3,26 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#153e75">
   <title>Aptis Writing · ForLanguage</title>
-  <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=2"><link rel="stylesheet" href="/aptis/writing/writing-v6.css?v=1">
+  <link rel="stylesheet" href="/aptis/dashboard-v6.css?v=2"><link rel="stylesheet" href="/aptis/writing/writing-v6.css?v=2">
 </head>
 <body data-aptis-module="writing">
-<header class="aptis-nav"><a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">W</span><span><strong>Aptis Writing</strong><small>Draft · version history · tab safety</small></span></a><nav class="aptis-nav-links"><a href="/aptis/history/">Lịch sử</a><a href="/aptis/speaking/">Speaking</a><a class="primary-link" href="/aptis/">Dashboard</a></nav></header>
+<header class="aptis-nav"><a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">W</span><span><strong>Aptis Writing</strong><small>Editor v2 · autosave · recovery</small></span></a><nav class="aptis-nav-links"><a href="/aptis/history/">Lịch sử</a><a href="/aptis/speaking/">Speaking</a><a class="primary-link" href="/aptis/">Dashboard</a></nav></header>
 <main class="writing-page">
-  <section class="writing-hero"><div><p class="eyebrow">APTIS v6 · WRITING</p><h1>Luyện full test, tự động lưu và phục hồi các phiên bản draft.</h1><p>Draft hiện tại nằm trong IndexedDB; tối đa 20 phiên bản gần nhất được giữ. Draft resume được khóa theo tab.</p></div><aside><strong id="timer">50:00</strong><span>Thời gian còn lại</span><button id="startTimer" type="button">Bắt đầu tính giờ</button></aside></section>
-  <section class="writing-toolbar"><label>Bộ đề <select id="testSelect"><option value="WT01">WT01 · Community Technology Club</option></select></label><label>Chế độ <select id="modeSelect"><option value="full">Full test</option><option value="part1">Part 1</option><option value="part2">Part 2</option><option value="part3">Part 3</option><option value="part4">Part 4</option></select></label><button id="loadTest" type="button">Mở bài</button><button id="exportJson" type="button" disabled>Export JSON</button><button id="printPdf" type="button" disabled>In / Save PDF</button></section>
+  <section class="writing-hero"><div><p class="eyebrow">M6.3B · WRITING EDITOR V2</p><h1>Làm bài theo từng Part, theo dõi tiến độ và phục hồi an toàn.</h1><p>Full Test mô phỏng điều kiện thi; Practice cho phép kiểm tra chính tả và luyện riêng từng phần.</p></div><aside class="timer-card"><strong id="timer">50:00</strong><span id="timerState">Chưa bắt đầu</span><button id="startTimer" type="button">Bắt đầu</button><button id="pauseTimer" type="button" disabled>Tạm dừng</button></aside></section>
+
+  <section class="writing-toolbar">
+    <label>Bộ đề<select id="testSelect"><option value="WT01">Đang tải…</option></select></label>
+    <label>Phạm vi<select id="modeSelect"><option value="full">Full test</option><option value="part1">Part 1</option><option value="part2">Part 2</option><option value="part3">Part 3</option><option value="part4">Part 4</option></select></label>
+    <label>Chế độ<select id="examModeSelect"><option value="practice">Practice</option><option value="exam">Full Test</option></select></label>
+    <button id="loadTest" type="button">Mở bài</button><button id="focusMode" type="button">Focus mode</button><button id="exportJson" type="button" disabled>Export JSON</button><button id="printPdf" type="button" disabled>In / PDF</button>
+  </section>
+
+  <section id="editorStatus" class="editor-status" aria-live="polite"><span id="draftStatus">Chưa mở bài</span><span id="completionSummary">0/0 task hoàn thành</span><span id="wordSummary">0 từ</span></section>
+  <nav id="partNavigation" class="part-navigation" aria-label="Điều hướng Writing" hidden></nav>
   <section id="writingHost" class="writing-host"></section>
   <section class="writing-actions"><button id="saveDraft" type="button" disabled>Lưu draft</button><button id="submitWriting" type="button" disabled>Hoàn thành bài</button></section>
 </main>
-<script src="/aptis/shared/attempt-store-v6.js?v=2"></script><script src="/aptis/shared/draft-version-store-v3.js?v=1"></script><script src="/aptis/shared/tab-lock-v1.js?v=1"></script><script src="/aptis/writing/writing-v6.js?v=2"></script><script src="/aptis/writing/writing-recovery-v2.js?v=3"></script><script src="/aptis/shared/active-resource-lock-v1.js?v=1"></script>
+<dialog id="submitDialog" class="submit-dialog"><form method="dialog"><h2>Xác nhận nộp bài</h2><p id="submitMessage"></p><div><button value="cancel">Quay lại</button><button id="confirmSubmit" value="confirm">Nộp bài</button></div></form></dialog>
+<script src="/aptis/shared/attempt-store-v6.js?v=2"></script><script src="/aptis/shared/draft-version-store-v3.js?v=1"></script><script src="/aptis/shared/tab-lock-v1.js?v=1"></script><script src="/aptis/writing/writing-v6.js?v=3"></script><script src="/aptis/writing/writing-recovery-v2.js?v=3"></script><script src="/aptis/shared/active-resource-lock-v1.js?v=1"></script>
 </body>
 </html>

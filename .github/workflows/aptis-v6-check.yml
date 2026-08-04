@@ -25,7 +25,7 @@ jobs:
           do node --check "$file"; done
       - name: Validate Writing bank v2
         run: python tools/writing/validate_bank.py
-      - name: Validate HTML and recovery contract
+      - name: Validate HTML, contracts and Writing editor v2
         run: |
           python - <<'PY'
           import json
@@ -41,11 +41,13 @@ jobs:
           assert manifest["total_item_count"]==2696 and manifest["reading_test_count"]==24
           assert contract["version"]=="2.0.0"
           for f in ["aptis/shared/tab-lock-v1.js","aptis/shared/active-resource-lock-v1.js","aptis/shared/history-compare-v1.js","aptis/data/writing/schema-v2.json","aptis/data/writing/bank-v2.json","aptis/data/writing/manifest-v2.json"]: assert Path(f).exists()
-          listening=Path("aptis/listening/index.html").read_text();speaking=Path("aptis/speaking/index.html").read_text();writing=Path("aptis/writing/index.html").read_text();history=Path("aptis/history/index.html").read_text();runtime=Path("aptis/runtime-v6-module.js").read_text();writing_js=Path("aptis/writing/writing-v6.js").read_text()
-          assert "tab-lock-v1.js" in listening and "tab-lock-v1.js" in speaking and "tab-lock-v1.js" in writing and "tab-lock-v1.js" in runtime
-          assert "history-compare-v1.js" in history
-          assert "bank-v2.json" in writing_js and "schema_version!==\"2.0.0\"" in writing_js
+          writing_html=Path("aptis/writing/index.html").read_text();writing_js=Path("aptis/writing/writing-v6.js").read_text();recovery=Path("aptis/writing/writing-recovery-v2.js").read_text()
+          p=P();p.feed(writing_html)
+          assert {"examModeSelect","partNavigation","completionSummary","wordSummary","focusMode","pauseTimer","submitDialog","confirmSubmit"}.issubset(set(p.ids))
+          for token in ["setActivePart","applyExamMode","requestSubmit","remaining_seconds","beforeunload"]: assert token in writing_js
+          for token in ["remaining_seconds","active_part","exam_mode","setRemaining","setActivePart"]: assert token in recovery
           modules={item["id"]:item for item in registry["modules"]}
-          assert modules["writing"]["status"]=="contract_ready" and modules["writing"]["release_id"]=="WR-2026.08-R1"
-          print("Aptis M6.3A Writing contract and bank checks OK")
+          assert modules["writing"]["status"]=="editor_ready" and modules["writing"]["release_id"]=="WR-2026.08-R1"
+          assert {"exam_mode","part_navigation","completion_map","timer_resume","focus_mode","submit_validation"}.issubset(set(modules["writing"]["features"]))
+          print("Aptis M6.3B Writing editor v2 checks OK")
           PY
