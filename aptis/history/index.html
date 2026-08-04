@@ -10,65 +10,18 @@
   <link rel="stylesheet" href="/aptis/history-v6.css?v=2">
 </head>
 <body>
-  <header class="aptis-nav">
-    <a class="aptis-brand" href="/aptis/">
-      <span class="aptis-brand-mark">H</span>
-      <span><strong>Aptis Review Center</strong><small>Contract v2 · Local-first</small></span>
-    </a>
-    <nav class="aptis-nav-links">
-      <a href="/aptis/listening/">Listening</a>
-      <a href="/aptis/speaking/">Speaking</a>
-      <a href="/aptis/writing/">Writing</a>
-      <a class="primary-link" href="/aptis/">Dashboard</a>
-    </nav>
-  </header>
-
+  <header class="aptis-nav"><a class="aptis-brand" href="/aptis/"><span class="aptis-brand-mark">H</span><span><strong>Aptis Review Center</strong><small>M6.5C · Resume and recovery</small></span></a><nav class="aptis-nav-links"><a href="/aptis/listening/">Listening</a><a href="/aptis/speaking/">Speaking</a><a href="/aptis/writing/">Writing</a><a class="primary-link" href="/aptis/">Dashboard</a></nav></header>
   <main class="history-page">
-    <section class="history-hero">
-      <div>
-        <p class="eyebrow">M6.1 + M6.5</p>
-        <h1>Lịch sử, review và quản lý dữ liệu học tập</h1>
-        <p>Tất cả attempt được chuẩn hóa theo contract v2. Recording Speaking được đọc từ IndexedDB; Writing và Listening có review nội dung ngay tại đây.</p>
-      </div>
-      <div class="history-summary" id="historySummary">Đang tải dữ liệu…</div>
-    </section>
-
+    <section class="history-hero"><div><p class="eyebrow">M6.1 + M6.5C</p><h1>Lịch sử, review và phục hồi phiên học</h1><p>Tiếp tục Core, Reading và Speaking; phục hồi Writing draft và tối đa 20 phiên bản gần nhất.</p></div><div class="history-summary" id="historySummary">Đang tải dữ liệu…</div></section>
     <section class="storage-panel" id="storageSummary">Đang kiểm tra dung lượng…</section>
-
-    <section class="history-toolbar">
-      <label>Module
-        <select id="moduleFilter">
-          <option value="all">Tất cả</option>
-          <option value="core">Grammar & Vocabulary</option>
-          <option value="reading">Reading</option>
-          <option value="listening">Listening</option>
-          <option value="speaking">Speaking</option>
-          <option value="writing">Writing</option>
-        </select>
-      </label>
-      <label>Tìm kiếm
-        <input id="historySearch" type="search" placeholder="Test ID, mode, Question ID…">
-      </label>
-      <button id="refreshHistory" type="button">Làm mới</button>
-      <button id="exportHistory" type="button">Export backup</button>
-      <label class="import-button">Import backup<input id="importHistory" type="file" accept="application/json,.json" hidden></label>
-    </section>
-
-    <section class="history-table-wrap">
-      <table>
-        <thead><tr><th>Thời gian</th><th>Module</th><th>Bài</th><th>Kết quả</th><th>Storage</th><th>Thao tác</th></tr></thead>
-        <tbody id="historyRows"><tr><td colspan="6">Đang tải…</td></tr></tbody>
-      </table>
-    </section>
+    <section class="history-toolbar"><label>Module<select id="moduleFilter"><option value="all">Tất cả</option><option value="core">Grammar & Vocabulary</option><option value="reading">Reading</option><option value="listening">Listening</option><option value="speaking">Speaking</option><option value="writing">Writing</option></select></label><label>Tìm kiếm<input id="historySearch" type="search" placeholder="Test ID, mode, Question ID…"></label><button id="refreshHistory" type="button">Làm mới</button><button id="exportHistory" type="button">Export backup</button><label class="import-button">Import backup<input id="importHistory" type="file" accept="application/json,.json" hidden></label></section>
+    <section class="history-table-wrap"><table><thead><tr><th>Thời gian</th><th>Module</th><th>Bài</th><th>Kết quả</th><th>Storage</th><th>Thao tác</th></tr></thead><tbody id="historyRows"><tr><td colspan="6">Đang tải…</td></tr></tbody></table></section>
   </main>
-
-  <dialog id="reviewDialog" class="review-dialog">
-    <form method="dialog" class="dialog-head"><div><p class="eyebrow">ATTEMPT REVIEW</p><h2 id="reviewTitle">Review</h2></div><button value="close" aria-label="Đóng">✕</button></form>
-    <div id="reviewContent" class="review-content"></div>
-  </dialog>
-
+  <dialog id="reviewDialog" class="review-dialog"><form method="dialog" class="dialog-head"><div><p class="eyebrow">ATTEMPT REVIEW</p><h2 id="reviewTitle">Review</h2></div><button value="close" aria-label="Đóng">✕</button></form><div id="reviewContent" class="review-content"></div></dialog>
   <script src="/aptis/shared/attempt-store-v6.js?v=2"></script>
+  <script src="/aptis/shared/draft-version-store-v3.js?v=1"></script>
   <script src="/aptis/shared/history-bridge-v6.js?v=1"></script>
-  <script src="/aptis/shared/history-page-v6.js?v=2"></script>
+  <script src="/aptis/shared/history-page-v6.js?v=3"></script>
+  <script src="/aptis/shared/history-draft-versions-v3.js?v=1"></script>
 </body>
 </html>
