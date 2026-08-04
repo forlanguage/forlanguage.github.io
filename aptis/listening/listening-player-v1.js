@@ -2,14 +2,20 @@
   "use strict";
 
   const $ = (selector) => document.querySelector(selector);
-  const state = { bank: null, test: null, task: null, playCount: 0, selected: null, submitted: false };
   const labels = "ABCDEFGHIJ";
+  const state = {
+    bank: null,
+    test: null,
+    taskIndex: 0,
+    playCounts: {},
+    answers: {},
+    submitted: false,
+    startedAt: null
+  };
 
-  function escapeHtml(value) {
-    return String(value ?? "").replace(/[&<>"']/g, (char) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-    })[char]);
-  }
+  const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+  })[char]);
 
   async function loadJson(path) {
     const response = await fetch(path, { cache: "no-store" });
@@ -20,156 +26,181 @@
   function updateStatus(manifest) {
     $("#listeningStatus").innerHTML = `
       <strong>${escapeHtml(manifest.status)}</strong>
-      <span>${manifest.test_count} test · ${manifest.task_count} task · ${manifest.audio_count} audio · ${manifest.item_count} item</span>
-      <span>Published tests: ${manifest.published_test_count} · Demo tests: ${manifest.demo_test_count}</span>
+      <span>${manifest.test_count} test · ${manifest.task_count} tasks · ${manifest.item_count} items</span>
       <span>Version ${escapeHtml(manifest.version)}</span>`;
   }
 
-  function renderPractice() {
-    const item = state.task.items[0];
+  function ensureSelector() {
+    const host = $("#practiceHost");
+    host.innerHTML = `
+      <div class="practice-card test-picker">
+        <label>Chọn bộ Listening
+          <select id="listeningTestSelect">
+            ${state.bank.tests.map((test) => `<option value="${test.test_id}">${test.test_id} · ${escapeHtml(test.title)}</option>`).join("")}
+          </select>
+        </label>
+        <button id="startListeningBtn" type="button">Bắt đầu</button>
+      </div>`;
+    $("#startListeningBtn").addEventListener("click", () => {
+      state.test = state.bank.tests.find((test) => test.test_id === $("#listeningTestSelect").value);
+      state.taskIndex = 0;
+      state.playCounts = {};
+      state.answers = {};
+      state.submitted = false;
+      state.startedAt = new Date().toISOString();
+      renderTask();
+    });
+  }
+
+  function currentTask() {
+    return state.test.tasks[state.taskIndex];
+  }
+
+  function renderTask() {
+    speechSynthesis?.cancel?.();
+    const task = currentTask();
+    const playCount = state.playCounts[task.task_id] || 0;
     $("#practiceHost").innerHTML = `
       <article class="practice-card">
         <div class="practice-meta">
-          <span>${escapeHtml(state.test.test_id)}</span>
-          <span>Part ${state.task.part}</span>
-          <span>${escapeHtml(item.item_id)}</span>
-          <span>${escapeHtml(state.test.level)}</span>
+          <span>${state.test.test_id}</span><span>Part ${task.part}</span>
+          <span>Task ${state.taskIndex + 1}/${state.test.tasks.length}</span><span>${state.test.level}</span>
         </div>
-        <h2>${escapeHtml(state.task.instructions_vi)}</h2>
+        <h2>${escapeHtml(task.instructions_vi)}</h2>
         <div class="audio-panel">
-          <button id="playAudioBtn" type="button">▶ Nghe audio</button>
-          <span id="playCounter">Lượt nghe: 0/${state.task.max_plays}</span>
-          <small>${state.task.audio.audio_url ? "Audio file" : "Demo dùng giọng đọc của trình duyệt vì file audio chưa publish."}</small>
+          <button id="playAudioBtn" type="button" ${playCount >= task.max_plays ? "disabled" : ""}>▶ Nghe audio</button>
+          <span id="playCounter">Lượt nghe: ${playCount}/${task.max_plays}</span>
+          <small>${task.audio.audio_url ? "Audio file" : "Bản demo dùng giọng đọc của trình duyệt."}</small>
           <audio id="audioElement" preload="metadata"></audio>
         </div>
-        <section class="question-block">
-          <h3>${escapeHtml(item.question)}</h3>
-          <div class="answer-list">
-            ${item.options.map((option, index) => `
-              <label><input type="radio" name="answer" value="${labels[index]}">
-              <b>${labels[index]}.</b> ${escapeHtml(option)}</label>`).join("")}
-          </div>
-        </section>
-        <div class="practice-actions">
-          <button id="submitListeningBtn" type="button">Nộp câu trả lời</button>
-          <button id="retryListeningBtn" type="button" hidden>Làm lại</button>
+        <div class="task-items">
+          ${task.items.map((item) => `
+            <section class="question-block">
+              <small>Question ID: ${item.item_id}</small>
+              <h3>${escapeHtml(item.question)}</h3>
+              <div class="answer-list">
+                ${item.options.map((option, index) => {
+                  const label = labels[index];
+                  const checked = state.answers[item.item_id] === label ? "checked" : "";
+                  return `<label><input type="radio" name="${item.item_id}" value="${label}" ${checked}><b>${label}.</b> ${escapeHtml(option)}</label>`;
+                }).join("")}
+              </div>
+            </section>`).join("")}
         </div>
-        <div id="listeningResult" class="listening-result" hidden></div>
+        <div class="practice-actions">
+          <button id="prevListeningBtn" type="button" ${state.taskIndex === 0 ? "disabled" : ""}>← Trước</button>
+          <button id="nextListeningBtn" type="button">${state.taskIndex === state.test.tasks.length - 1 ? "Nộp bài" : "Tiếp →"}</button>
+        </div>
       </article>`;
 
     $("#playAudioBtn").addEventListener("click", playAudio);
-    document.querySelectorAll('input[name="answer"]').forEach((input) => {
-      input.addEventListener("change", () => { state.selected = input.value; });
+    task.items.forEach((item) => {
+      document.querySelectorAll(`input[name="${item.item_id}"]`).forEach((input) => {
+        input.addEventListener("change", () => { state.answers[item.item_id] = input.value; });
+      });
     });
-    $("#submitListeningBtn").addEventListener("click", submitAnswer);
-    $("#retryListeningBtn").addEventListener("click", resetPractice);
+    $("#prevListeningBtn").addEventListener("click", () => { state.taskIndex -= 1; renderTask(); });
+    $("#nextListeningBtn").addEventListener("click", () => {
+      if (state.taskIndex < state.test.tasks.length - 1) {
+        state.taskIndex += 1;
+        renderTask();
+      } else {
+        submitTest();
+      }
+    });
   }
 
-  function speakFallback() {
+  function speakFallback(task) {
     if (!("speechSynthesis" in window)) {
-      alert("Trình duyệt không hỗ trợ bản đọc demo. Hãy dùng Chrome, Edge hoặc Safari mới.");
+      alert("Trình duyệt không hỗ trợ giọng đọc demo.");
       return false;
     }
     speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(state.task.audio.transcript);
-    utterance.lang = "en-US";
+    const utterance = new SpeechSynthesisUtterance(task.audio.transcript);
+    utterance.lang = "en-GB";
     utterance.rate = 0.92;
     speechSynthesis.speak(utterance);
     return true;
   }
 
   function playAudio() {
-    if (state.submitted) return;
-    if (state.playCount >= state.task.max_plays) return;
-    const audio = state.task.audio;
-    const element = $("#audioElement");
-    let started = false;
-
-    if (audio.audio_url) {
-      element.src = audio.audio_url;
-      element.currentTime = 0;
-      element.play().then(() => { started = true; }).catch(() => {
-        started = speakFallback();
-        if (started) incrementPlay();
-      });
-      element.onplay = () => {
-        if (!started) {
-          started = true;
-          incrementPlay();
-        }
-      };
-    } else {
-      started = speakFallback();
-      if (started) incrementPlay();
-    }
-  }
-
-  function incrementPlay() {
-    state.playCount += 1;
-    $("#playCounter").textContent = `Lượt nghe: ${state.playCount}/${state.task.max_plays}`;
-    if (state.playCount >= state.task.max_plays) {
-      $("#playAudioBtn").disabled = true;
-      $("#playAudioBtn").textContent = "Đã hết lượt nghe";
-    }
-  }
-
-  async function submitAnswer() {
-    if (!state.selected) {
-      alert("Hãy chọn một đáp án trước khi nộp.");
-      return;
-    }
-    const item = state.task.items[0];
-    const correct = state.selected === item.correct;
-    state.submitted = true;
-    document.querySelectorAll('input[name="answer"]').forEach((input) => { input.disabled = true; });
-    $("#playAudioBtn").disabled = true;
-    $("#submitListeningBtn").hidden = true;
-    $("#retryListeningBtn").hidden = false;
-    const result = $("#listeningResult");
-    result.hidden = false;
-    result.className = `listening-result ${correct ? "correct" : "wrong"}`;
-    result.innerHTML = `
-      <strong>${correct ? "Đúng" : "Chưa đúng"}</strong>
-      <p>Bạn chọn: ${escapeHtml(state.selected)} · Đáp án: ${escapeHtml(item.correct)} — ${escapeHtml(item.correct_value)}</p>
-      <p>${escapeHtml(item.explanation_vi)}</p>
-      <details><summary>Transcript sau khi nộp bài</summary><p>${escapeHtml(state.task.audio.transcript)}</p></details>`;
-
-    const record = {
-      attempt_id: `ATT-L-${Date.now()}`,
-      result_id: `ATT-L-${Date.now()}`,
-      module: "listening",
-      mode: "listening_demo",
-      mode_label: "Listening Part 1 demo",
-      test_id: state.test.test_id,
-      reading_test_id: null,
-      submitted_at: new Date().toISOString(),
-      score: { correct: correct ? 1 : 0, total: 1, percent: correct ? 100 : 0, blank: 0 },
-      answers: [{
-        item_id: item.item_id,
-        section: "Listening",
-        test_id: state.test.test_id,
-        part: state.task.part,
-        user_label: state.selected,
-        correct_label: item.correct,
-        is_correct: correct,
-        explanation_vi: item.explanation_vi
-      }],
-      play_count: state.playCount,
-      source: "forlanguage-listening-v1"
+    const task = currentTask();
+    const count = state.playCounts[task.task_id] || 0;
+    if (count >= task.max_plays) return;
+    const increment = () => {
+      state.playCounts[task.task_id] = count + 1;
+      $("#playCounter").textContent = `Lượt nghe: ${count + 1}/${task.max_plays}`;
+      if (count + 1 >= task.max_plays) $("#playAudioBtn").disabled = true;
     };
-    try {
-      await window.AptisAttemptStore?.saveAttempt(record);
-    } catch (error) {
-      console.error("Unable to save Listening attempt", error);
+    if (task.audio.audio_url) {
+      const audio = $("#audioElement");
+      audio.src = task.audio.audio_url;
+      audio.currentTime = 0;
+      audio.play().then(increment).catch(() => { if (speakFallback(task)) increment(); });
+    } else if (speakFallback(task)) {
+      increment();
     }
   }
 
-  function resetPractice() {
-    speechSynthesis?.cancel?.();
-    state.playCount = 0;
-    state.selected = null;
-    state.submitted = false;
-    renderPractice();
+  async function submitTest() {
+    const items = state.test.tasks.flatMap((task) => task.items.map((item) => ({ ...item, part: task.part, task_id: task.task_id })));
+    const answers = items.map((item) => {
+      const selected = state.answers[item.item_id] || null;
+      return {
+        item_id: item.item_id,
+        task_id: item.task_id,
+        part: item.part,
+        user_label: selected,
+        correct_label: item.correct,
+        is_correct: selected === item.correct,
+        explanation_vi: item.explanation_vi,
+        question: item.question,
+        correct_value: item.correct_value
+      };
+    });
+    const correct = answers.filter((answer) => answer.is_correct).length;
+    const blank = answers.filter((answer) => !answer.user_label).length;
+    const percent = Math.round((correct / answers.length) * 100);
+    const attemptId = `ATT-L-${Date.now()}`;
+    await window.AptisAttemptStore?.saveAttempt({
+      attempt_id: attemptId,
+      result_id: attemptId,
+      module: "listening",
+      mode: state.test.tasks.length > 1 ? "listening_full_demo" : "listening_quick_demo",
+      mode_label: state.test.title,
+      test_id: state.test.test_id,
+      started_at: state.startedAt,
+      submitted_at: new Date().toISOString(),
+      score: { correct, total: answers.length, percent, blank },
+      answers,
+      play_counts: state.playCounts,
+      source: "forlanguage-listening-v1.1"
+    });
+    renderReview(answers, correct, percent);
+  }
+
+  function renderReview(answers, correct, percent) {
+    const taskMap = Object.fromEntries(state.test.tasks.map((task) => [task.task_id, task]));
+    $("#practiceHost").innerHTML = `
+      <article class="practice-card">
+        <div class="result-overview"><strong>${correct}/${answers.length}</strong><span>${percent}%</span></div>
+        <h2>Review ${escapeHtml(state.test.title)}</h2>
+        ${answers.map((answer) => {
+          const task = taskMap[answer.task_id];
+          return `<section class="listening-result ${answer.is_correct ? "correct" : "wrong"}">
+            <small>${answer.item_id} · Part ${answer.part}</small>
+            <h3>${escapeHtml(answer.question)}</h3>
+            <p>Bạn chọn: ${escapeHtml(answer.user_label || "Chưa trả lời")} · Đáp án: ${answer.correct_label} — ${escapeHtml(answer.correct_value)}</p>
+            <p>${escapeHtml(answer.explanation_vi)}</p>
+            <details><summary>Transcript</summary><p>${escapeHtml(task.audio.transcript)}</p></details>
+          </section>`;
+        }).join("")}
+        <div class="practice-actions"><button id="retryTestBtn" type="button">Làm lại</button><button id="chooseTestBtn" type="button">Chọn bộ khác</button></div>
+      </article>`;
+    $("#retryTestBtn").addEventListener("click", () => {
+      state.taskIndex = 0; state.answers = {}; state.playCounts = {}; state.startedAt = new Date().toISOString(); renderTask();
+    });
+    $("#chooseTestBtn").addEventListener("click", ensureSelector);
   }
 
   Promise.all([
@@ -178,12 +209,9 @@
   ]).then(([manifest, bank]) => {
     updateStatus(manifest);
     state.bank = bank;
-    state.test = bank.tests[0];
-    state.task = state.test.tasks[0];
-    renderPractice();
+    ensureSelector();
   }).catch((error) => {
     console.error(error);
     $("#listeningStatus").innerHTML = `<strong>Không tải được dữ liệu</strong><span>${escapeHtml(error.message)}</span>`;
-    $("#practiceHost").innerHTML = `<div class="practice-card"><p>Không thể tải Listening demo.</p></div>`;
   });
 })();
