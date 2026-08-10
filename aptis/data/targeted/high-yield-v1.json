@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "release": {
+    "release_id": "HY-2026.08-R1",
+    "status": "PUBLISHED_FINAL",
+    "created_at": "2026-08-10T05:30:00Z",
+    "source_note": "Original ForLanguage targeted practice authored from the user's Aptis practice results, error patterns, knowledge map and recent-review topic signals. Recalled live-test wording is not reproduced."
+  },
+  "grammar": [
+    {"id":"TG001","cluster":"modal_perfect","topic":"Modal perfect & deduction","level":"B2","question":"The office lights are off and nobody is answering. They ___ home already.","options":["must have gone","needn't have gone","should have gone"],"answer":"A","explanation_vi":"Có bằng chứng hiện tại để suy luận gần như chắc chắn về quá khứ → must have + V3.","signal":"E01/E06"},
+    {"id":"TG002","cluster":"modal_perfect","topic":"Modal perfect & deduction","level":"B2","question":"You ___ extra copies; the organiser had already printed enough for everyone.","options":["can't have brought","needn't have brought","must have brought"],"answer":"B","explanation_vi":"Việc đã làm nhưng không cần thiết → needn't have + V3.","signal":"E01"},
+    {"id":"TG003","cluster":"modal_perfect","topic":"Modal perfect & deduction","level":"B2","question":"Mina was in another country yesterday, so she ___ the meeting in person.","options":["can't have attended","might have attended","should have attended"],"answer":"A","explanation_vi":"Bằng chứng khiến khả năng đó không thể xảy ra → can't have + V3.","signal":"E01/E09"},
+    {"id":"TG004","cluster":"modal_perfect","topic":"Modal perfect & deduction","level":"B2","question":"The parcel was due on Friday. It ___ by now, but the tracking page has not changed.","options":["should have arrived","needn't have arrived","can't have arrived"],"answer":"A","explanation_vi":"Should have + V3 có thể diễn tả kỳ vọng đáng lẽ đã xảy ra.","signal":"E06"},
+    {"id":"TG005","cluster":"modal_perfect","topic":"Modal perfect & deduction","level":"B2+","question":"The warning was very small. The technician ___ it when checking the screen.","options":["might not have noticed","mustn't have noticed","needn't have noticed"],"answer":"A","explanation_vi":"Khả năng phủ định trong quá khứ → might not have + V3; mustn't là cấm đoán.","signal":"E09"},
+    {"id":"TG006","cluster":"modal_perfect","topic":"Modal perfect passive","level":"B2+","question":"The attachment is missing from the email. It ___ before the message was sent.","options":["may have deleted","may have been deleted","may be deleted"],"answer":"B","explanation_vi":"Attachment nhận hành động → modal perfect passive: may have been + V3.","signal":"E08"},
+    {"id":"TG007","cluster":"mixed_wish","topic":"Mixed conditionals","level":"B2","question":"If I had taken that internship last year, I ___ in Singapore now.","options":["would work","would have worked","worked"],"answer":"A","explanation_vi":"Điều kiện quá khứ → kết quả hiện tại: if + had V3, would + bare infinitive.","signal":"E02/G04"},
+    {"id":"TG008","cluster":"mixed_wish","topic":"Mixed conditionals","level":"B2+","question":"If he were more organised, he ___ the deadline yesterday.","options":["wouldn't miss","wouldn't have missed","hadn't missed"],"answer":"B","explanation_vi":"Đặc điểm hiện tại giải thích kết quả quá khứ → if + past simple, would have + V3.","signal":"E02/G04"},
+    {"id":"TG009","cluster":"mixed_wish","topic":"Wish","level":"B2","question":"I wish I ___ more confident when speaking in meetings.","options":["am","were","had been"],"answer":"B","explanation_vi":"Trái với hiện tại → wish + past simple; were phù hợp văn phong chuẩn.","signal":"E03/G05"},
+    {"id":"TG010","cluster":"mixed_wish","topic":"Wish","level":"B2","question":"She wishes she ___ the instructions more carefully before submitting the form.","options":["read","had read","would read"],"answer":"B","explanation_vi":"Hối tiếc về quá khứ → wish + past perfect.","signal":"E03/G05"},
+    {"id":"TG011","cluster":"mixed_wish","topic":"Wish","level":"B2","question":"I wish the neighbours ___ their music down after midnight.","options":["would turn","had turned","turn"],"answer":"A","explanation_vi":"Muốn hành vi của người khác thay đổi → wish + would + V.","signal":"G05"},
+    {"id":"TG012","cluster":"mixed_wish","topic":"Mixed conditionals","level":"B2+","question":"If we had checked the route earlier, we ___ lost now.","options":["wouldn't be","wouldn't have been","aren't"],"answer":"A","explanation_vi":"Sai sót quá khứ gây trạng thái hiện tại → would + bare infinitive.","signal":"E02"},
+    {"id":"TG013","cluster":"future_narrative","topic":"Future continuous","level":"B2","question":"This time tomorrow, I ___ the speaking section of the test.","options":["will take","will be taking","will have taken"],"answer":"B","explanation_vi":"Hành động đang diễn ra tại một mốc cụ thể trong tương lai → future continuous.","signal":"G02"},
+    {"id":"TG014","cluster":"future_narrative","topic":"Future perfect","level":"B2","question":"By the time the workshop starts, we ___ all the equipment.","options":["will check","will be checking","will have checked"],"answer":"C","explanation_vi":"Hoàn thành trước một mốc tương lai → future perfect.","signal":"future_tenses"},
+    {"id":"TG015","cluster":"future_narrative","topic":"Future perfect continuous","level":"B2+","question":"By September, she ___ at the company for exactly five years.","options":["will have been working","will be working","will have worked yesterday"],"answer":"A","explanation_vi":"Nhấn mạnh thời lượng kéo dài đến một mốc tương lai → future perfect continuous.","signal":"future_tenses"},
+    {"id":"TG016","cluster":"future_narrative","topic":"Narrative tenses","level":"B2","question":"When I arrived, the presentation ___, so I quietly sat at the back.","options":["already started","had already started","was already starting tomorrow"],"answer":"B","explanation_vi":"Một hành động hoàn tất trước thời điểm quá khứ khác → past perfect.","signal":"G06"},
+    {"id":"TG017","cluster":"future_narrative","topic":"Narrative tenses","level":"B2","question":"The ground was wet because it ___ all night.","options":["had been raining","was raining tomorrow","has rained"],"answer":"A","explanation_vi":"Quá trình kéo dài trước một thời điểm quá khứ và giải thích kết quả nhìn thấy → past perfect continuous.","signal":"G06"},
+    {"id":"TG018","cluster":"future_narrative","topic":"Narrative tenses","level":"B2","question":"While the team ___ the first proposal, the manager received an urgent call.","options":["discussed","was discussing","had discussed yesterday"],"answer":"B","explanation_vi":"Hành động nền đang diễn ra khi sự kiện khác xen vào → past continuous.","signal":"G06"},
+    {"id":"TG019","cluster":"reported_passive","topic":"Reported questions","level":"B2","question":"She asked me where I ___ the previous summer.","options":["had stayed","did I stay","have I stayed"],"answer":"A","explanation_vi":"Reported question dùng trật tự câu khẳng định và thường backshift về past perfect.","signal":"G07"},
+    {"id":"TG020","cluster":"reported_passive","topic":"Reported speech","level":"B2","question":"The trainer advised us ___ a short break every hour.","options":["taking","to take","take that"],"answer":"B","explanation_vi":"advise + object + to-infinitive.","signal":"G07"},
+    {"id":"TG021","cluster":"reported_passive","topic":"Reporting passive","level":"B2+","question":"The device is believed ___ because of overheating during the test.","options":["to fail","to have failed","failing"],"answer":"B","explanation_vi":"Sự việc được tin là đã xảy ra trước thời điểm báo cáo → to have + V3.","signal":"G07"},
+    {"id":"TG022","cluster":"reported_passive","topic":"Passive","level":"B2","question":"All applications must ___ before Friday afternoon.","options":["submit","be submitted","have submit"],"answer":"B","explanation_vi":"Chủ ngữ nhận hành động với modal → modal + be + V3.","signal":"passive"},
+    {"id":"TG023","cluster":"reported_passive","topic":"Reported speech","level":"B2","question":"He said that he ___ the file the day before.","options":["lost","had lost","will lose"],"answer":"B","explanation_vi":"Past event được báo lại sau đó → backshift về past perfect.","signal":"G07"},
+    {"id":"TG024","cluster":"reported_passive","topic":"Reporting verbs","level":"B2+","question":"The committee suggested ___ the event to a larger room.","options":["move","moving","to moving"],"answer":"B","explanation_vi":"suggest + V-ing là cấu trúc chuẩn khi đề xuất hành động.","signal":"CoreStructures"},
+    {"id":"TG025","cluster":"word_form_lexico","topic":"Adjectives vs adverbs","level":"B2","question":"The new instructions are surprisingly ___ and easy to follow.","options":["clear","clearly","clearness"],"answer":"A","explanation_vi":"Sau linking verb are cần adjective bổ nghĩa cho chủ ngữ → clear.","signal":"G01"},
+    {"id":"TG026","cluster":"word_form_lexico","topic":"Adjectives vs adverbs","level":"B2","question":"The team completed the safety check very ___.","options":["careful","carefully","care"],"answer":"B","explanation_vi":"Bổ nghĩa cho động từ completed → adverb carefully.","signal":"G01"},
+    {"id":"TG027","cluster":"word_form_lexico","topic":"Comparative modifiers","level":"B2","question":"The updated interface is ___ easier to use than the old one.","options":["far","very","absolute"],"answer":"A","explanation_vi":"far/much/a lot + comparative → far easier.","signal":"comparative_modifiers"},
+    {"id":"TG028","cluster":"word_form_lexico","topic":"Phrasal verbs","level":"B2","question":"We need to ___ a practical solution before the meeting ends.","options":["come up with","look after","put off"],"answer":"A","explanation_vi":"come up with = nghĩ ra/đề xuất một ý tưởng hoặc giải pháp.","signal":"G08"},
+    {"id":"TG029","cluster":"word_form_lexico","topic":"Phrasal verbs","level":"B2","question":"The research team will ___ a small pilot study next month.","options":["carry out","turn down","get away with"],"answer":"A","explanation_vi":"carry out = thực hiện một nghiên cứu/nhiệm vụ.","signal":"G08"},
+    {"id":"TG030","cluster":"word_form_lexico","topic":"Phrasal verbs","level":"B2","question":"The manager promised to ___ the complaint and reply by Friday.","options":["look into","fall behind","take over from"],"answer":"A","explanation_vi":"look into = điều tra/xem xét một vấn đề.","signal":"G08"}
+  ],
+  "vocabulary": [
+    {"id":"TV001","cluster":"collocation","topic":"Collocations","level":"B2","question":"The project team must ___ responsibility for the delay.","options":["take","hold","make"],"answer":"A","explanation_vi":"Cụm tự nhiên là take responsibility for.","signal":"E05/V03"},
+    {"id":"TV002","cluster":"collocation","topic":"Collocations","level":"B2","question":"The new timetable may ___ difficulties for members who work late.","options":["cause","do","put"],"answer":"A","explanation_vi":"cause difficulties = gây khó khăn.","signal":"CoreStructures"},
+    {"id":"TV003","cluster":"collocation","topic":"Collocations","level":"B2","question":"The extra fee would help ___ the operating costs of the weekend service.","options":["cover","catch","take"],"answer":"A","explanation_vi":"cover the operating costs = trang trải chi phí vận hành.","signal":"CoreStructures"},
+    {"id":"TV004","cluster":"academic_paraphrase","topic":"Paraphrase","level":"B2","question":"Which phrase is closest in meaning to 'play an important role in'?","options":["play a vital role in","avoid responsibility for","take place after"],"answer":"A","explanation_vi":"play a vital role in là paraphrase tự nhiên của play an important role in.","signal":"CoreStructures"},
+    {"id":"TV005","cluster":"academic_paraphrase","topic":"Paraphrase","level":"B2","question":"Which phrase best replaces 'becoming more popular'?","options":["gaining popularity","losing access","remaining impossible"],"answer":"A","explanation_vi":"gaining popularity = trở nên phổ biến hơn.","signal":"CoreStructures"},
+    {"id":"TV006","cluster":"phrasal","topic":"Phrasal verbs","level":"B2","question":"Which phrasal verb means 'solve or organise a problem successfully'?","options":["sort out","bring up","fall behind"],"answer":"A","explanation_vi":"sort out = giải quyết/sắp xếp ổn thỏa.","signal":"G08"},
+    {"id":"TV007","cluster":"phrasal","topic":"Phrasal verbs","level":"B2","question":"Which phrasal verb means 'mention a topic for discussion'?","options":["bring up","rule out","hand in"],"answer":"A","explanation_vi":"bring up = nêu/đề cập một chủ đề.","signal":"G08"},
+    {"id":"TV008","cluster":"phrasal","topic":"Phrasal verbs","level":"B2","question":"Which phrasal verb means 'exclude a possibility after consideration'?","options":["rule out","catch up","set up"],"answer":"A","explanation_vi":"rule out = loại trừ một khả năng.","signal":"G08"},
+    {"id":"TV009","cluster":"register","topic":"Formal register","level":"B2","question":"Which phrase is most suitable in a formal email to a club manager?","options":["I am writing to express my concerns about the change.","Hey, this change is pretty bad.","You guys should fix this now."],"answer":"A","explanation_vi":"Câu A phù hợp register trang trọng và mục đích nêu quan ngại.","signal":"Common English RYAN"},
+    {"id":"TV010","cluster":"register","topic":"Formal register","level":"B2","question":"Which phrase introduces a practical solution most naturally?","options":["To address this problem, I would like to propose an alternative.","Anyway, here's my random idea.","On the contrary, I have a problem."],"answer":"A","explanation_vi":"To address this problem... là cách chuyển sang giải pháp rõ ràng và trang trọng.","signal":"Common English RYAN"}
+  ],
+  "reading_part2": [
+    {
+      "set_id":"TRP2-01","title":"Community garden volunteer day","level":"B2","fixed_first":"Our neighbourhood garden had been unused for several months, so a group of residents decided to improve it together.",
+      "sentences":{"A":"By lunchtime, the paths were clear and the empty beds were ready for planting.","B":"Before anyone started digging, the organiser divided us into small teams and explained the safety rules.","C":"Once the preparation was complete, one team removed weeds while another collected old plastic and broken pots.","D":"A few weeks later, the first vegetables appeared, which encouraged more neighbours to join the project.","E":"At the end of the afternoon, we watered the new plants and agreed on a weekly maintenance schedule."},
+      "answer_order":["B","C","A","E","D"],
+      "explanation_vi":"Chuỗi logic: tổ chức và hướng dẫn trước → bắt đầu dọn → kết quả đến trưa → kết thúc ngày và lập lịch → vài tuần sau có kết quả. Dấu hiệu mạnh: Before anyone started, Once..., By lunchtime, At the end..., A few weeks later.",
+      "signal":"R02/E04"
+    },
+    {
+      "set_id":"TRP2-02","title":"Preparing a student technology workshop","level":"B2","fixed_first":"Our technology club agreed to run a beginner workshop for students who had never used coding tools before.",
+      "sentences":{"A":"During the session, each group followed the same short exercise while volunteers moved around the room to help.","B":"After testing the activities ourselves, we simplified two tasks that had been too difficult for complete beginners.","C":"First, we listed the basic skills the participants would need and selected three simple activities.","D":"The following week, several participants emailed us to say they had continued practising at home.","E":"Finally, we ended with a short question-and-answer session and shared links to free learning resources."},
+      "answer_order":["C","B","A","E","D"],
+      "explanation_vi":"First mở kế hoạch → After testing liên kết với activities → During the session là khi workshop diễn ra → Finally kết thúc buổi → The following week là kết quả sau đó.",
+      "signal":"R02/E04"
+    },
+    {
+      "set_id":"TRP2-03","title":"Changing a daily travel routine","level":"B2","fixed_first":"For years, I drove to work every day even though the journey was becoming slower and more expensive.",
+      "sentences":{"A":"After comparing several options, I decided to try the bus for one month before making a permanent change.","B":"By the end of the first week, I realised that the journey took only ten minutes longer than driving.","C":"The main reason I reconsidered my routine was a new express bus route near my home.","D":"Since then, I have used the car only when I need to carry heavy equipment.","E":"More importantly, I could read or answer messages during the trip instead of concentrating on traffic."},
+      "answer_order":["C","A","B","E","D"],
+      "explanation_vi":"Lý do thay đổi → quyết định thử → đánh giá sau một tuần → lợi ích bổ sung → thói quen hiện tại. Đại từ/quan hệ: The main reason, After comparing, By the end..., More importantly, Since then.",
+      "signal":"R02"
+    },
+    {
+      "set_id":"TRP2-04","title":"Improving a shared study room","level":"B2","fixed_first":"Students had complained that the shared study room was often too noisy for concentrated work.",
+      "sentences":{"A":"The trial showed that most students respected the signs, although the first few days required several reminders.","B":"As a result, the committee decided to keep the zones permanently and add more power sockets near the quiet desks.","C":"The student committee therefore proposed dividing the room into a silent area and a discussion area.","D":"For two weeks, coloured signs were used to mark the two zones while staff recorded comments from users.","E":"At the end of the trial, the feedback was largely positive, especially from students preparing for exams."},
+      "answer_order":["C","D","A","E","B"],
+      "explanation_vi":"Problem → therefore proposal → trial implementation → result during trial → feedback at end → As a result quyết định lâu dài.",
+      "signal":"R02/E04"
+    }
+  ],
+  "reading_part3": [
+    {
+      "set_id":"TRP3-01","title":"Three views on learning new skills","level":"B2","people":[
+        {"label":"A","name":"Lena","text":"I learn best when I can experiment on my own first. A structured course is useful later, especially when I need feedback on mistakes that I cannot identify myself. Short courses suit me because I lose motivation if a programme continues for many months."},
+        {"label":"B","name":"Omar","text":"For me, learning is mainly social. I remember ideas better when I discuss them with other people, and regular group meetings help me stay disciplined. I do use online videos, but mostly to review something after a teacher or classmate has explained it."},
+        {"label":"C","name":"Priya","text":"My work schedule changes every week, so flexibility matters more than anything else. I prefer online courses that let me study at different times. I also like programmes with a practical project because completing something real gives me a clear sense of progress."}
+      ],
+      "statements":[
+        {"id":"TRP3-01-Q1","text":"This person values being able to choose when to study.","answer":"C","paraphrase":"flexibility matters; study at different times"},
+        {"id":"TRP3-01-Q2","text":"This person finds discussion with others especially helpful.","answer":"B","paraphrase":"learning is mainly social; discuss ideas"},
+        {"id":"TRP3-01-Q3","text":"This person prefers courses that are fairly short.","answer":"A","paraphrase":"short courses suit me; long programmes reduce motivation"},
+        {"id":"TRP3-01-Q4","text":"This person likes producing a concrete result while learning.","answer":"C","paraphrase":"practical project; completing something real"},
+        {"id":"TRP3-01-Q5","text":"This person often starts by learning independently.","answer":"A","paraphrase":"experiment on my own first"},
+        {"id":"TRP3-01-Q6","text":"This person uses online material mainly for revision.","answer":"B","paraphrase":"online videos mostly to review"},
+        {"id":"TRP3-01-Q7","text":"This person believes other people can help reveal unnoticed errors.","answer":"A","paraphrase":"feedback on mistakes I cannot identify myself"}
+      ],
+      "signal":"R03 paraphrase/inference"
+    },
+    {
+      "set_id":"TRP3-02","title":"Three views on community events","level":"B2","people":[
+        {"label":"A","name":"Ben","text":"I enjoy large public events because they bring energy to a neighbourhood and attract people who might not normally meet. However, organisers should keep the programme simple; when there are too many activities, visitors spend more time deciding what to do than enjoying themselves."},
+        {"label":"B","name":"Sofia","text":"Small events are more useful in my opinion because people actually talk to one another. I would rather attend a monthly workshop than one huge festival each year. The location is important too: somewhere close to public transport makes it easier for older residents to participate."},
+        {"label":"C","name":"Kai","text":"I do not care much about the size of an event as long as local people help shape it. Organisers should ask residents what they want before making final plans. I also think a mix of free and paid activities can work well if the basic programme remains accessible to everyone."}
+      ],
+      "statements":[
+        {"id":"TRP3-02-Q1","text":"This person thinks residents should influence the programme before decisions are final.","answer":"C","paraphrase":"ask residents what they want before final plans"},
+        {"id":"TRP3-02-Q2","text":"This person prefers events where participants have more opportunity to speak to each other.","answer":"B","paraphrase":"small events; people actually talk"},
+        {"id":"TRP3-02-Q3","text":"This person thinks too much choice can reduce enjoyment.","answer":"A","paraphrase":"too many activities; spend time deciding"},
+        {"id":"TRP3-02-Q4","text":"This person supports holding activities regularly rather than only once a year.","answer":"B","paraphrase":"monthly workshop rather than one huge festival each year"},
+        {"id":"TRP3-02-Q5","text":"This person accepts charging for some activities under certain conditions.","answer":"C","paraphrase":"mix of free and paid; basics accessible"},
+        {"id":"TRP3-02-Q6","text":"This person sees a benefit in bringing together people who do not usually meet.","answer":"A","paraphrase":"attract people who might not normally meet"},
+        {"id":"TRP3-02-Q7","text":"This person specifically mentions access for older people.","answer":"B","paraphrase":"public transport; easier for older residents"}
+      ],
+      "signal":"R03 paraphrase/inference"
+    }
+  ]
+}
