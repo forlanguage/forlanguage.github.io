@@ -1,19 +1,28 @@
 {
-  "version": "1.1.0",
-  "status": "MVP_READY",
-  "source": "forlanguage-original-demo-bank",
+  "version": "2.0.0",
+  "status": "CONTENT_BATCH_1",
+  "source": "forlanguage-original-content-plus-r2",
   "source_sheet_id": "1JYTZGLtHKDDHxItpPye_7q0Om4Mq_3iawCQqAMKfNug",
-  "test_count": 2,
-  "task_count": 5,
-  "audio_count": 5,
-  "item_count": 8,
-  "published_test_count": 0,
+  "release_id": "LST-2026.08-R2",
+  "test_count": 4,
+  "full_test_count": 2,
+  "task_count": 39,
+  "audio_count": 39,
+  "item_count": 58,
+  "published_test_count": 2,
   "demo_test_count": 2,
   "parts": {
     "1": "information_recognition",
     "2": "information_matching",
-    "3": "inference_discussion",
-    "4": "inference_monologue"
+    "3": "opinion_matching",
+    "4": "monologue_comprehension"
   },
-  "notes": "Two original ForLanguage demo tests validate quick practice and a four-part workflow. They are demo content, not official exam material."
+  "full_test_blueprint": {
+    "tasks_per_test": 17,
+    "scored_items_per_test": 25,
+    "part_task_counts": {"1": 13, "2": 1, "3": 1, "4": 2},
+    "max_plays": 2
+  },
+  "audio_status": "BROWSER_TTS_FALLBACK",
+  "notes": "LT03 and LT04 are original ForLanguage full practice tests built from official public format specifications plus topic-frequency signals from user-provided review notes. No recalled or official recording or prompt is copied verbatim. Static reviewed audio remains a later production step."
 }
