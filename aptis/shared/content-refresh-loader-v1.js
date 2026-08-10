@@ -16,25 +16,20 @@
     return [...map.values()].filter(Boolean);
   };
   async function mergeWriting(base) {
-    const addon = await json("/aptis/data/writing/r3/index.json");
-    const tests = await Promise.all((addon.test_files || []).map(json));
-    return {
-      ...base,
-      release: addon.release || base.release,
-      topics: uniqueBy([...(base.topics || []), ...(addon.topics || [])], "topic_id"),
-      tests: uniqueBy([...(base.tests || []), ...tests], "test_id")
-    };
+    let merged={...base};
+    for(const path of ["/aptis/data/writing/r3/index.json","/aptis/data/writing/r4/index.json"]){
+      const addon=await json(path),tests=await Promise.all((addon.test_files||[]).map(json));
+      merged={...merged,release:addon.release||merged.release,topics:uniqueBy([...(merged.topics||[]),...(addon.topics||[])],"topic_id"),tests:uniqueBy([...(merged.tests||[]),...tests],"test_id")};
+    }
+    return merged;
   }
   async function mergeSpeaking(base) {
-    const addon = await json("/aptis/data/speaking/r3/index.json");
-    const tests = await Promise.all((addon.test_files || []).map(json));
-    return {
-      ...base,
-      release: addon.release || base.release,
-      topics: uniqueBy([...(base.topics || []), ...(addon.topics || [])], "topic_id"),
-      images: uniqueBy([...(base.images || []), ...(addon.images || [])], "image_id"),
-      tests: uniqueBy([...(base.tests || []), ...tests], "test_id")
-    };
+    let merged={...base};
+    for(const path of ["/aptis/data/speaking/r3/index.json","/aptis/data/speaking/r4/index.json"]){
+      const addon=await json(path),tests=await Promise.all((addon.test_files||[]).map(json));
+      merged={...merged,release:addon.release||merged.release,topics:uniqueBy([...(merged.topics||[]),...(addon.topics||[])],"topic_id"),images:uniqueBy([...(merged.images||[]),...(addon.images||[])],"image_id"),tests:uniqueBy([...(merged.tests||[]),...tests],"test_id")};
+    }
+    return merged;
   }
   async function mergeListening(base) {
     const addon = await json("/aptis/data/listening/r2/index.json");
