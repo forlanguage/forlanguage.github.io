@@ -101,12 +101,13 @@ assert manifest["test_count"] == 4 and manifest["full_test_count"] == 2
 assert manifest["task_count"] == 39 and manifest["item_count"] == 58
 assert manifest["audio_status"] == "BROWSER_TTS_FALLBACK"
 
+# R3 fixtures must remain present after later releases. Current registry may advance.
 registry = load("aptis/module-registry-v6.json")
 modules = {item["id"]: item for item in registry["modules"]}
-assert registry["phase"] == "M6.8C"
-assert modules["writing"]["bank_counts"]["tests"] == 15
-assert modules["speaking"]["bank_counts"]["tests"] == 10
+assert registry["phase"] in {"M6.8C", "M6.8D"}
+assert modules["writing"]["bank_counts"]["tests"] >= 15
+assert modules["speaking"]["bank_counts"]["tests"] >= 10
 assert modules["listening"]["status"] == "content_batch_1"
 assert modules["listening"]["bank_counts"]["full_tests"] == 2
 
-print("Content Refresh R3 / Listening Batch 1 OK: Core 2696, Reading 24, Writing 15, Speaking 10, Listening 2 full tests")
+print("R3 fixtures remain valid: Core 2696, Reading 24, Writing R3 +5, Speaking R3 +5, Listening 2 full tests")
