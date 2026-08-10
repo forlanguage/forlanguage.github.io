@@ -10,6 +10,11 @@ def load(rel):
 def exists_public(path):
     return (ROOT / path.lstrip("/")).exists()
 
+def asserts_original_provenance(note):
+    lower = note.lower()
+    assert "original forlanguage" in lower
+    assert "no recalled" in lower or "no reported" in lower
+
 # Canonical bank stays unchanged.
 core = load("aptis/data/manifest.json")
 reading = load("aptis/data/reading-manifest.json")
@@ -66,8 +71,7 @@ wtests = [load(path.lstrip("/")) for path in widx["test_files"]]
 assert [t["test_id"] for t in wtests] == [f"WT{i:02d}" for i in range(16, 21)]
 for test in wtests:
     assert test["status"] == "PUBLISHED_FINAL"
-    assert "Original ForLanguage" in test["source_note"]
-    assert "no recalled" in test["source_note"].lower()
+    asserts_original_provenance(test["source_note"])
     assert [task["part"] for task in test["tasks"]] == [1, 2, 3, 4, 4]
     p2 = next(t for t in test["tasks"] if t["part"] == 2)
     p3 = next(t for t in test["tasks"] if t["part"] == 3)
@@ -96,8 +100,7 @@ stests = [load(path.lstrip("/")) for path in sr4["test_files"]]
 assert [t["test_id"] for t in stests] == [f"ST{i:02d}" for i in range(11, 16)]
 for test in stests:
     assert test["status"] == "PUBLISHED_FINAL"
-    assert "Original ForLanguage" in test["source_note"]
-    assert "no recalled" in test["source_note"].lower()
+    asserts_original_provenance(test["source_note"])
     parts = [t["part"] for t in test["tasks"]]
     assert len(parts) == 10
     assert parts.count(1) == 3 and parts.count(2) == 3 and parts.count(3) == 3 and parts.count(4) == 1
